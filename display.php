@@ -82,8 +82,8 @@ table.blueTable tfoot .links a{
 
 	<tr bgcolor="#000000">
 	<td width="15" nowrap="nowrap">&nbsp;</td>
-	<td height="36" colspan="3" id="navigation" ><a href="javascript:;">NEWS</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;">ABOUT US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;">SEO ONTOLOGY </a>&nbsp;&nbsp;
-      &nbsp;&nbsp;&nbsp; <a href="javascript:;">DATASET</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;" class="pageName style6">CONTACT</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+	<td height="36" colspan="3" id="navigation" ><a href="javascript:;">NEWS</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;">ABOUT US</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://kddste.sda.tech/SEOontology/Documentation/SEO.html">SEO ONTOLOGY </a>&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">DATASET</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/her/Contact.html" class="pageName style6">CONTACT</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td width="926">&nbsp;</td>
 	<td width="20">&nbsp;</td>
 	</tr>
@@ -98,7 +98,10 @@ table.blueTable tfoot .links a{
 	  <table border="0" cellspacing="0" cellpadding="0" width="230">
 		<tr>
 		<td width="15">&nbsp;</td>
-		<td width="200" class="sidebarText" id="padding"><div align="justify">The&nbsp;<strong>Smart Data Analytics (SDA)</strong>&nbsp;research group<strong>,&nbsp;</strong>led by<strong>&nbsp;<a href="http://sda.cs.uni-bonn.de/people/prof-dr-jens-lehmann/">Prof. Dr. Jens Lehmann</a>,</strong>&nbsp;has members from the&nbsp;<a href="http://www.iai.uni-bonn.de/">Institute for Computer Science</a>&nbsp;at the&nbsp;<a href="http://www.uni-bonn.de/">University of Bonn</a>, the&nbsp;<a href="http://www.iais.fraunhofer.de/">Fraunhofer Institute for Intelligent Analysis and Information Systems (IAIS)</a>&nbsp;and the&nbsp;<a href="http://infai.org/">Institute for Applied Computer Science</a>&nbsp;Leipzig. At its core, the group investigates machine learning techniques (&quot;analytics&quot;) using&nbsp;structured knowledge (&quot;smart data&quot;). The group&nbsp;aims at covering the full spectrum of research including theoretical foundations, algorithms, prototypes and industrial applications.</div></td>
+		<td width="200" class="sidebarText" id="padding"><div align="justify">
+		  <p>The&nbsp;<strong>Smart Data Analytics (SDA)</strong>&nbsp;research group<strong>,&nbsp;</strong>led by<strong>&nbsp;<a href="http://sda.cs.uni-bonn.de/people/prof-dr-jens-lehmann/">Prof. Dr. Jens Lehmann</a>,</strong>&nbsp;has members from the&nbsp;<a href="http://www.iai.uni-bonn.de/">Institute for Computer Science</a>&nbsp;at the&nbsp;<a href="http://www.uni-bonn.de/">University of Bonn</a>, the&nbsp;<a href="http://www.iais.fraunhofer.de/">Fraunhofer Institute for Intelligent Analysis and Information Systems (IAIS)</a>&nbsp;and the&nbsp;<a href="http://infai.org/">Institute for Applied Computer Science</a>&nbsp;Leipzig. </p>
+		  <p>At its core, the group investigates machine learning techniques (&quot;analytics&quot;) using&nbsp;structured knowledge (&quot;smart data&quot;). The group&nbsp;aims at covering the full spectrum of research including theoretical foundations, algorithms, prototypes and industrial applications.</p>
+		</div></td>
 		<td width="15">&nbsp;</td>
 		</tr>
 	</table>	</td>
@@ -120,16 +123,14 @@ table.blueTable tfoot .links a{
 
 <?php
 
-	  $acr = $_GET['query'];
-	  $field = $_GET['field'];
-    $title = $_GET['title'];
-$servername = "localhost";
-$username = "root";
-$password = "HER@unibonn2018";
-$dbname = "herdb";
+ $acr = $_GET['query'];
+ $field = $_GET['field'];
+ $title = $_GET['title'];
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+ include 'config.php';
+ 
+$conn= mysqli_connect("$host","$username","$password","$database") or die("Server Error");
+//mysqli_select_db("$database") or die("Database error");
 // Check connection
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
