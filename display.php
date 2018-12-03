@@ -185,7 +185,7 @@ mysqli_close($conn);
 ?>
 
 	  <p>
-        <button onclick="location.href='SER-Service/'" type="button">
+        <button onclick="location.href='index.html'" type="button">
         Back</button>
       </p></td>
 	</tr>
