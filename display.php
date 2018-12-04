@@ -82,7 +82,7 @@ table.blueTable tfoot .links a{
 
 	<tr bgcolor="#000000">
 	<td width="15" nowrap="nowrap">&nbsp;</td>
-	<td height="36" colspan="3" id="navigation" ><a href="news.html">NEWS</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;"> PUBLICATIONS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://kddste.sda.tech/SEOontology/Documentation/SEO.html">SEO ONTOLOGY </a>&nbsp;&nbsp;
+	<td height="36" colspan="3" id="navigation" ><a href="news.html">NEWS</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="Publications.html"> PUBLICATIONS</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="http://kddste.sda.tech/SEOontology/Documentation/SEO.html">SEO ONTOLOGY </a>&nbsp;&nbsp;
       &nbsp;&nbsp;&nbsp; <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">DATASET</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="Contact.html" class="pageName style6">CONTACT</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	<td width="926">&nbsp;</td>
 	<td width="20">&nbsp;</td>
