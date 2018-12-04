@@ -146,13 +146,34 @@ $min_length = 2;
         // makes sure nobody uses SQL injection
 echo $title;
 if (strlen($acr)>0) {
-	$sql = "select   * from events  WHERE (`acronym` LIKE '%".$acr."%' ) ";
+	$sql = "select   * from events  WHERE (`acronym` LIKE '%".$acr."%' ) ORDER  BY substring(SER, 1, 1) 
+      ,CASE 
+          WHEN ser LIKE ('A_')  THEN 1
+          WHEN ser LIKE ('A')  THEN 2
+		  WHEN ser LIKE ('B_')  THEN 3
+		  WHEN ser LIKE ('B')  THEN 4
+          
+       END";
 }
 elseif (strlen($field)>8 && strlen($title)==0) { // 8= length(select....)
-	$sql = "select   * from events  WHERE (`field` = '".$field."' ) ";
+	$sql = "select   * from events  WHERE (`field` = '".$field."' ) ORDER  BY substring(SER, 1, 1) 
+      ,CASE 
+          WHEN ser LIKE ('A_')  THEN 1
+          WHEN ser LIKE ('A')  THEN 2
+		  WHEN ser LIKE ('B_')  THEN 3
+		  WHEN ser LIKE ('B')  THEN 4
+          
+       END";
 }
 elseif (strlen($title)>0) {
-	$sql = "select   * from events  WHERE (`title` LIKE '%".$title."%' ) ";
+	$sql = "select   * from events  WHERE (`title` LIKE '%".$title."%' )ORDER  BY substring(SER, 1, 1) 
+      ,CASE 
+          WHEN ser LIKE ('A_')  THEN 1
+          WHEN ser LIKE ('A')  THEN 2
+		  WHEN ser LIKE ('B_')  THEN 3
+		  WHEN ser LIKE ('B')  THEN 4
+          
+       END ";
 }
 else {
     echo "<font color='red' size='3'>Please select a search criteria.</font>";
@@ -165,7 +186,7 @@ $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
 
-echo" <p Class='style7'> Showing results: <font color='red'><strong>" .mysqli_num_rows($result). "</strong></font> events found.</p>";
+echo" <p Class='style7'> Showing results: <font color='red'><strong>" .mysqli_num_rows($result). "</strong></font> events found. Results ordered by <strong>SER</strong> column.</p>";
 
 echo "<table class='blueTable'><tr bgcolor='#dddddd'><th>acronym</th><th width='330'>title</th><th>type</th><th>SER</th><th>field</th><th>H-index</th><th>avg. aaceptance rate</th><th>Usualy on</th><th>since</th><th>publisher</th></tr>";
     // output data of each row
