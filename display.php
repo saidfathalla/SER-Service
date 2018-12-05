@@ -188,7 +188,7 @@ if (mysqli_num_rows($result) > 0) {
 
 echo" <p Class='style7'> Showing results: <font color='red'><strong>" .mysqli_num_rows($result). "</strong></font> events found. Results ordered by <strong>SER</strong> column.</p>";
 
-echo "<table class='blueTable'><tr bgcolor='#dddddd'><th>acronym</th><th width='330'>title</th><th>type</th><th>SER</th><th>field</th><th>H-index</th><th>avg. aaceptance rate</th><th>Usualy on</th><th>since</th><th>publisher</th></tr>";
+echo "<table class='blueTable'><tr bgcolor='#dddddd'><th><strong>Acronym</strong></th><th width='330'><strong>Title</strong></th><th><strong>Type</strong></th><th><strong>SER</strong></th><th><strong>Field</strong></th><th><strong>H-index</strong></th><th><strong>Avg. aaceptance rate</strong></th><th><strong>Usualy takes place on</strong></th><th><strong>Since</strong></th><th><strong>Publisher</strong></th></tr>";
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
         echo "<tr><td> " . $row["acronym"]. "</td><td>" . $row["title"]. "</td>"."<td>" . $row["Type"]. "</td>"."<td>" . $row["SER"]. "</td>"."<td> ".$row["field"]. "</td>"."<td>" . $row["H5"]. "</td>"."<td>  " . $row["AVGAR"]. "</td>"."<td>  " . $row["UMonth"]. "</td>"."<td>  " . $row["Since"]. "</td>"."<td>  " . $row["Publisher"]. "</td>"."</tr>";
