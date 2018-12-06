@@ -109,14 +109,14 @@ table.blueTable tfoot .links a{
 	<td width="100%" valign="top">
  <table border="0" cellspacing="0" cellpadding="0" width="100%">
 		<tr>
-		<td class="pageName"><p>Welcome to HER </p></td>
+		<td class="pageName"><p>Welcome to SER </p></td>
 		</tr>
 
 		<tr>
 		<td class="bodyText">
 		<p class="style7">The
 		  <!--td {border: 1px solid #ccc;}br {mso-data-placement:same-cell;}-->
-		  <span data-sheets-value="{'1':2,'2':'Hybrid Event Rank (HER)'}" data-sheets-userformat="{'2':25089,'3':{'1':0},'12':0,'16':12,'17':1}"><strong>Hybrid</strong> Event Rank (HER)</span> service is a service for ranking computer science scientific events by utilizing several criteria, inclusing rankings from other services sucha as&nbsp;<a href="http://www.core.edu.au" class="style2">CORE</a>, <a href="http://www.capes.gov.br/images/stories/download/avaliacao/Comunicado_004_2012_Ciencia_da_Computacao.pdf" class="style2">Qualis</a>, <a href="http://www.conferenceranks.com/data/era2010_conference_list.pdf" class="style2">ERA</a> and <a href="http://valutazione.unibas.it/gii-grin-scie-rating/ratingSearch.jsf;jsessionid=AFC549DDB0966D0FF2EE2854220120DC" class="style2">GII</a> rankings.</p>
+		  <span data-sheets-value="{'1':2,'2':'Hybrid Event Rank (HER)'}" data-sheets-userformat="{'2':25089,'3':{'1':0},'12':0,'16':12,'17':1}"><strong>Hybrid</strong> Event Rank (SER)</span> service is a service for ranking computer science scientific events by utilizing several criteria, inclusing rankings from other services sucha as&nbsp;<a href="http://www.core.edu.au" class="style2">CORE</a>, <a href="http://www.capes.gov.br/images/stories/download/avaliacao/Comunicado_004_2012_Ciencia_da_Computacao.pdf" class="style2">Qualis</a>, <a href="http://www.conferenceranks.com/data/era2010_conference_list.pdf" class="style2">ERA</a> and <a href="http://valutazione.unibas.it/gii-grin-scie-rating/ratingSearch.jsf;jsessionid=AFC549DDB0966D0FF2EE2854220120DC" class="style2">GGS</a> rankings.</p>
 		</td>
 		</tr>
 	</table>
