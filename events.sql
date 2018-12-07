@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2018 at 11:36 PM
+-- Generation Time: Dec 07, 2018 at 03:19 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -64,28 +64,28 @@ INSERT INTO `events` (`acronym`, `title`, `field`, `H5`, `AVGAR`, `UMonth`, `Sin
 ('ICONIP', 'International Conference on Neural Information Processing', 'Artificial Intellligence', 17, '0.54', 'Jan', 1997, 'Springer', 'Conference', 'A', 'conference.cs.cityu.edu.hk/iconip/'),
 ('EUROGP', 'European Conference on Genetic Programming,', 'Artificial Intellligence', 14, '0.36', 'Apr', 1998, 'IOS', 'Conference', 'A', 'www.evostar.org/2018/cfp_eurogp.php'),
 ('KR', 'International Conference on Principles of Knowledge Representation and Reasoning', 'Artificial Intellligence', 26, '0.28', 'Apr', 1989, 'AAArtificial Intellligence', 'Conference', 'A+', 'reasoning.eas.asu.edu/kr2018/'),
-('ISCA', 'International Symposium on Computer Architecture', 'Computer systems organization', 54, '0.18', 'Jun', 1973, 'IEEE', 'Symposium', 'A+', 'iscaconf.org/isca2018/'),
-('HPCA', 'High-Performance Computer Architecture', 'Computer systems organization', 46, '0.2', 'Feb', 1995, 'ACM', 'Conference', 'A+', 'hpca2018.ece.ucsb.edu/'),
-('FOCS', 'Annual Symposium on Foundations of Computer Science', 'Computer systems organization', 45, '0.28', 'Oct', 1989, 'IEEE', 'Symposium', 'A+', 'ieee-focs.org/'),
-('PERCOM', 'International Conference on Pervasive Computing and Communications', 'Computer systems organization', 31, '0.15', 'Mar', 2003, 'IEEE', 'Conference', 'A+', 'www.percom.org/'),
-('DSN', 'International Conference on Dependable Systems and Networks', 'Computer systems organization', 32, '0.23', 'Jun', 2000, 'IEEE', 'Conference', 'A+', 'dsn2018.uni.lu/'),
-('SBAC-PAD', 'International Symposium on Computer Architecture and High Performance Computing', 'Computer systems organization', 15, '2.13', 'Oct', 1987, 'IEEE', 'Symposium', 'A', 'graal.ens-lyon.fr/sbac-pad/'),
-('CSCW', 'ACM Conference on Computer-Supported Cooperative Work and Social Computing', 'Computer systems organization', 56, '0.26', 'Nov', 1986, 'ACM', 'Conference', 'A+', 'cscw.acm.org/2018/'),
-('EuroSys', 'European Conference on Computer Systems', 'Computer systems organization', 41, '0.22', 'Apr', 2006, 'ACM', 'Conference', 'A+', 'eurosys2018.org/'),
-('PODC', 'Symposium on Principles of Distributed Computing', 'Computer systems organization', 25, '0.3', 'Aug', 1982, 'ACM', 'Symposium', 'A+', 'www.podc.org/podc2018/'),
+('ISCA', 'International Symposium on Computer Architecture', 'Computer Systems Organization', 54, '0.18', 'Jun', 1973, 'IEEE', 'Symposium', 'A+', 'iscaconf.org/isca2018/'),
+('HPCA', 'High-Performance Computer Architecture', 'Computer Systems Organization', 46, '0.2', 'Feb', 1995, 'ACM', 'Conference', 'A+', 'hpca2018.ece.ucsb.edu/'),
+('FOCS', 'Annual Symposium on Foundations of Computer Science', 'Computer Systems Organization', 45, '0.28', 'Oct', 1989, 'IEEE', 'Symposium', 'A+', 'ieee-focs.org/'),
+('PERCOM', 'International Conference on Pervasive Computing and Communications', 'Computer Systems Organization', 31, '0.15', 'Mar', 2003, 'IEEE', 'Conference', 'A+', 'www.percom.org/'),
+('DSN', 'International Conference on Dependable Systems and Networks', 'Computer Systems Organization', 32, '0.23', 'Jun', 2000, 'IEEE', 'Conference', 'A+', 'dsn2018.uni.lu/'),
+('SBAC-PAD', 'International Symposium on Computer Architecture and High Performance Computing', 'Computer Systems Organization', 15, '2.13', 'Oct', 1987, 'IEEE', 'Symposium', 'A', 'graal.ens-lyon.fr/sbac-pad/'),
+('CSCW', 'ACM Conference on Computer-Supported Cooperative Work and Social Computing', 'Computer Systems Organization', 56, '0.26', 'Nov', 1986, 'ACM', 'Conference', 'A+', 'cscw.acm.org/2018/'),
+('EuroSys', 'European Conference on Computer Systems', 'Computer Systems Organization', 41, '0.22', 'Apr', 2006, 'ACM', 'Conference', 'A+', 'eurosys2018.org/'),
+('PODC', 'Symposium on Principles of Distributed Computing', 'Computer Systems Organization', 25, '0.3', 'Aug', 1982, 'ACM', 'Symposium', 'A+', 'www.podc.org/podc2018/'),
 ('ISMAR', 'IEEE / ACM International Symposium on Mixed and Augmented Reality', 'Human Centered Computing', 26, '0.24', 'Oct', 1999, 'IEEE', 'Symposium', 'A+', 'ismar2018.org/'),
 ('VR', 'IEEE Conference on Virtual Reality and 3D User Interfaces', 'Human Centered Computing', 17, '0.26', 'Mar', 1993, 'IEEE', 'Conference', 'A', 'ieeevr.org/2018/'),
 ('CHI', 'Conference on Human Factors in Computing Systems', 'Human Centered Computing', 85, '0.24', 'Apr', 1982, 'ACM', 'Conference', 'A+', 'chi2018.acm.org/'),
 ('MOBICOM', 'Annual International Conference on Mobile Computing and Networking', 'Human Centered Computing', 45, '0.16', 'sep', 1995, 'ACM', 'Conference', 'A+', 'sigmobile.org/mobicom/2018/'),
 ('Infovis', 'IEEE Symposium on Information Visualization', 'Human Centered Computing', 14, '0.31', 'Oct', 1990, 'IEEE', 'Conference', 'A+', 'ieeevis.org/year/2018/welcome'),
 ('SIGGRAPH', 'Special Interest Group on Computer Graphics and Interactive Techniques Conference', 'Human Centered Computing', 22, '0.23', 'Jul', 1974, 'ACM', 'Conference', 'A+', 's2018.siggraph.org/'),
-('VLDB', 'International Conference on Very Large Databases', 'IS', 73, '0.18', 'Aug', 1985, 'VLDB', 'Conference', 'A+', 'vldb2018.lncc.br/'),
-('RecSys', 'Conference on Recommender Systems', 'IS', 34, '0.26', 'Oct', 2007, 'ACM', 'Conference', 'A', 'recsys.acm.org/recsys18/'),
-('EDBT', 'International Conference on Extending Database Technology', 'IS', 32, '0.2', 'Mar', 1988, 'OP', 'Conference', 'A+', 'edbticdt2018.at/'),
-('PKDD', 'Principles and Practice of Knowledge Discovery in Databases', 'IS', 31, '0.25', 'Sep', 1997, 'ACM', 'Conference', 'A+', 'www.ecmlpkdd2018.org/'),
-('PODS', 'ACM SIGMOD-SIGACT-SIGArtificial Intellligence Symposium on Principles of Database Systems', 'IS', 26, '0.24', 'Jun', 1982, 'ACM', 'Symposium', 'A+', 'sigmod2018.org/'),
-('SIGIR', 'International ACM SIGIR Conference on Research and Development in Information Retrieval', 'IS', 50, '0.3', 'Aug', 1982, 'ACM', 'Conference', 'A+', 'sigir.org/sigir2018/'),
-('SIGMOD', 'International Conference on Management of Data', 'IS', 59, '0.17', 'Jun', 1979, 'ACM', 'Conference', 'A+', 'sigmod2018.org/'),
+('VLDB', 'International Conference on Very Large Databases', 'Information Systems', 73, '0.18', 'Aug', 1985, 'VLDB', 'Conference', 'A+', 'vldb2018.lncc.br/'),
+('RecSys', 'Conference on Recommender Systems', 'Information Systems', 34, '0.26', 'Oct', 2007, 'ACM', 'Conference', 'A', 'recsys.acm.org/recsys18/'),
+('EDBT', 'International Conference on Extending Database Technology', 'Information Systems', 32, '0.2', 'Mar', 1988, 'OP', 'Conference', 'A+', 'edbticdt2018.at/'),
+('PKDD', 'Principles and Practice of Knowledge Discovery in Databases', 'Information Systems', 31, '0.25', 'Sep', 1997, 'ACM', 'Conference', 'A+', 'www.ecmlpkdd2018.org/'),
+('PODS', 'ACM SIGMOD-SIGACT-SIGArtificial Intellligence Symposium on Principles of Database Systems', 'Information Systems', 26, '0.24', 'Jun', 1982, 'ACM', 'Symposium', 'A+', 'sigmod2018.org/'),
+('SIGIR', 'International ACM SIGIR Conference on Research and Development in Information Retrieval', 'Information Systems', 50, '0.3', 'Aug', 1982, 'ACM', 'Conference', 'A+', 'sigir.org/sigir2018/'),
+('SIGMOD', 'International Conference on Management of Data', 'Information Systems', 59, '0.17', 'Jun', 1979, 'ACM', 'Conference', 'A+', 'sigmod2018.org/'),
 ('ICSE', 'International Conference on Software Engineering', 'Software Engineering', 68, '0.17', 'May', 1975, 'ACM', 'Conference', 'A+', 'www.icse2018.org/'),
 ('PLDI', 'Conference on Programming Language Design and Implementation', 'Software Engineering', 50, '0.21', 'Jun', 1979, 'ACM', 'Conference', 'A+', 'conf.researchr.org/home/pldi-2018'),
 ('ASPLOS', 'Architectural Support for Programming Languages and Operating Systems', 'Software Engineering', 50, '0.22', 'Mar', 1982, 'ACM', 'Conference', 'A+', 'www.asplos2018.org/'),

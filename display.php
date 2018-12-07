@@ -160,7 +160,7 @@ elseif (strlen($field)>8 && strlen($title)==0) { // 8= length(select....)
       ,CASE 
           WHEN ser LIKE ('A_')  THEN 1
           WHEN ser LIKE ('A')  THEN 2
-		  WHEN ser LIKE ('B_')  THEN 3
+		  WHEN ser LIKE ('B_') THEN 3
 		  WHEN ser LIKE ('B')  THEN 4
           
        END";
@@ -168,9 +168,9 @@ elseif (strlen($field)>8 && strlen($title)==0) { // 8= length(select....)
 elseif (strlen($title)>0) {
 	$sql = "select   * from events  WHERE (`title` LIKE '%".$title."%' )ORDER  BY substring(SER, 1, 1) 
       ,CASE 
-          WHEN ser LIKE ('A_')  THEN 1
+          WHEN ser LIKE ('A_') THEN 1
           WHEN ser LIKE ('A')  THEN 2
-		  WHEN ser LIKE ('B_')  THEN 3
+		  WHEN ser LIKE ('B_') THEN 3
 		  WHEN ser LIKE ('B')  THEN 4
           
        END ";
@@ -191,7 +191,8 @@ echo" <p Class='style7'> Showing results: <font color='red'><strong>" .mysqli_nu
 echo "<table class='blueTable'><tr bgcolor='#dddddd'><th><strong>Acronym</strong></th><th width='330'><strong>Title</strong></th><th><strong>Type</strong></th><th><strong>SER</strong></th><th><strong>Field</strong></th><th><strong>H-index</strong></th><th><strong>Avg. aaceptance rate</strong></th><th><strong>Usualy takes place on</strong></th><th><strong>Since</strong></th><th><strong>Publisher</strong></th></tr>";
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
-        echo "<tr><td> " . $row["acronym"]. "</td><td>" . $row["title"]. "</td>"."<td>" . $row["Type"]. "</td>"."<td>" . $row["SER"]. "</td>"."<td> ".$row["field"]. "</td>"."<td>" . $row["H5"]. "</td>"."<td>  " . $row["AVGAR"]. "</td>"."<td>  " . $row["UMonth"]. "</td>"."<td>  " . $row["Since"]. "</td>"."<td>  " . $row["Publisher"]. "</td>"."</tr>";
+        echo "<tr><td> " . $row["acronym"]. "</td><td> <a href='http://" . $row["webpage"]. "' >" . $row["title"]. "</a></td>"."<td>" . $row["Type"]. "</td>"."<td>" . $row["SER"]. "</td>"."<td> ".$row["field"]. "</td>"."<td>" . $row["H5"]. "</td>"."<td>  " . $row["AVGAR"]. "</td>"."<td>  " . $row["UMonth"]. "</td>"."<td>  " . $row["Since"]. "</td>"."<td>  " . $row["Publisher"]. "</td>"."</tr>";
+		  
     }
 	echo "</table>";
 } else {
