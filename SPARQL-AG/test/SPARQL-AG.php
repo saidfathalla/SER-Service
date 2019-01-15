@@ -2,6 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta charset="utf-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style type="text/css">
+<!--
+.style5 {color: #CC0000}
+-->
+</style>
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>SPRQL-AG </title>
@@ -11,11 +16,13 @@
   box-sizing: border-box;
 }
 
- 
 
 /* Style the header */
 .header {
   background-color: #f1f1f1;
+  background-image: url("https://codyburleson.com/wp-content/uploads/2018/07/sparql-sql-for-sem-web-0.png");
+   background-repeat: no-repeat;
+    background-size: 120px 120px;
   padding: 20px;
   text-align: center;
 }
@@ -119,9 +126,13 @@ input[type=submit]:hover, button:hover {
         .style4 {font-size: large}
         </style>
         <script>
-            function getVal()
+             
+           function generateAlias(){
+                 document.getElementById('asVal').value = document.getElementById('selFnCol').value+  "_"+ document.getElementById('selFn').value  ;
+            }
+            function getVal(hiddenId,textareaID)
             {
-                document.getElementById('hiddenField').value = document.getElementById('generatedQuery').value ;
+                document.getElementById(hiddenId).value = document.getElementById(textareaID).value ;
             }
 function KeyPress(e) { 
     e = e || window.event;
@@ -131,24 +142,25 @@ function KeyPress(e) {
          document.getElementById("prefix").value += "\n PREFIX ";
     }
 }
-    function copy() {
-  let textarea = document.getElementById("generatedQuery");
+    function copy(id) {
+  let textarea = document.getElementById(id);
   textarea.select();
   document.execCommand("copy");
 }
 
 
 </script>
+ 
 </head>
 
 
     <body>
 	<div class="header">
-  <h1>SPRQL-AG service</h1>
-  <p>A SPARQL Auto Generation service for querying EVENTSKG dataset.</p>
-</div>
+	  <h1>SPRQL-AG service</h1>
+  <p>A SPARQL Auto Generation service for querying EVENTSKG dataset</p>
+  </div>
 
-<div class="topnav">
+    <div class="topnav">
   <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">EVENTSKG Homepage </a>
   <a href="#">Issue Tracker</a>
   <a href="#">SPARQL endpoint</a></div>
@@ -164,16 +176,21 @@ function KeyPress(e) {
         header('X-XSS-Protection:0');
         $nameErr = "";
         $generatedQuery="";
+        $generatedQuery2="";
         $prefix="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
         if (empty($_POST["prefix"])) {
             $prefix .= "";
         } else {
             $prefix = test_input($_POST["prefix"]);
         }
+         
+        
         $gq =  " ".$prefix . "\n SELECT";
+
+        ////// select cols
         if (!empty($_POST['selDISTINCT']))
             $gq =  " ".$prefix . "\n SELECT DISTINCT ";
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submit'])) {
             
 //            } else 
             if (!empty($_POST["selAll"]) and $_POST["selAll"] == TRUE) {
@@ -208,7 +225,7 @@ function KeyPress(e) {
              elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?e seo:belongsToSeries    ?series. FILTER( ?series= <http://purl.org/events_ds#" . $_POST["seriesVal"] . ">) .";
              
            if ((!empty($_POST["selCountry"]) ) and empty($_POST["filCountry"]))   $gq .="\n ?e seo:heldInCountry   ?country .";
-             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . queryDBpedia($_POST["countryVal"]) . ">) .";
+             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . queryDBpediaCountry($_POST["countryVal"]) . ">) .";
              
            if ((!empty($_POST["selField"]) ) and empty($_POST["filField"]))   $gq .="\n ?e seo:field   ?field .";
              else if (!empty($_POST["fieldVal"]) and !empty($_POST["selField"])) $gq .="\n ?e seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";
@@ -246,20 +263,61 @@ function KeyPress(e) {
              else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["selPublisher"])and empty($_POST["OptionalPublisher"])) $gq .="\n ?e seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) .";
              else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["selPublisher"]) and !empty($_POST["OptionalPublisher"])) $gq .="\n OPTIONAL {?e seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) }.";
              
-          
-
-
+      
             $gq .="\n }";
-            $generatedQuery = $gq;
-        }
+              // query modifiers
+if (!empty($_POST["selOrderBy1"])and !empty($_POST["orderbyVal1"]))    $gq .="\n ORDER BY ".$_POST["orderbyVal1"];
+if (!empty($_POST["selOrderBy2"])and !empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"]))    $gq .="  ".$_POST["orderbyVal2"];
+if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"]))    $gq .="\n ORDER BY  ".$_POST["orderbyVal2"];
 
+            if (!empty($_POST["selLimit"]))  $gq .="\n LIMIT  ".$_POST["LimitVal"];
+
+            $generatedQuery = $gq;
+ 
+            
+        }
+        // aggregation part starts here
+   if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['submitAgg']))
+    {
+        $prefix2="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
+
+       if (!empty($_POST["prefix2"]))    $prefix2 = test_input($_POST["prefix2"]);
+       
+       $gq2 =  " ".$prefix2 . "\n SELECT";
+       if (!empty($_POST["selAggCol"]))    $gq2 .=  " ".$_POST["aggColVal"];
+       if (!empty($_POST["selFn"]))    $gq2 .=  " ".$_POST["selFn"]."( ". $_POST["selFnCol"].") AS ".$_POST["asVal"];
+        
+       $gq2.="\n WHERE {\n  ?e ". getPropertyName($_POST["selFnCol"])." ".$_POST["selFnCol"]." .";    
+       if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n ?e ". getPropertyName($_POST["groupbyVal1"])." ".$_POST["groupbyVal1"];
+         $gq2.="\n }";    
+       
+        if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n GROUP BY ".$_POST["groupbyVal1"];
+       $generatedQuery2 = $gq2;
+    }
+    function getPropertyName($param) {
+        if($param== '?type') return 'rdf:type';
+        if($param== '?series') return 'seo:belongsToSeries';
+        if($param== '?country') return 'seo:heldInCountry';
+        if($param== '?city') return 'seo:city';
+        if($param== '?field') return 'seo:field';
+        if($param== '?acc') return 'seo:acceptanceRate';
+        if($param== '?AP') return 'seo:acceptedPapers';
+        if($param== '?SP') return 'seo:submittedPapers';
+        if($param== '?SD') return 'conference-ontology:startDate';
+        if($param== '?ED') return 'conference-ontology:endDate';
+        if($param== '?website') return 'seo:hasPublisher';
+        if($param== '?publisher') return 'seo:hasPublisher';
+            
+    
+}
+  
         function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
         }
-         function queryDBpedia($countryString) {
+         function queryDBpediaCountry($countryString) {
             $querystring = "";
             define("RDFAPI_INCLUDE_DIR", "C:/wamp64/www/rdfapi-php/api/");
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
@@ -268,10 +326,8 @@ function KeyPress(e) {
             $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
             $query = new ClientQuery();
             $querystring = '
-	
             PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
-
             SELECT ?country  
             WHERE { 
               ?country rdf:type dbpedia-owl:Country .
@@ -288,19 +344,19 @@ function KeyPress(e) {
             }
         ?> 
 <div class="column middle">
-        <h4>Goal</h4>
+        <h4>&nbsp;</h4>
         The goal of developing SPARQL-AG service is to support users who are not familiar, and expert users, in generating SPARQL queries for querying EVENTSKG dataset without going into details how this SPARQL query is written. 
         A prominent feature of SPARQL-AG is the ability to execute the generated query using the SPARQL endpoint of EVENTSKG and display the returned results, which could be used for further processing, e.g., Data visualization.
 
-        <h4>1. Simple SPRQL query generation</h4>
+        <h3>1. Simple SPRQL query generation</h3>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">  
-            Each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
+            <strong>1.1 Declare prefix:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
 
             <p> <textarea name="prefix" id="prefix" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
             </p>
 
-            <p class="style3"> <em>Select column</em>: 
-          <p> <input name="selAll" type="checkbox" checked="checked" > 
+            <p  ><strong> 1.2 Select column(s): </strong>
+            <p> <input name="selAll" type="checkbox" checked="checked" > 
           all , 
           <input name="selURI" type="checkbox" checked="checked"> 
           URI, <input type="checkbox" name="selType" > 
@@ -330,7 +386,7 @@ function KeyPress(e) {
 <p><span class="style3">
   <input name="selDISTINCT" type="checkbox" id="selDISTINCT" checked="checked">
   </span><span class="style4">DISTINCT</span>  </p>
-<p class="style3"><em>Where</em>:</p>
+<p><strong>1.3 Query pattern: </strong></p>
 <table width="68%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><input label="event type" type="checkbox" name="filType" /> 
@@ -354,7 +410,7 @@ function KeyPress(e) {
   </tr> 
    
    <tr>
-    <td width="16%"><input name="filCountry" type="checkbox" checked="checked"  />
+    <td width="16%"><input name="filCountry" type="checkbox"  />
 country </td>
     <td width="8%">&nbsp;</td>
     <td width="38%"><select name="countryVal" class="form-control">
@@ -587,7 +643,7 @@ country </td>
                                                                           <option value="Ukraine">Ukraine</option>
                                                                           <option value="United Arab Erimates">United Arab Emirates</option>
                                                                           <option value="England">England</option>
-                                                                          <option value="United States of America">United States of America</option>
+                                                                          <option value="United States">United States</option>
                                                                           <option value="Uraguay">Uruguay</option>
                                                                           <option value="Uzbekistan">Uzbekistan</option>
                                                                           <option value="Vanuatu">Vanuatu</option>
@@ -729,21 +785,233 @@ OPTIONAL</td>
                                                                       </tr>
           </table>
  
-   <input type="submit" name="submit" value="Generate"> 
-   <button type="button" onclick="copy()">Copy</button>
+   <p><strong>1.4 Query modifiers</strong></p>
+   <table width="48%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+       <td width="13%" >Order by:&nbsp;</td>
+       <td width="3%" ><input name="selOrderBy1" type="checkbox" id="selOrderBy1" checked="checked" /></td>
+       <td width="37%" ><select name="orderbyVal1" class="form-control" id="orderbyVal1"  >
+           <option value="?type" selected="selected">type</option>
+           <option value="?series">series</option>
+           <option value="?country">country</option>
+           <option value="?city">city</option>
+           <option value="?field">field</option>
+           <option value="?acc">acceptance rate</option>
+           <option value="?AP">accepted papers</option>
+           <option value="?SP">submitted papers</option>
+           <option value="?SD">start date</option>
+           <option value="?ED">end date</option>
+           <option value="?website">website</option>
+           <option value="?publisher">publisher</option>
+           <!--selected="selected"-->
+         </select></td>
+       <td width="8%" >  &nbsp;
+         &nbsp; <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
+       <td width="39%" ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
+           <option value="?type">type</option>
+           <option value="?series"selected="selected">series</option>
+           <option value="?country">country</option>
+           <option value="?city">city</option>
+           <option value="?field">field</option>
+           <option value="?acc">acceptance rate</option>
+           <option value="?AP">accepted papers</option>
+           <option value="?SP">submitted papers</option>
+           <option value="?SD">start date</option>
+           <option value="?ED">end date</option>
+           <option value="?website">website</option>
+           <option value="?publisher">publisher</option>
+           <!--selected="selected"-->
+         </select></td>
+     </tr>
+     <tr>
+       <td>Limit:</td>
+       <td><input name="selLimit" type="checkbox" id="selLimit" checked="checked" /></td>
+       <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="36" class="form-control"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
+   </table>
+   <p>
+     <input type="submit" name="submit" value="Generate"> 
+   
+   <button type="button" onclick="copy('generatedQuery')">Copy</button></p>
   
  <div align="center"></div>
      <p>    Generated query:  </p>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
-<form method="post" action="/rdfapi-php/test/querySPARQLClient.php">  
-     
-      <input type="hidden" id='hiddenField'  name="q" value="<?php echo $generatedQuery; ?>">
-      <input type="submit" name="submit2" value="Execute" onclick="getVal()" />
-      <!--            getVal()to get the updated query from textarea-->
+<form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
+  <p><strong>1.5 query execution: </strong></p>
+  <p>
+    	&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+    	<input type="submit" name="submit2" value="Execute" onclick="getVal('hiddenField1','generatedQuery')" />
+              <input type="hidden" id='hiddenField1'  name="q" value="<?php echo $generatedQuery; ?>">
+    <!--            getVal()to get the updated query from textarea-->
     
+    </p>
 </form>
-  </div>
+<hr />
+<h4>2. SPRQL query generation with aggregation  </h4>
+<strong>2.1 Declare prefix:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">  
+
+            <p> <textarea name="prefix2" id="prefix2" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
+            </p>
+
+            <p  ><strong> 2.2 Select aggregation function: </strong>
+           &nbsp;            
+            <table width="60%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="7%" >function:&nbsp;&nbsp;&nbsp; </td>
+                <td width="18%" >
+				
+		<select name="selFn" class="form-control" id="selFn"  onchange="generateAlias()">
+                  <option value="COUNT" selected="selected">COUNT</option>
+                  <option value="SUM">SUM</option>
+                  <option value="AVG">AVG</option>
+                  <option value="MIN">MIN</option>
+                  <option value="MAX">MAX</option>
+                  <option value="SAMPLE">SAMPLE</option>
+                  <option value="GROUP_CONCAT">GROUP_CONCAT</option>
+                  <!--selected="selected"-->
+                </select>                </td>
+				<td width="13%">&nbsp; column:</td>
+                <td width="27%"><select name="selFnCol" class="form-control" id="selFnCol"  onchange="generateAlias()">
+                  <option value="?type" selected="selected">type</option>
+                  <option value="?series">series</option>
+                  <option value="?country">country</option>
+                  <option value="?city">city</option>
+                  <option value="?field">field</option>
+                  <option value="?acc">acceptance rate</option>
+                  <option value="?AP">accepted papers</option>
+                  <option value="?SP">submitted papers</option>
+                  <option value="?SD">start date</option>
+                  <option value="?ED">end date</option>
+                  <option value="?website">website</option>
+                  <option value="?publisher">publisher</option>
+                  <!--selected="selected"-->
+                </select></td>
+                <td width="9%">&nbsp;AS</td>
+                <td width="26%"><input name="asVal" type="text" class="form-control" id="asVal" value="?type_COUNT" size="20"/></td>
+              </tr>
+              <tr>
+                <td ><input name="selAggCol" type="checkbox" id="selAggCol"  onclick="onToggle()"/></td>
+                <td >add column:</td>
+                <td><select name="aggColVal" class="form-control" id="aggColVal"  >
+                  <option value="?e">event URI</option>
+                  <option value="?type">type</option>
+                  <option value="?series">series</option>
+                  <option value="?country">country</option>
+                  <option value="?city">city</option>
+                  <option value="?field">field</option>
+                  <option value="?acc">acceptance rate</option>
+                  <option value="?AP">accepted papers</option>
+                  <option value="?SP">submitted papers</option>
+                  <option value="?SD">start date</option>
+                  <option value="?ED">end date</option>
+                  <option value="?website">website</option>
+                  <option value="?publisher">publisher</option>
+                  <!--selected="selected"-->
+                </select></td>
+                <td colspan="3"><span class="style5">&nbsp;* you have to add selected column to group by. </span></td>
+              </tr>
+            </table>
+            <p  >
+          
+            <table width="50%" border="0" cellspacing="0" cellpadding="0">
+             <tr>
+               <td >Group by:&nbsp;</td>
+               <td ><input name="selGroupBy1" type="checkbox" id="selGroupBy1" /></td>
+               <td ><select name="groupbyVal1" class="form-control" id="groupbyVal1"  >
+                   <option value="?type" selected="selected">type</option>
+                   <option value="?series">series</option>
+                   <option value="?country">country</option>
+                   <option value="?city">city</option>
+                   <option value="?field">field</option>
+                   <option value="?acc">acceptance rate</option>
+                   <option value="?AP">accepted papers</option>
+                   <option value="?SP">submitted papers</option>
+                   <option value="?SD">start date</option>
+                   <option value="?ED">end date</option>
+                   <option value="?website">website</option>
+                   <option value="?publisher">publisher</option>
+                   <!--selected="selected"-->
+               </select></td>
+               <td >&nbsp;
+                 &nbsp;
+             <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
+               <td ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
+                   <option value="?type">type</option>
+                   <option value="?series"selected="selected">series</option>
+                   <option value="?country">country</option>
+                   <option value="?city">city</option>
+                   <option value="?field">field</option>
+                   <option value="?acc">acceptance rate</option>
+                   <option value="?AP">accepted papers</option>
+                   <option value="?SP">submitted papers</option>
+                   <option value="?SD">start date</option>
+                   <option value="?ED">end date</option>
+                   <option value="?website">website</option>
+                   <option value="?publisher">publisher</option>
+                   <!--selected="selected"-->
+               </select></td>
+             </tr>
+             <tr>
+               <td>Having:</td>
+               <td><input name="selLimit" type="checkbox" id="selLimit" /></td>
+               <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="36" class="form-control"/></td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
+             </tr>
+          </table>
+    <p>
+      <input type="submit" name="submitAgg" value="Generate" />
+      <button type="button" onclick="copy('generatedQuery2')">Copy</button>
+    </p>
+    <p>Generated query: </p>
+    <p>
+              <textarea id="generatedQuery2" name="textarea2" rows="10" cols="120"><?php echo $generatedQuery2; ?></textarea>
+			  
+			  
+          </p>
+			
+			
+			
+			</p>
+			</p>
+			
+	</form>
+            <form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
+  <p><strong>2.5 query execution: </strong></p>
+  <p>
+    	&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<input type="submit" name="submit22" value="Execute" onclick="getVal('hiddenField2','generatedQuery2')" />
+    	<input type="hidden" id='hiddenField2'  name="q" value="<?php echo $generatedQuery2; ?>">
+    <!--            getVal()to get the updated query from textarea-->
+    </p>
+</form>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>Combining SPARQL Graph Patterns : { A } UNION { B } &nbsp;&nbsp; A MINUS { B }</p>
+            <p>SPARQL Subqueries</p>
+</div>
   <div class="column side">
     <h2>&nbsp;</h2>
   </div>

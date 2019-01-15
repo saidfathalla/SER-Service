@@ -1,4 +1,4 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
@@ -11,29 +11,25 @@
 
 
     <body>
-	
-	
-	 <h2>SPRQL-AG service</h2>
-        Your query has been executed by EVENTSKG public SPARQL endpoint and bellow are the results. 
+        <h2>SPRQL-AG service</h2>
+        Your query has been executed by EVENTSKG public SPARQL endpoint and below are the results. 
 
         <h3>Results:</h3>
-	
-	
- <?php
-         header('X-XSS-Protection:0');  // to prevent X-XSS-Protection
+        <p> <button onclick="goBack()">Back </button></p>
 
+
+        <?php
+        header('X-XSS-Protection:0');  // to prevent X-XSS-Protection
         // define variables and set to empty values
         $nameErr = $emailErr = $genderErr = $websiteErr = "";
         $name = $email = $gender = $comment = $website = "";
         $querystring = "";
-		
-		 
-		if (!empty($_POST["q"])) 
-$querystring =  $_POST['q'];  
-
  
-	//echo $querystring;	
-		
+        if (!empty($_POST["q"]))
+            $querystring = $_POST['q'];
+
+         
+//        echo $querystring;	
 // Include all RAP classes 
         define("RDFAPI_INCLUDE_DIR", "C:/wamp64/www/rdfapi-php/api/");
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
@@ -41,7 +37,7 @@ $querystring =  $_POST['q'];
 // Create a SPARQL client  
         $client = ModelFactory::getSparqlClient("http://kddste.sda.tech/sparql");
         $query = new ClientQuery();
-       // $querystring = '
+        // $querystring = '
 //		PREFIX seo: <http://purl.org/seo/>
 // 		SELECT * 
 //		 WHERE { ?e seo:heldInCountry   ?country.  FILTER(regex(str(?country), "Germany", "i" )) .
@@ -51,8 +47,11 @@ $querystring =  $_POST['q'];
         $query = new ClientQuery();
         $query->query($querystring);
         $result = $client->query($query);
+        
+        
 
-         SPARQLEngine::writeQueryResultAsHtmlTable($result);
+        SPARQLEngine::writeQueryResultAsHtmlTable($result);
+
 //foreach($result as $line){
 //  $value = $line['?events'];
 //    if($value != "")
@@ -60,13 +59,13 @@ $querystring =  $_POST['q'];
 //    else
 //      echo "undbound<br>";
 //}
-function test_input($data) {
+        function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
         }
         ?>
-		
-		    </body>
-                                                                                        </html>
+
+    </body>
+</html>
