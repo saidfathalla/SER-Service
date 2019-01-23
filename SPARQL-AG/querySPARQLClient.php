@@ -31,7 +31,7 @@
          
 //        echo $querystring;	
 // Include all RAP classes 
-        define("RDFAPI_INCLUDE_DIR", "C:/wamp64/www/rdfapi-php/api/");
+        define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  

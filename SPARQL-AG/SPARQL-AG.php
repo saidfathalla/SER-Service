@@ -359,7 +359,7 @@ input[type=submit]:hover, button:hover {
         }
          function queryDBpediaCountry($countryString) {
             $querystring = "";
-            define("RDFAPI_INCLUDE_DIR", "C:/wamp64/www/rdfapi-php/api/");
+            define("RDFAPI_INCLUDE_DIR",  $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
             include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  
@@ -878,15 +878,14 @@ DESC</td>
      <p>    Generated query:  </p>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
-<form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
+<form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
   <p><strong>1.5 query execution: </strong>you can edit the generated query before press the Execute button (<em>modify-before-execution</em> is enabled). </p>
   <p>
     	&nbsp;
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
     	<input type="submit" name="submit2" value="Execute" onclick="getVal('hiddenField1','generatedQuery')" />
-              <input type="hidden" id='hiddenField1'  name="q" value="<?php echo $generatedQuery; ?>">
-    <!--            getVal()to get the updated query from textarea-->
-    
+    	<input type="hidden" id='hiddenField1'  name="q" value="<?php echo $generatedQuery; ?>" />
+    	<!--            getVal()to get the updated query from textarea-->
     </p>
 </form>
 <hr />
@@ -1078,7 +1077,7 @@ DESC</td>
 			
 		
 	</form>
-            <form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
+            <form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
   <p><strong>2.5 query execution: </strong>you can edit the generated query before press the Execute button.</p>
   <p>
     	&nbsp;
