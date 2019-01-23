@@ -125,31 +125,7 @@ input[type=submit]:hover, button:hover {
 }
         .style4 {font-size: large}
         </style>
-        <script>
-             
-           function generateAlias(){
-                 document.getElementById('asVal').value = document.getElementById('selFnCol').value+  "_"+ document.getElementById('selFn').value  ;
-            }
-            function getVal(hiddenId,textareaID)
-            {
-                document.getElementById(hiddenId).value = document.getElementById(textareaID).value ;
-            }
-function KeyPress(e) { 
-    e = e || window.event;
-    var key = e.keyCode ? e.keyCode : e.which;
-    if (key == 13) {
-        e.preventDefault();
-         document.getElementById("prefix").value += "\n PREFIX ";
-    }
-}
-    function copy(id) {
-  let textarea = document.getElementById(id);
-  textarea.select();
-  document.execCommand("copy");
-}
 
-
-</script>
  
 </head>
 
@@ -201,7 +177,7 @@ function KeyPress(e) {
                if (!empty($_POST["selURI"]))   $gq .=" ?e";
                 if (!empty($_POST["selType"]))   $gq .=" ?type";
               if (!empty($_POST["selSeries"]))   $gq .=" ?series";
-             if (!empty($_POST["selCountry"]))   $gq .=" ?country";
+             if (!empty($_POSTooo["selCountry"]))   $gq .=" ?country";
              if (!empty($_POST["selacc"]))    $gq .=" ?acc";
              if (!empty($_POST["selAP"]))    $gq .=" ?AP";
              if (!empty($_POST["selSP"]))    $gq .=" ?SP";
@@ -265,10 +241,40 @@ function KeyPress(e) {
              
       
             $gq .="\n }";
-              // query modifiers
-if (!empty($_POST["selOrderBy1"])and !empty($_POST["orderbyVal1"]))    $gq .="\n ORDER BY ".$_POST["orderbyVal1"];
-if (!empty($_POST["selOrderBy2"])and !empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"]))    $gq .="  ".$_POST["orderbyVal2"];
-if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"]))    $gq .="\n ORDER BY  ".$_POST["orderbyVal2"];
+              // query modifiers ORDER  BY and LIMIT
+              if (!empty($_POST["selOrderBy1"])) {
+        if (empty($_POST["selOrderByDESC1_1"]))
+            $gq .="\n ORDER BY " . $_POST["orderbyVal1"];
+        else {
+            $gq .="\n ORDER BY DESC(" . $_POST["orderbyVal1"] . ")";
+        }
+    }
+    if (!empty($_POST["selOrderBy2"])) {
+        if (!empty($_POST["selOrderBy1"])) {
+            if (empty($_POST["selOrderByDEC1_2"]))
+                $gq .="  " . $_POST["orderbyVal2"];
+            else
+                $gq .=" DESC(" . $_POST["orderbyVal2"] . ")";
+        }
+        else {
+            if (empty($_POST["selOrderByDEC1_2"]))
+                $gq .="\n ORDER BY  " . $_POST["orderbyVal2"];
+            else
+                $gq .="\n ORDER BY DESC(" . $_POST["orderbyVal2"] . ")";
+        }
+    }
+
+
+////if (!empty($_POST["selOrderBy1"])and !empty($_POST["orderbyVal1"])and empty($_POST["selOrderByDESC1_1"]))    $gq .="\n ORDER BY ".$_POST["orderbyVal1"];
+//if (!empty($_POST["selOrderBy1"])and !empty($_POST["orderbyVal1"]) and !empty($_POST["selOrderByDESC1_1"]))    $gq .="\n ORDER BY DESC(".$_POST["orderbyVal1"].")";
+//
+//if (!empty($_POST["selOrderBy2"])and !empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"])and empty($_POST["selOrderByDESC1_1"])and empty($_POST["selOrderByDESC1_2"]))    $gq .="  ".$_POST["orderbyVal2"];
+//if (!empty($_POST["selOrderBy2"])and !empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"])and !empty($_POST["selOrderByDESC1_2"]))    $gq .="  DESC(".$_POST["orderbyVal2"].")";
+//if (!empty($_POST["selOrderBy1"])and !empty($_POST["orderbyVal1"]) and !empty($_POST["selOrderByDESC1_2"]))    $gq .="\n ORDER BY DESC(".$_POST["orderbyVal2"].")";
+//
+//
+//if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"])and empty($_POST["selOrderByDESC1_2"]))    $gq .="\n ORDER BY  ".$_POST["orderbyVal2"];
+//if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_POST["orderbyVal2"])and !empty($_POST["selOrderByDESC1_2"]))    $gq .="\n ORDER BY DESC(".$_POST["orderbyVal2"].")";
 
             if (!empty($_POST["selLimit"]))  $gq .="\n LIMIT  ".$_POST["LimitVal"];
 
@@ -292,8 +298,42 @@ if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_P
          $gq2.="\n }";    
        
         if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n GROUP BY ".$_POST["groupbyVal1"];
+        
+         // query modifiers ORDER  BY and LIMIT
+           
+        if (!empty($_POST["selHaving"])and !empty($_POST["HavingColVal"]) and !empty($_POST["havingVal"]))    $gq2 .="\n HAVING  (".$_POST["HavingColVal"]. $_POST["havingOP"].$_POST["havingVal"].")";
+
+          // query modifiers ORDER  BY and LIMIT
+              if (!empty($_POST["selOrderBy2_1"])) {
+        if (empty($_POST["selOrderByDESC2_1"]))
+            $gq2 .="\n ORDER BY " . $_POST["orderbyVal2_1"];
+        else {
+            $gq2 .="\n ORDER BY DESC(" . $_POST["orderbyVal2_1"] . ")";
+        }
+    }
+    if (!empty($_POST["selOrderBy2_2"])) {
+        if (!empty($_POST["selOrderBy2_1"])) {
+            if (empty($_POST["selOrderByDESC2_2"]))
+                $gq2 .="  " . $_POST["orderbyVal2_2"];
+            else
+                $gq2 .=" DESC(" . $_POST["orderbyVal2_2"] . ")";
+        }
+        else {
+            if (empty($_POST["selOrderByDESC2_2"]))
+                $gq2 .="\n ORDER BY  " . $_POST["orderbyVal2_2"];
+            else
+                $gq2 .="\n ORDER BY DESC(" . $_POST["orderbyVal2_2"] . ")";
+        }
+    }
+
+        
+        
+            if (!empty($_POST["selLimit_2"]))  $gq2 .="\n LIMIT  ".$_POST["LimitVal_2"];
+        
        $generatedQuery2 = $gq2;
     }
+    
+    ///////////////// functions //////////////////////////////
     function getPropertyName($param) {
         if($param== '?type') return 'rdf:type';
         if($param== '?series') return 'seo:belongsToSeries';
@@ -350,15 +390,17 @@ if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_P
 
         <h3>1. Simple SPRQL query generation</h3>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">  
-            <strong>1.1 Declare prefix:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
+            <strong>1.1 Prefix declaration:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
 
             <p> <textarea name="prefix" id="prefix" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
             </p>
 
-            <p  ><strong> 1.2 Select column(s): </strong>
-            <p> <input name="selAll" type="checkbox" checked="checked" > 
-          all , 
-          <input name="selURI" type="checkbox" checked="checked"> 
+            <p  ><strong> 1.2 Result clause: </strong>
+            <p><span class="style3">
+            <input name="selDISTINCT" type="checkbox" id="selDISTINCT" checked="checked" />
+            </span><span class="style4">DISTINCT</span>
+            -
+            <input name="selURI" type="checkbox" checked="checked"> 
           URI, <input type="checkbox" name="selType" > 
           event type, 
             <input type="checkbox" name="selSeries" > 
@@ -374,20 +416,18 @@ if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_P
                 <input type="checkbox" name="selAP">
                 accepted papers,
                 <input name="selSP" type="checkbox" >
-                submitted papers,
-                <input name="selStartDate" type="checkbox">
-                start date,
-                <input name="selEndDate" type="checkbox"">
-                end date, 
-                <input type="checkbox" name="selWebsite" >
-                website, 
-                <input name="selPublisher" type="checkbox" >
-               publisher.          </p>
-<p><span class="style3">
-  <input name="selDISTINCT" type="checkbox" id="selDISTINCT" checked="checked">
-  </span><span class="style4">DISTINCT</span>  </p>
-<p><strong>1.3 Query pattern: </strong></p>
-<table width="68%" border="0" cellspacing="0" cellpadding="0">
+                submitted papers,               </p>
+          <p>
+              <input name="selStartDate" type="checkbox">
+              start date,
+              <input name="selEndDate" type="checkbox"">
+              end date,
+              <input type="checkbox" name="selWebsite" >
+              website,
+              <input name="selPublisher" type="checkbox" >
+          publisher.&nbsp;</p>
+            <p><strong>1.3 Query pattern: </strong></p>
+<table width="95%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><input label="event type" type="checkbox" name="filType" /> 
         <!--checked="checked"-->
@@ -410,9 +450,9 @@ if (!empty($_POST["selOrderBy2"])and empty($_POST["selOrderBy1"]) and !empty($_P
   </tr> 
    
    <tr>
-    <td width="16%"><input name="filCountry" type="checkbox"  />
+    <td width="18%"><input name="filCountry" type="checkbox"  />
 country </td>
-    <td width="8%">&nbsp;</td>
+    <td width="6%">&nbsp;</td>
     <td width="38%"><select name="countryVal" class="form-control">
                                                                           <option value="Afganistan">Afghanistan</option>
                                                                           <option value="Albania">Albania</option>
@@ -771,26 +811,14 @@ OPTIONAL&nbsp;-- &nbsp;format&nbsp;<em>YYYY-MM-DD</em></td>
                                                                            <input name="OptionalAP" type="checkbox" id="OptionalAP"/>
 OPTIONAL</td>
                                                                       </tr>
-                                                                      <tr>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                      </tr>
           </table>
  
    <p><strong>1.4 Query modifiers</strong></p>
-   <table width="48%" border="0" cellspacing="0" cellpadding="0">
+   <table width="80%" border="0" cellspacing="0" cellpadding="0">
      <tr>
-       <td width="13%" >Order by:&nbsp;</td>
-       <td width="3%" ><input name="selOrderBy1" type="checkbox" id="selOrderBy1" checked="checked" /></td>
-       <td width="37%" ><select name="orderbyVal1" class="form-control" id="orderbyVal1"  >
+       <td width="10%" >Order by:&nbsp;</td>
+       <td width="5%" ><input name="selOrderBy1" type="checkbox" id="selOrderBy1" checked="checked" /></td>
+       <td width="18%" ><select name="orderbyVal1" class="form-control" id="orderbyVal1"  >
            <option value="?type" selected="selected">type</option>
            <option value="?series">series</option>
            <option value="?country">country</option>
@@ -805,9 +833,13 @@ OPTIONAL</td>
            <option value="?publisher">publisher</option>
            <!--selected="selected"-->
          </select></td>
-       <td width="8%" >  &nbsp;
-         &nbsp; <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
-       <td width="39%" ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
+       <td width="12%" > &nbsp;
+         <input name="selOrderByDESC1_1" type="checkbox" id="selOrderByDESC1_1" />
+DESC</td>
+       <td width="6%" >,
+         &nbsp;
+         <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
+       <td width="22%" ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
            <option value="?type">type</option>
            <option value="?series"selected="selected">series</option>
            <option value="?country">country</option>
@@ -822,11 +854,17 @@ OPTIONAL</td>
            <option value="?publisher">publisher</option>
            <!--selected="selected"-->
          </select></td>
+       <td width="5%" > &nbsp;
+          <input name="selOrderByDEC1_2" type="checkbox" id="selOrderByDEC1_2" /></td>
+       <td width="22%" > DESC</td>
      </tr>
      <tr>
        <td>Limit:</td>
        <td><input name="selLimit" type="checkbox" id="selLimit" checked="checked" /></td>
-       <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="36" class="form-control"/></td>
+       <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="20" class="form-control"/></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
        <td>&nbsp;</td>
        <td>&nbsp;</td>
      </tr>
@@ -841,7 +879,7 @@ OPTIONAL</td>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
 <form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
-  <p><strong>1.5 query execution: </strong></p>
+  <p><strong>1.5 query execution: </strong>you can edit the generated query before press the Execute button (<em>modify-before-execution</em> is enabled). </p>
   <p>
     	&nbsp;
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
@@ -853,7 +891,7 @@ OPTIONAL</td>
 </form>
 <hr />
 <h4>2. SPRQL query generation with aggregation  </h4>
-<strong>2.1 Declare prefix:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
+<strong>2.1 Prefix declaration:</strong>  each namespace SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">  
 
             <p> <textarea name="prefix2" id="prefix2" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
@@ -861,50 +899,53 @@ OPTIONAL</td>
 
             <p  ><strong> 2.2 Select aggregation function: </strong>
            &nbsp;            
-            <table width="60%" border="0" cellspacing="0" cellpadding="0">
+            <table width="70%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="7%" >function:&nbsp;&nbsp;&nbsp; </td>
+                <td width="9%" >function:&nbsp;&nbsp;&nbsp; </td>
                 <td width="18%" >
 				
 		<select name="selFn" class="form-control" id="selFn"  onchange="generateAlias()">
-                  <option value="COUNT" selected="selected">COUNT</option>
+                  <option value="COUNT">COUNT</option>
                   <option value="SUM">SUM</option>
-                  <option value="AVG">AVG</option>
+                  <option value="AVG" selected="selected">AVG</option>
                   <option value="MIN">MIN</option>
                   <option value="MAX">MAX</option>
                   <option value="SAMPLE">SAMPLE</option>
                   <option value="GROUP_CONCAT">GROUP_CONCAT</option>
                   <!--selected="selected"-->
                 </select>                </td>
-				<td width="13%">&nbsp; column:</td>
-                <td width="27%"><select name="selFnCol" class="form-control" id="selFnCol"  onchange="generateAlias()">
-                  <option value="?type" selected="selected">type</option>
-                  <option value="?series">series</option>
-                  <option value="?country">country</option>
-                  <option value="?city">city</option>
-                  <option value="?field">field</option>
-                  <option value="?acc">acceptance rate</option>
-                  <option value="?AP">accepted papers</option>
-                  <option value="?SP">submitted papers</option>
-                  <option value="?SD">start date</option>
-                  <option value="?ED">end date</option>
-                  <option value="?website">website</option>
-                  <option value="?publisher">publisher</option>
-                  <!--selected="selected"-->
-                </select></td>
-                <td width="9%">&nbsp;AS</td>
-                <td width="26%"><input name="asVal" type="text" class="form-control" id="asVal" value="?type_COUNT" size="20"/></td>
-              </tr>
-              <tr>
-                <td ><input name="selAggCol" type="checkbox" id="selAggCol"  onclick="onToggle()"/></td>
-                <td >add column:</td>
-                <td><select name="aggColVal" class="form-control" id="aggColVal"  >
-                  <option value="?e">event URI</option>
+				<td width="18%">&nbsp; column:</td>
+                <td width="25%"><select name="selFnCol" class="form-control" id="selFnCol"  onchange="generateAlias()">
                   <option value="?type">type</option>
                   <option value="?series">series</option>
                   <option value="?country">country</option>
                   <option value="?city">city</option>
                   <option value="?field">field</option>
+                  <option value="?acc" selected="selected">acceptance rate</option>
+                  <option value="?AP">accepted papers</option>
+                  <option value="?SP">submitted papers</option>
+                  <option value="?SD">start date</option>
+                  <option value="?ED">end date</option>
+                  <option value="?website">website</option>
+                  <option value="?publisher">publisher</option>
+                  <!--selected="selected"-->
+                </select></td>
+                <td width="5%">&nbsp;&nbsp; AS</td>
+                <td width="25%"><input name="asVal" type="text" class="form-control" id="asVal" value="?type_COUNT" size="20"/></td>
+              </tr>
+              <tr>
+                <td ><div align="right">
+                  <input name="selAggCol" type="checkbox" id="selAggCol"  onclick="addAggregationColToGroupBy()"/>
+                  &nbsp;&nbsp; 
+                </div></td>
+                <td >add column:</td>
+                <td><select name="aggColVal" class="form-control" id="aggColVal"  onchange="addAggregationColToGroupBy()">
+                  <option value="?e">event URI</option>
+                  <option value="?type">type</option>
+                  <option value="?series" selected="selected">series</option>
+                  <option value="?country">country</option>
+                  <option value="?city">city</option>
+                  <option value="?field">field</option>
                   <option value="?acc">acceptance rate</option>
                   <option value="?AP">accepted papers</option>
                   <option value="?SP">submitted papers</option>
@@ -914,18 +955,18 @@ OPTIONAL</td>
                   <option value="?publisher">publisher</option>
                   <!--selected="selected"-->
                 </select></td>
-                <td colspan="3"><span class="style5">&nbsp;* you have to add selected column to group by. </span></td>
+                <td colspan="3"><span class="style5">&nbsp;*  selected column must added to group by clause; we do it for you. </span></td>
               </tr>
-            </table>
+          </table>
             <p  >
           
             <table width="50%" border="0" cellspacing="0" cellpadding="0">
              <tr>
-               <td >Group by:&nbsp;</td>
-               <td ><input name="selGroupBy1" type="checkbox" id="selGroupBy1" /></td>
-               <td ><select name="groupbyVal1" class="form-control" id="groupbyVal1"  >
-                   <option value="?type" selected="selected">type</option>
-                   <option value="?series">series</option>
+               <td width="16%" >Group by:&nbsp;</td>
+               <td width="5%" ><input name="selGroupBy1" type="checkbox" id="selGroupBy1" /></td>
+               <td width="27%" ><select name="groupbyVal1" class="form-control" id="groupbyVal1"  >
+                   <option value="?type">type</option>
+                   <option value="?series" selected="selected">series</option>
                    <option value="?country">country</option>
                    <option value="?city">city</option>
                    <option value="?field">field</option>
@@ -938,10 +979,10 @@ OPTIONAL</td>
                    <option value="?publisher">publisher</option>
                    <!--selected="selected"-->
                </select></td>
-               <td >&nbsp;
+               <td width="11%" >&nbsp;
                  &nbsp;
-             <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
-               <td ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
+             <input name="selGroupBy2" type="checkbox" id="selGroupBy2" /></td>
+               <td width="41%" ><select name="groupbyVal2" class="form-control" id="groupbyVal2"  >
                    <option value="?type">type</option>
                    <option value="?series"selected="selected">series</option>
                    <option value="?country">country</option>
@@ -959,45 +1000,86 @@ OPTIONAL</td>
              </tr>
              <tr>
                <td>Having:</td>
-               <td><input name="selLimit" type="checkbox" id="selLimit" /></td>
-               <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="36" class="form-control"/></td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-             </tr>
-             <tr>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-             </tr>
-             <tr>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
-               <td>&nbsp;</td>
+               <td><input name="selHaving" type="checkbox" id="selHaving" onclick="addAggregationFnToHaving()"/></td>
+               <td><input name="HavingColVal" type="text" id="HavingColVal" size="20" class="form-control"/></td>
+               <td> &nbsp;
+                 <select name="havingOP" id="havingOP">
+                 <option value="&gt;"> &gt;</option>
+                 <option value="&gt;="> &ge;</option>
+                 <option value="&lt;"> &lt;</option>
+                 <option value="&gt;="> &le;</option>
+                 <option value="="> =</option>
+                 <option value="!="> &ne;</option>
+               </select></td>
+               <td><input name="havingVal" type="text" id="havingVal" value="0" size="20" class="form-control"/></td>
              </tr>
           </table>
+    <p><strong>2.4 Query modifiers</strong></p>
+    <table width="70%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="13%" >Order by:&nbsp;</td>
+        <td width="4%" ><input name="selOrderBy2_1" type="checkbox" id="selOrderBy2_1" /></td>
+        <td width="29%" ><select name="orderbyVal2_1" class="form-control" id="orderbyVal2_1"  >
+            <option value="?type" selected="selected">type</option>
+            <option value="?series">series</option>
+            <option value="?country">country</option>
+            <option value="?city">city</option>
+            <option value="?field">field</option>
+            <option value="?acc">acceptance rate</option>
+            <option value="?AP">accepted papers</option>
+            <option value="?SP">submitted papers</option>
+            <option value="?SD">start date</option>
+            <option value="?ED">end date</option>
+            <option value="?website">website</option>
+            <option value="?publisher">publisher</option>
+            <!--selected="selected"-->
+        </select></td>
+        <td width="12%" > &nbsp;
+          <input name="selOrderByDESC2_1" type="checkbox" id="selOrderByDESC2_1" />
+DESC</td>
+        <td width="5%" >, 
+          <input name="selOrderBy2_2" type="checkbox" id="selOrderBy2_2" /></td>
+        <td width="19%" ><select name="orderbyVal2_2" class="form-control" id="select2"  >
+          <option value="?type">type</option>
+          <option value="?series"selected="selected">series</option>
+          <option value="?country">country</option>
+          <option value="?city">city</option>
+          <option value="?field">field</option>
+          <option value="?acc">acceptance rate</option>
+          <option value="?AP">accepted papers</option>
+          <option value="?SP">submitted papers</option>
+          <option value="?SD">start date</option>
+          <option value="?ED">end date</option>
+          <option value="?website">website</option>
+          <option value="?publisher">publisher</option>
+          <!--selected="selected"-->
+        </select></td>
+        <td width="18%" > &nbsp;
+          <input name="selOrderByDESC2_2" type="checkbox" id="selOrderByDESC2_2" />
+DESC</td>
+      </tr>
+      <tr>
+        <td>Limit:</td>
+        <td><input name="selLimit_2" type="checkbox" id="selLimit_2" /></td>
+        <td><input name="LimitVal_2" type="text" id="LimitVal_2" value="10" size="20" class="form-control"/></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    
     <p>
       <input type="submit" name="submitAgg" value="Generate" />
       <button type="button" onclick="copy('generatedQuery2')">Copy</button>
     </p>
     <p>Generated query: </p>
-    <p>
-              <textarea id="generatedQuery2" name="textarea2" rows="10" cols="120"><?php echo $generatedQuery2; ?></textarea>
-			  
-			  
-          </p>
+    <p>   <textarea id="generatedQuery2" name="textarea2" rows="10" cols="120"><?php echo $generatedQuery2; ?></textarea>   </p>
 			
-			
-			
-			</p>
-			</p>
-			
+		
 	</form>
             <form method="post" action="/rdfapi-php/test/querySPARQLClient.php">
-  <p><strong>2.5 query execution: </strong></p>
+  <p><strong>2.5 query execution: </strong>you can edit the generated query before press the Execute button.</p>
   <p>
     	&nbsp;
     	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1006,7 +1088,289 @@ OPTIONAL</td>
     <!--            getVal()to get the updated query from textarea-->
     </p>
 </form>
-            <p>&nbsp;</p>
+            <hr />
+            <h4>3. Parametarized predefined SPRQL query</h4>
+            <ol>
+              <li>give me all events in the field&nbsp;
+                <select name="ParaField" class="form-control" id="ParaField">
+                  <option value="&lt;http://purl.org/seo#ArtificialIntelligence&gt;">Artificial Intelligence</option>
+                  <option value="&lt;http://purl.org/seo#SoftwareEngineering&gt;">Software Engineering </option>
+                  <option value="&lt;http://purl.org/seo#WorldWideWeb&gt;">Web Technologies</option>
+                  <option value="&lt;http://purl.org/seo#SecurityAndPrivacy&gt;">Computer Security</option>
+                  <option value="&lt;http://purl.org/seo#InformationSystems&gt;">Information systems</option>
+                  <option value="&lt;http://purl.org/seo#ComputerSystemsOrganization&gt;">Computer systems organization</option>
+                  <option value="&lt;http://purl.org/seo#HumanCenteredComputing&gt;">Human Centered Computing</option>
+                  <option value="&lt;http://purl.org/seo#TheoryOfComputations&gt;">Theory of Computation</option>
+                </select> 
+              that took place between&nbsp;&nbsp;
+              <input name="SDVal2" type="date" id="SDVal2" value="2013-01-08" class="form-control"/>  
+              and 
+              <input name="SDVal3" type="date" id="SDVal3" value="2013-01-08" class="form-control"/>
+              .&nbsp; 
+              <input type="submit" name="submit222" value="Execute" onclick="getVal('hiddenField2','generatedQuery2')" />
+              </li>
+              <li>give me all events in the field&nbsp;
+                <select name="select" class="form-control" id="select">
+                  <option value="&lt;http://purl.org/seo#ArtificialIntelligence&gt;">Artificial Intelligence</option>
+                  <option value="&lt;http://purl.org/seo#SoftwareEngineering&gt;">Software Engineering </option>
+                  <option value="&lt;http://purl.org/seo#WorldWideWeb&gt;">Web Technologies</option>
+                  <option value="&lt;http://purl.org/seo#SecurityAndPrivacy&gt;">Computer Security</option>
+                  <option value="&lt;http://purl.org/seo#InformationSystems&gt;">Information systems</option>
+                  <option value="&lt;http://purl.org/seo#ComputerSystemsOrganization&gt;">Computer systems organization</option>
+                  <option value="&lt;http://purl.org/seo#HumanCenteredComputing&gt;">Human Centered Computing</option>
+                  <option value="&lt;http://purl.org/seo#TheoryOfComputations&gt;">Theory of Computation</option>
+                </select>
+that took place in&nbsp; 
+<select name="select2" class="form-control">
+  <option value="Afganistan">Afghanistan</option>
+  <option value="Albania">Albania</option>
+  <option value="Algeria">Algeria</option>
+  <option value="American_Samoa">American Samoa</option>
+  <option value="Andorra">Andorra</option>
+  <option value="Angola">Angola</option>
+  <option value="Anguilla">Anguilla</option>
+  <option value="Antigua_and_Barbuda">Antigua &amp; Barbuda</option>
+  <option value="Argentina">Argentina</option>
+  <option value="Armenia">Armenia</option>
+  <option value="Aruba">Aruba</option>
+  <option value="Australia">Australia</option>
+  <option value="Austria">Austria</option>
+  <option value="Azerbaijan">Azerbaijan</option>
+  <option value="Bahamas">Bahamas</option>
+  <option value="Bahrain">Bahrain</option>
+  <option value="Bangladesh">Bangladesh</option>
+  <option value="Barbados">Barbados</option>
+  <option value="Belarus">Belarus</option>
+  <option value="Belgium">Belgium</option>
+  <option value="Belize">Belize</option>
+  <option value="Benin">Benin</option>
+  <option value="Bermuda">Bermuda</option>
+  <option value="Bhutan">Bhutan</option>
+  <option value="Bolivia">Bolivia</option>
+  <option value="Bonaire">Bonaire</option>
+  <option value="Bosnia_and_Herzegovina">Bosnia &amp; Herzegovina</option>
+  <option value="Botswana">Botswana</option>
+  <option value="Brazil">Brazil</option>
+  <option value="Brunei">Brunei</option>
+  <option value="Bulgaria">Bulgaria</option>
+  <option value="Burkina_Faso">Burkina Faso</option>
+  <option value="Burundi">Burundi</option>
+  <option value="Cambodia">Cambodia</option>
+  <option value="Cameroon">Cameroon</option>
+  <option value="Canada">Canada</option>
+  <option value="Canary_Islands">Canary Islands</option>
+  <option value="Cape_Verde">Cape Verde</option>
+  <option value="Cayman_Islands">Cayman Islands</option>
+  <option value="Central_African_Republic">Central African Republic</option>
+  <option value="Chad">Chad</option>
+  <option value="Channel_Islands_Beach,_California">Channel Islands</option>
+  <option value="Chile">Chile</option>
+  <option value="China">China</option>
+  <option value="Christmas_Island">Christmas Island</option>
+  <option value="Colombia">Colombia</option>
+  <option value="Comoros">Comoros</option>
+  <option value="Congo">Congo</option>
+  <option value="Cook_Islands">Cook Islands</option>
+  <option value="Costa_Rica">Costa Rica</option>
+  <option value="Ivory_Coast">Cote D'Ivoire</option>
+  <option value="Croatia">Croatia</option>
+  <option value="Cuba">Cuba</option>
+  <option value="Curaco">Curacao</option>
+  <option value="Cyprus">Cyprus</option>
+  <option value="Czech_Republic">Czech Republic</option>
+  <option value="Denmark">Denmark</option>
+  <option value="Djibouti">Djibouti</option>
+  <option value="Dominica">Dominica</option>
+  <option value="Dominican_Republic">Dominican Republic</option>
+  <option value="East_Timor">East Timor</option>
+  <option value="Ecuador">Ecuador</option>
+  <option value="Egypt">Egypt</option>
+  <option value="El Salvador">El_Salvador</option>
+  <option value="Equatorial_Guinea">Equatorial Guinea</option>
+  <option value="Eritrea">Eritrea</option>
+  <option value="Estonia">Estonia</option>
+  <option value="Ethiopia">Ethiopia</option>
+  <option value="Falkland_Islands">Falkland Islands</option>
+  <option value="Faroe_Islands">Faroe Islands</option>
+  <option value="Fiji">Fiji</option>
+  <option value="Finland">Finland</option>
+  <option value="France">France</option>
+  <option value="French_Guiana">French Guiana</option>
+  <option value="French_Polynesia">French Polynesia</option>
+  <option value="Gabon">Gabon</option>
+  <option value="Gambia">Gambia</option>
+  <option value="Georgia">Georgia</option>
+  <option value="Germany" selected="selected">Germany</option>
+  <option value="Ghana">Ghana</option>
+  <option value="Gibraltar">Gibraltar</option>
+  <option value="Great Britain">United Kingdom</option>
+  <option value="Greece">Greece</option>
+  <option value="Greenland">Greenland</option>
+  <option value="Grenada">Grenada</option>
+  <option value="Guadeloupe">Guadeloupe</option>
+  <option value="Guam">Guam</option>
+  <option value="Guatemala">Guatemala</option>
+  <option value="Guinea">Guinea</option>
+  <option value="Guyana">Guyana</option>
+  <option value="Haiti">Haiti</option>
+  <option value="Hawaii">Hawaii</option>
+  <option value="Honduras">Honduras</option>
+  <option value="Hong Kong">Hong Kong</option>
+  <option value="Hungary">Hungary</option>
+  <option value="Iceland">Iceland</option>
+  <option value="India">India</option>
+  <option value="Indonesia">Indonesia</option>
+  <option value="Iran">Iran</option>
+  <option value="Iraq">Iraq</option>
+  <option value="Ireland">Ireland</option>
+  <option value="Isle of Man">Isle of Man</option>
+  <option value="Israel">Israel</option>
+  <option value="Italy">Italy</option>
+  <option value="Jamaica">Jamaica</option>
+  <option value="Japan">Japan</option>
+  <option value="Jordan">Jordan</option>
+  <option value="Kazakhstan">Kazakhstan</option>
+  <option value="Kenya">Kenya</option>
+  <option value="Kiribati">Kiribati</option>
+  <option value="Korea North">Korea North</option>
+  <option value="Korea Sout">Korea South</option>
+  <option value="Kuwait">Kuwait</option>
+  <option value="Kyrgyzstan">Kyrgyzstan</option>
+  <option value="Laos">Laos</option>
+  <option value="Latvia">Latvia</option>
+  <option value="Lebanon">Lebanon</option>
+  <option value="Lesotho">Lesotho</option>
+  <option value="Liberia">Liberia</option>
+  <option value="Libya">Libya</option>
+  <option value="Liechtenstein">Liechtenstein</option>
+  <option value="Lithuania">Lithuania</option>
+  <option value="Luxembourg">Luxembourg</option>
+  <option value="Macau">Macau</option>
+  <option value="Macedonia">Macedonia</option>
+  <option value="Madagascar">Madagascar</option>
+  <option value="Malaysia">Malaysia</option>
+  <option value="Malawi">Malawi</option>
+  <option value="Maldives">Maldives</option>
+  <option value="Mali">Mali</option>
+  <option value="Malta">Malta</option>
+  <option value="Marshall Islands">Marshall Islands</option>
+  <option value="Martinique">Martinique</option>
+  <option value="Mauritania">Mauritania</option>
+  <option value="Mauritius">Mauritius</option>
+  <option value="Mayotte">Mayotte</option>
+  <option value="Mexico">Mexico</option>
+  <option value="Midway Islands">Midway Islands</option>
+  <option value="Moldova">Moldova</option>
+  <option value="Monaco">Monaco</option>
+  <option value="Mongolia">Mongolia</option>
+  <option value="Montserrat">Montserrat</option>
+  <option value="Morocco">Morocco</option>
+  <option value="Mozambique">Mozambique</option>
+  <option value="Myanmar">Myanmar</option>
+  <option value="Nambia">Nambia</option>
+  <option value="Nauru">Nauru</option>
+  <option value="Nepal">Nepal</option>
+  <option value="Netherland Antilles">Netherland Antilles</option>
+  <option value="Netherlands">Netherlands (Holland, Europe)</option>
+  <option value="Nevis">Nevis</option>
+  <option value="New Caledonia">New Caledonia</option>
+  <option value="New Zealand">New Zealand</option>
+  <option value="Nicaragua">Nicaragua</option>
+  <option value="Niger">Niger</option>
+  <option value="Nigeria">Nigeria</option>
+  <option value="Niue">Niue</option>
+  <option value="Norfolk Island">Norfolk Island</option>
+  <option value="Norway">Norway</option>
+  <option value="Oman">Oman</option>
+  <option value="Pakistan">Pakistan</option>
+  <option value="Palau Island">Palau Island</option>
+  <option value="Palestine">Palestine</option>
+  <option value="Panama">Panama</option>
+  <option value="Papua New Guinea">Papua New Guinea</option>
+  <option value="Paraguay">Paraguay</option>
+  <option value="Peru">Peru</option>
+  <option value="Phillipines">Philippines</option>
+  <option value="Pitcairn Island">Pitcairn Island</option>
+  <option value="Poland">Poland</option>
+  <option value="Portugal">Portugal</option>
+  <option value="Puerto Rico">Puerto Rico</option>
+  <option value="Qatar">Qatar</option>
+  <option value="Republic of Montenegro">Republic of Montenegro</option>
+  <option value="Republic of Serbia">Republic of Serbia</option>
+  <option value="Reunion">Reunion</option>
+  <option value="Romania">Romania</option>
+  <option value="Russia">Russia</option>
+  <option value="Rwanda">Rwanda</option>
+  <option value="St Barthelemy">St Barthelemy</option>
+  <option value="St Eustatius">St Eustatius</option>
+  <option value="St Helena">St Helena</option>
+  <option value="St Kitts-Nevis">St Kitts-Nevis</option>
+  <option value="St Lucia">St Lucia</option>
+  <option value="St Maarten">St Maarten</option>
+  <option value="St Pierre &amp; Miquelon">St Pierre &amp; Miquelon</option>
+  <option value="St Vincent &amp; Grenadines">St Vincent &amp; Grenadines</option>
+  <option value="Saipan">Saipan</option>
+  <option value="Samoa">Samoa</option>
+  <option value="Samoa American">Samoa American</option>
+  <option value="San Marino">San Marino</option>
+  <option value="Sao Tome &amp; Principe">Sao Tome &amp; Principe</option>
+  <option value="Saudi Arabia">Saudi Arabia</option>
+  <option value="Senegal">Senegal</option>
+  <option value="Serbia">Serbia</option>
+  <option value="Seychelles">Seychelles</option>
+  <option value="Sierra Leone">Sierra Leone</option>
+  <option value="Singapore">Singapore</option>
+  <option value="Slovakia">Slovakia</option>
+  <option value="Slovenia">Slovenia</option>
+  <option value="Solomon Islands">Solomon Islands</option>
+  <option value="Somalia">Somalia</option>
+  <option value="South Africa">South Africa</option>
+  <option value="Spain">Spain</option>
+  <option value="Sri Lanka">Sri Lanka</option>
+  <option value="Sudan">Sudan</option>
+  <option value="Suriname">Suriname</option>
+  <option value="Swaziland">Swaziland</option>
+  <option value="Sweden">Sweden</option>
+  <option value="Switzerland">Switzerland</option>
+  <option value="Syria">Syria</option>
+  <option value="Tahiti">Tahiti</option>
+  <option value="Taiwan">Taiwan</option>
+  <option value="Tajikistan">Tajikistan</option>
+  <option value="Tanzania">Tanzania</option>
+  <option value="Thailand">Thailand</option>
+  <option value="Togo">Togo</option>
+  <option value="Tokelau">Tokelau</option>
+  <option value="Tonga">Tonga</option>
+  <option value="Trinidad &amp; Tobago">Trinidad &amp; Tobago</option>
+  <option value="Tunisia">Tunisia</option>
+  <option value="Turkey">Turkey</option>
+  <option value="Turkmenistan">Turkmenistan</option>
+  <option value="Turks &amp; Caicos Is">Turks &amp; Caicos Is</option>
+  <option value="Tuvalu">Tuvalu</option>
+  <option value="Uganda">Uganda</option>
+  <option value="Ukraine">Ukraine</option>
+  <option value="United Arab Erimates">United Arab Emirates</option>
+  <option value="England">England</option>
+  <option value="United States">United States</option>
+  <option value="Uraguay">Uruguay</option>
+  <option value="Uzbekistan">Uzbekistan</option>
+  <option value="Vanuatu">Vanuatu</option>
+  <option value="Vatican City State">Vatican City State</option>
+  <option value="Venezuela">Venezuela</option>
+  <option value="Vietnam">Vietnam</option>
+  <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+  <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+  <option value="Wake Island">Wake Island</option>
+  <option value="Wallis &amp; Futana Is">Wallis &amp; Futana Is</option>
+  <option value="Yemen">Yemen</option>
+  <option value="Zaire">Zaire</option>
+  <option value="Zambia">Zambia</option>
+  <option value="Zimbabwe">Zimbabwe</option>
+</select>
+.&nbsp;
+<input type="submit" name="submit2222" value="Execute" onclick="getVal('hiddenField2','generatedQuery2')" />
+</li>
+            </ol>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>Combining SPARQL Graph Patterns : { A } UNION { B } &nbsp;&nbsp; A MINUS { B }</p>
@@ -1016,5 +1380,59 @@ OPTIONAL</td>
     <h2>&nbsp;</h2>
   </div>
 	</div>
+        <script>
+           
+   function generateAlias(){
+         document.getElementById('asVal').value = document.getElementById('selFnCol').value+  "_"+ document.getElementById('selFn').value  ;
+    }
+    function getVal(hiddenId,textareaID)
+    {
+        document.getElementById(hiddenId).value = document.getElementById(textareaID).value ;
+    }
+function KeyPress(e) { 
+e = e || window.event;
+var key = e.keyCode ? e.keyCode : e.which;
+if (key == 13) {
+e.preventDefault();
+ document.getElementById("prefix").value += "\n PREFIX ";
+}
+}
+function copy(id) {
+let textarea = document.getElementById(id);
+textarea.select();
+document.execCommand("copy");
+}
+function addAggregationFnToHaving() { // automaticll add Agg fun to having
+// Get the checkbox
+var checkBox = document.getElementById("selHaving");
+// Get the output text
+var text = document.getElementById("HavingColVal");
+
+// If the checkbox is checked, display the output text
+if (checkBox.checked == true){
+text.value = document.getElementById("selFn").value+"("+document.getElementById("selFnCol").value+")";
+} else {
+text.value = "";
+}
+}
+function addAggregationColToGroupBy() { // automaticll add Agg fun to having
+// Get the checkbox
+var checkBox = document.getElementById("selAggCol");
+// Get the output text
+var text = document.getElementById("groupbyVal1");
+
+// If the checkbox is checked, display the output text
+if (checkBox.checked == true){
+text.value = document.getElementById("aggColVal").value;
+document.getElementById("selGroupBy1").checked=true;
+
+} else {
+text.value = "";
+document.getElementById("selGroupBy1").checked=false;
+
+}
+}
+
+        </script>
 </body>
                                                                                         </html>

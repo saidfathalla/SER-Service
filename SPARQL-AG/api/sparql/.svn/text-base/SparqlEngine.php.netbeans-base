@@ -1092,16 +1092,12 @@ Class SparqlEngine extends Object{
     * @param array $queryResult [][?VARNAME] = object Node
     * @return void
     */
-    public static function writeQueryResultAsHtmlTable($queryResult) {
+    public function writeQueryResultAsHtmlTable($queryResult) {
         // Import Package Utility
         include_once(RDFAPI_INCLUDE_DIR.PACKAGE_UTILITY);
 
-        /*if ( $queryResult[0] == null) {
+        if ( $queryResult[0] == null) {
             echo 'no match<br>';
-            return;
-        }*/
-		if (!isset($queryResult[0])) {
-            echo '<font color="red">No match is found.</font> <br><br><button onclick="goBack()">Back </button>';
             return;
         }
         if ( $queryResult == 'false') {
@@ -1132,21 +1128,13 @@ Class SparqlEngine extends Object{
 
                     $lang  = NULL;
                     $dtype = NULL;
-//                     if (is_a($value, 'Literal')) {
-//                        if ($value->getLanguage() != NULL)
-//                        $lang = ' <b>(xml:lang="' . $value->getLanguage() . '") </b> ';
-//                       SF: for diable datatype to be appear in results
-//					    if ($value->getDatatype() != NULL)
-//                        $dtype = ' <b>(rdf:datatype="' . $value->getDatatype() . '") </b> ';
-//                    }
                     if (is_a($value, 'Literal')) {
-                            echo  $value->getLabel() .'</p>';
+                        if ($value->getLanguage() != NULL)
+                        $lang = ' <b>(xml:lang="' . $value->getLanguage() . '") </b> ';
+                        if ($value->getDatatype() != NULL)
+                        $dtype = ' <b>(rdf:datatype="' . $value->getDatatype() . '") </b> ';
                     }
-//                    echo  RDFUtil::getNodeTypeName($value) .$value->getLabel() . $lang . $dtype .'</p>';
-                    else {
-                        echo  '<a href="'.$value->getLabel() .'">'.$value->getLabel().'</a></p>';
-                    }
-			   
+                    echo  RDFUtil::getNodeTypeName($value) .$value->getLabel() . $lang . $dtype .'</p>';
                 }else{
                     echo "<td bgcolor='white'>unbound";
                 }
@@ -1179,8 +1167,3 @@ Class SparqlEngine extends Object{
 } // end: Class SparqlEngine
 
 ?>
-<script>
-function goBack() {
-  window.history.back();
-}
-</script>

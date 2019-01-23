@@ -2,8 +2,8 @@
 <html>
     <body>
         <?php
-
-        function queryDBpedia($countryString) {
+ echo queryDBpediaCity('South_Tangerang');
+        function queryDBpediaCity($countryString) {
             $querystring = "";
             define("RDFAPI_INCLUDE_DIR", "C:/wamp64/www/rdfapi-php/api/");
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
@@ -16,10 +16,10 @@
             PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-            SELECT ?country  
+            SELECT ?city  
             WHERE { 
-              ?country rdf:type dbpedia-owl:Country .
-              ?country rdfs:label "' . $countryString . '"@en.
+            ?city rdf:type dbpedia-owl:City ; 
+              rdfs:label   ?label FILTER(regex(str(?label),"' . $countryString . '","i")).
             }
 		';
             $query = new ClientQuery();
@@ -28,9 +28,9 @@
             if (!isset($result[0])) 
                 return "null";
              else 
-                return $result[0]['?country']->getLabel();
+                return $result[0]['?city']->getLabel();
             }
-            echo queryDBpedia('Germany');
+           
             ?>
 
 
