@@ -204,7 +204,7 @@ input[type=submit]:hover, button:hover {
              elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?e seo:belongsToSeries    ?series. FILTER( ?series= <http://purl.org/events_ds#" . $_POST["seriesVal"] . ">) .";
              
            if ((!empty($_POST["selCountry"]) ) and empty($_POST["filCountry"]))   $gq .="\n ?e seo:heldInCountry   ?country .";
-             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . askDBpediaCountry($_POST["countryVal"]) . ">) .";
+             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . $_POST["countryVal"] . ">) ."; //askDBpediaCountry($_POST["countryVal"])
              
            if ((!empty($_POST["selField"]) ) and empty($_POST["filField"]))   $gq .="\n ?e seo:field   ?field .";
              else if (!empty($_POST["fieldVal"]) and !empty($_POST["filField"])) $gq .="\n ?e seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";

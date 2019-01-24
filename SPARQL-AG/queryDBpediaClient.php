@@ -1,7 +1,9 @@
 <?php
   header('X-XSS-Protection:0');  
 		function askDBpediaCountry($countryString) {
-	
+		echo '<script language="javascript">';
+echo 'alert("message successfully sent")';
+echo '</script>';
 	// echo $_SERVER['DOCUMENT_ROOT'];
          		
 		
@@ -16,9 +18,7 @@
 		
 		
 		
-		echo '<script language="javascript">';
-echo 'alert("message successfully sent")';
-echo '</script>';
+	
 // Create a SPARQL client  
             $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
             $query = new ClientQuery();
