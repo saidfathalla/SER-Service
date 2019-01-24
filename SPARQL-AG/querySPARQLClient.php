@@ -30,15 +30,14 @@
          
         echo $querystring."\n";	
 // Include all RAP classes 
-        define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
+        define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SER-Service/SPARQL-AG/api/");
 		echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
 		echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 		
 		
-		 echo  "ew";
-		
+		 
 // Create a SPARQL client  
         $client = ModelFactory::getSparqlClient("http://kddste.sda.tech/sparql");
         $query = new ClientQuery();
@@ -56,7 +55,8 @@
         
 	
         SPARQLEngine::writeQueryResultAsHtmlTable($result);
-
+echo  "ew2";
+		
 //foreach($result as $line){
 //  $value = $line['?events'];
 //    if($value != "")
