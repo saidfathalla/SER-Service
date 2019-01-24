@@ -133,7 +133,7 @@ input[type=submit]:hover, button:hover {
     <body>
 	<div class="header">
 	  <h1>SPARQL-AG service</h1>
-      <p>A SPARQL Auto Generation service for querying EVENTSKG dataset</p>
+      <p>A SPARQL auto-generation service for querying EVENTSKG dataset</p>
   </div>
 
     <div class="topnav">
@@ -204,7 +204,7 @@ input[type=submit]:hover, button:hover {
              else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . queryDBpediaCountry($_POST["countryVal"]) . ">) .";
              
            if ((!empty($_POST["selField"]) ) and empty($_POST["filField"]))   $gq .="\n ?e seo:field   ?field .";
-             else if (!empty($_POST["fieldVal"]) and !empty($_POST["selField"])) $gq .="\n ?e seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";
+             else if (!empty($_POST["fieldVal"]) and !empty($_POST["filField"])) $gq .="\n ?e seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";
                           
            if ((!empty($_POST["selacc"]) ) and empty($_POST["filacc"]))   $gq .="\n ?e seo:acceptanceRate    ?acc .";
              else if (!empty($_POST["op"]) and !empty($_POST["accVal"]) and !empty($_POST["selacc"])) $gq .="\n ?e seo:acceptanceRate   ?acc. FILTER (?acc ".$_POST["op"] . $_POST["accVal"] . ") .";
@@ -360,6 +360,7 @@ input[type=submit]:hover, button:hover {
          function queryDBpediaCountry($countryString) {
             $querystring = "";
             define("RDFAPI_INCLUDE_DIR",  $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
+					
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
             include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  
@@ -442,10 +443,10 @@ input[type=submit]:hover, button:hover {
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><input name="filSeries" type="checkbox" id="filSeries" />      
+    <td><input name="filSeries" type="checkbox" id="filSeries" checked="checked" />      
       series</td>
     <td>&nbsp;</td>
-    <td><input name="seriesVal" type="text"    size="33"  placeholder= "ISWC" class="form-control"/></td>
+    <td><input name="seriesVal" type="text" class="form-control" value="ISWC"    size="33"  placeholder= "ISWC"/></td>
     <td>&nbsp;</td>
   </tr> 
    
@@ -710,7 +711,8 @@ country </td>
    </tr>
     
     <tr>
-        <td><input type="checkbox" name="filField"  > field</td>
+        <td><input name="filField" type="checkbox" checked="checked"  > 
+        field</td>
         <td>&nbsp;</td>
         <!--checked="checked"-->
                                                                         <td><select name="fieldVal" class="form-control">
