@@ -359,6 +359,7 @@ input[type=submit]:hover, button:hover {
             return $data;
         }
          function queryDBpediaCountry($countryString) {
+		 try {
 		 echo $_SERVER['DOCUMENT_ROOT'];
             $querystring = "";
 			if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
@@ -383,6 +384,10 @@ echo RDFAPI_INCLUDE_DIR;
             $query = new ClientQuery();
             $query->query($querystring);
             $result = $client->query($query);
+			}
+			catch(Exception $e) {
+  echo 'Message: ' .$e->getMessage();
+}
             if (!isset($result[0])) 
                 return "null";
              else 
