@@ -1,15 +1,26 @@
 <?php
+  header('X-XSS-Protection:0');  
 		function queryDBpediaCountry($countryString) {
-		 try {
-		 echo $_SERVER['DOCUMENT_ROOT'];
+	
+	// echo $_SERVER['DOCUMENT_ROOT'];
             $querystring = "";
-			if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
-   define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
-else
+			
+		
+		
 		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
-//echo RDFAPI_INCLUDE_DIR;
-	        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
+		
+	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
+	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
+        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
+		
+		
+		
+		
+		
+		echo '<script language="javascript">';
+echo 'alert("message successfully sent")';
+echo '</script>';
 // Create a SPARQL client  
             $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
             $query = new ClientQuery();
@@ -25,10 +36,7 @@ else
             $query = new ClientQuery();
             $query->query($querystring);
             $result = $client->query($query);
-			}
-			catch(Exception $e) {
-  echo 'Message: ' .$e->getMessage();
-}
+		
             if (!isset($result[0])) 
                 return "null";
              else 
