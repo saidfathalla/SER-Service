@@ -133,7 +133,7 @@ input[type=submit]:hover, button:hover {
     <body>
 	<div class="header">
 	  <h1>SPARQL-AG service</h1>
-      <p>A SPARQL auto-generation service for querying EVENTSKG dataset</p>
+      <p>A SPARQL auto-generation service for  EVENTSKG SPARQL endpoint </p>
   </div>
 
     <div class="topnav">
@@ -711,7 +711,7 @@ country </td>
    </tr>
     
     <tr>
-        <td><input name="filField" type="checkbox" checked="checked"  > 
+        <td><input name="filField" type="checkbox"  > 
         field</td>
         <td>&nbsp;</td>
         <!--checked="checked"-->
