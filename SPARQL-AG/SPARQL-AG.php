@@ -359,11 +359,12 @@ input[type=submit]:hover, button:hover {
             return $data;
         }
          function queryDBpediaCountry($countryString) {
+		 echo $_SERVER['DOCUMENT_ROOT'];
             $querystring = "";
 			if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
 else
-   	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
+		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 echo RDFAPI_INCLUDE_DIR;
 	        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
