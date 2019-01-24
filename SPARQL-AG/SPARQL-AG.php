@@ -859,7 +859,7 @@ DESC</td>
      <p>    Generated query:  </p>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
-<form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
+<form method="post" action="/SPARQL-AG/querySPARQLClient.php">
   <p><strong>1.5 query execution: </strong>you can edit the generated query before press the Execute button (<em>modify-before-execution</em> is enabled). </p>
   <p>
     	&nbsp;

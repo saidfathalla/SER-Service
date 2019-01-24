@@ -1,13 +1,15 @@
 <?php
   header('X-XSS-Protection:0');  
 		function askDBpediaCountry($countryString) {
-		echo '<script language="javascript">';
-echo 'alert("message successfully sent")';
-echo '</script>';
+	
 	// echo $_SERVER['DOCUMENT_ROOT'];
-         		
+            $querystring = "";
+			
 		
-		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
+		if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
+	    	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
+		else
+			define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 		
 	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
 	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
@@ -18,7 +20,7 @@ echo '</script>';
 		
 		
 		
-	
+
 // Create a SPARQL client  
             $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
             $query = new ClientQuery();
