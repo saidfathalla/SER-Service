@@ -154,7 +154,8 @@ input[type=submit]:hover, button:hover {
         $generatedQuery="";
         $generatedQuery2="";
         $prefix="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
-	//	echo $_SERVER['DOCUMENT_ROOT'];
+	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
+		echo RDFAPI_INCLUDE_DIR;
         if (empty($_POST["prefix"])) {
             $prefix .= "";
         } else {
