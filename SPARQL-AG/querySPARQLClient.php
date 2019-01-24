@@ -29,9 +29,10 @@
             $querystring = $_POST['q'];
 
          
-//        echo $querystring;	
+        echo $querystring."\n";	
 // Include all RAP classes 
         define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
+		echo RDFAPI_INCLUDE_DIR;
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  
