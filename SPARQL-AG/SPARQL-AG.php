@@ -149,13 +149,6 @@ input[type=submit]:hover, button:hover {
 
         <?php
 // define variables and set to empty values
-if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
-   define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
-else
-   	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
-	
-	        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
-        include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
         header('X-XSS-Protection:0');
         $nameErr = "";
         $generatedQuery="";
@@ -367,7 +360,13 @@ else
         }
          function queryDBpediaCountry($countryString) {
             $querystring = "";
-			
+			if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
+   define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/api/");
+else
+   	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."api/");
+	
+	        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
+        include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  
             $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
             $query = new ClientQuery();
