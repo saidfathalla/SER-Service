@@ -150,12 +150,13 @@ input[type=submit]:hover, button:hover {
         <?php
 // define variables and set to empty values
         header('X-XSS-Protection:0');
+		  include( "queryDBpediaClient.php");
         $nameErr = "";
         $generatedQuery="";
         $generatedQuery2="";
         $prefix="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
-	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
-		echo RDFAPI_INCLUDE_DIR;
+	//define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
+//		echo RDFAPI_INCLUDE_DIR;
         if (empty($_POST["prefix"])) {
             $prefix .= "";
         } else {
@@ -359,42 +360,9 @@ input[type=submit]:hover, button:hover {
             $data = htmlspecialchars($data);
             return $data;
         }
-         function queryDBpediaCountry($countryString) {
-		 try {
-		 echo $_SERVER['DOCUMENT_ROOT'];
-            $querystring = "";
-			if (strpos($_SERVER['DOCUMENT_ROOT'], 'C:') !== false) 
-   define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
-else
-		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
-echo RDFAPI_INCLUDE_DIR;
-	        include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
-        include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
-// Create a SPARQL client  
-            $client = ModelFactory::getSparqlClient("https://dbpedia.org/sparql");
-            $query = new ClientQuery();
-            $querystring = '
-            PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            SELECT ?country  
-            WHERE { 
-              ?country rdf:type dbpedia-owl:Country .
-              ?country rdfs:label "' . $countryString . '"@en.
-            }
-		';
-            $query = new ClientQuery();
-            $query->query($querystring);
-            $result = $client->query($query);
-			}
-			catch(Exception $e) {
-  echo 'Message: ' .$e->getMessage();
-}
-            if (!isset($result[0])) 
-                return "null";
-             else 
-                return $result[0]['?country']->getLabel();
-            }
+         
         ?> 
+		
 <div class="column middle">
         <h4>&nbsp;</h4>
         The goal of developing SPARQL-AG service is to support users who are not familiar, and expert users, in generating SPARQL queries for querying EVENTSKG dataset without going into details how this SPARQL query is written. 
