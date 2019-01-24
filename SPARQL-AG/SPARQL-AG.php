@@ -360,9 +360,9 @@ input[type=submit]:hover, button:hover {
         }
          function queryDBpediaCountry($countryString) {
             $querystring = "";
-          if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
-	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
-		else
+        //  if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
+//	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
+//		else
 		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 			echo 	RDFAPI_INCLUDE_DIR;	
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
