@@ -446,7 +446,7 @@ input[type=submit]:hover, button:hover {
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><input name="filSeries" type="checkbox" id="filSeries" checked="checked" />      
+    <td><input name="filSeries" type="checkbox" id="filSeries" />      
       series</td>
     <td>&nbsp;</td>
     <td><input name="seriesVal" type="text" class="form-control" value="ISWC"    size="33"  placeholder= "ISWC"/></td>
@@ -454,7 +454,7 @@ input[type=submit]:hover, button:hover {
   </tr> 
    
    <tr>
-    <td width="18%"><input name="filCountry" type="checkbox"  />
+    <td width="18%"><input name="filCountry" type="checkbox" checked="checked"  />
 country </td>
     <td width="6%">&nbsp;</td>
     <td width="38%"><select name="countryVal" class="form-control">
