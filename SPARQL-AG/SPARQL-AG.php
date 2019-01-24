@@ -359,7 +359,10 @@ input[type=submit]:hover, button:hover {
         }
          function queryDBpediaCountry($countryString) {
             $querystring = "";
-            define("RDFAPI_INCLUDE_DIR",  $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
+          if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
+	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
+		else
+		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 					
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
             include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
@@ -880,7 +883,7 @@ DESC</td>
      <p>    Generated query:  </p>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
-<form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
+<form method="post" action="/SPARQL-AG/querySPARQLClient.php">
   <p><strong>1.5 query execution: </strong>you can edit the generated query before press the Execute button (<em>modify-before-execution</em> is enabled). </p>
   <p>
     	&nbsp;
