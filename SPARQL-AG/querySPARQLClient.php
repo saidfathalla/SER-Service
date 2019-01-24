@@ -28,7 +28,7 @@
             $querystring = $_POST['q'];
 
          
-        echo $querystring."\n";	
+   //     echo $querystring."\n";	
 // Include all RAP classes 
     //  if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
 //	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");

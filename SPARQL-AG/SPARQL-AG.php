@@ -154,7 +154,7 @@ input[type=submit]:hover, button:hover {
         $generatedQuery="";
         $generatedQuery2="";
         $prefix="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
-		echo $_SERVER['DOCUMENT_ROOT'];
+	//	echo $_SERVER['DOCUMENT_ROOT'];
         if (empty($_POST["prefix"])) {
             $prefix .= "";
         } else {
@@ -363,8 +363,7 @@ input[type=submit]:hover, button:hover {
         //  if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
 //	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
 //		else
-		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
-			echo 	RDFAPI_INCLUDE_DIR;	
+	define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
             include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 // Create a SPARQL client  
