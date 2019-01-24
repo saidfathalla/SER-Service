@@ -35,7 +35,7 @@
 //		else
 		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 		
-		echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
+	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
 	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
