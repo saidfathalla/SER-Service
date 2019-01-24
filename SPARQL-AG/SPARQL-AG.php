@@ -359,7 +359,7 @@ input[type=submit]:hover, button:hover {
         }
          function queryDBpediaCountry($countryString) {
             $querystring = "";
-            define("RDFAPI_INCLUDE_DIR",  $_SERVER['DOCUMENT_ROOT']."/SER-Service/SPARQL-AG/api/");
+            define("RDFAPI_INCLUDE_DIR",  $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
 					
             include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
             include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");

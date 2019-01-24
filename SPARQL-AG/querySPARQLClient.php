@@ -30,9 +30,12 @@
          
         echo $querystring."\n";	
 // Include all RAP classes 
-        define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SER-Service/SPARQL-AG/api/");
-		echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
-		echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
+      if ($_SERVER['DOCUMENT_ROOT']=='C:/wamp64/www')
+	    define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."/SPARQL-AG/api/");
+		else
+		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
+	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php  ";
+	//	echo " </br>" .RDFAPI_INCLUDE_DIR . "RdfAPI.php  " ;
         include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
         include (RDFAPI_INCLUDE_DIR . "sparql/SparqlEngine.php");
 		
