@@ -154,7 +154,7 @@ input[type=submit]:hover, button:hover {
         $generatedQuery="";
         $generatedQuery2="";
         $prefix="PREFIX seo: &lt;http://purl.org/seo/&gt; \n PREFIX conference-ontology: &lt;https://w3id.org/scholarlydata/ontology/conference-ontology.owl#&gt;";
-	//	echo $_SERVER['DOCUMENT_ROOT'];
+		echo $_SERVER['DOCUMENT_ROOT'];
         if (empty($_POST["prefix"])) {
             $prefix .= "";
         } else {
@@ -884,7 +884,7 @@ DESC</td>
      <p>    Generated query:  </p>
      <p><textarea id="generatedQuery" name="generatedQuery" rows="10" cols="120"><?php echo $generatedQuery; ?></textarea> </p>
  </form>
-<form method="post" action="/SPARQL-AG/querySPARQLClient.php">
+<form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
   <p><strong>1.5 query execution: </strong>you can edit the generated query before press the Execute button (<em>modify-before-execution</em> is enabled). </p>
   <p>
     	&nbsp;
