@@ -1,11 +1,9 @@
 <?php
   header('X-XSS-Protection:0');  
-		function queryDBpediaCountry($countryString) {
+		function askDBpediaCountry($countryString) {
 	
 	// echo $_SERVER['DOCUMENT_ROOT'];
-            $querystring = "";
-			
-		
+         		
 		
 		define("RDFAPI_INCLUDE_DIR", $_SERVER['DOCUMENT_ROOT']."SPARQL-AG/api/");
 		
