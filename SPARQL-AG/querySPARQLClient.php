@@ -19,7 +19,7 @@
 
 
         <?php
-       // header('X-XSS-Protection:0');  // to prevent X-XSS-Protection
+        header('X-XSS-Protection:0');  // to prevent X-XSS-Protection
         // define variables and set to empty values
         $nameErr = $emailErr = $genderErr = $websiteErr = "";
         $name = $email = $gender = $comment = $website = "";
