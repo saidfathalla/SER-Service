@@ -430,7 +430,7 @@ input[type=submit]:hover, button:hover {
   </tr> 
    
    <tr>
-    <td width="18%"><input name="filCountry" type="checkbox"  />
+    <td width="18%"><input name="filCountry" type="checkbox" checked="checked"  />
 country </td>
     <td width="6%">&nbsp;</td>
     <td width="38%"><select name="countryVal" class="form-control">
@@ -695,7 +695,7 @@ country </td>
                                                                         <td>&nbsp;</td>
     </tr>
                                                                       <tr>
-                                                                          <td><input name="filacc" type="checkbox" checked="checked"  />  
+                                                                          <td><input name="filacc" type="checkbox"  />  
                                                                           acceptance rate </td>
                                                                           <td><select name="op">
                                                                             <option value=">"> &gt;</option>
@@ -709,7 +709,7 @@ country </td>
                                                                           <td>&nbsp;</td>
                                                                       </tr>
                                                                       <tr>
-                                                                        <td><input name="filAP" type="checkbox" checked="checked" />
+                                                                        <td><input name="filAP" type="checkbox" />
                                                                           accepted papers </td>
                                                                         <td><select name="opAP">
                                                                           <option value="&gt;"> &gt;</option>
