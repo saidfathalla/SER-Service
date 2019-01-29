@@ -1092,6 +1092,7 @@ Class SparqlEngine extends Object{
     * @param array $queryResult [][?VARNAME] = object Node
     * @return void
     */
+    
     public static function writeQueryResultAsHtmlTable($queryResult) {
         // Import Package Utility
         include_once(RDFAPI_INCLUDE_DIR.PACKAGE_UTILITY);
@@ -1113,10 +1114,25 @@ Class SparqlEngine extends Object{
             return;
         }
 
-
+   function getColumnHeader($param) {
+        if($param== '?type') return 'Event type';
+        elseif($param== '?series') return 'Event Series';
+        elseif($param== '?country') return 'Country';
+        elseif($param== '?city') return 'City';
+        elseif($param== '?field') return 'Field';
+        elseif($param== '?acc') return ' Acceptance rate';
+        elseif($param== '?AP') return 'Accepted papers';
+        elseif($param== '?SP') return 'Submitted papers';
+        elseif($param== '?SD') return 'Start date';
+        elseif($param== '?ED') return 'End date';
+        elseif($param== '?website') return 'Publisher';
+        elseif($param== '?publisher') return 'Publisher';
+        else return 'Event URI';     
+}
         echo '<table border="1" cellpadding="3" cellspacing="0"><tr><td><b>No.</b></td>';
-        foreach ($queryResult[0] as $varName => $value)
-        echo "<td align='center'><b>$varName</b></td>";
+        foreach ($queryResult[0] as $varName => $value) {
+            echo "<td align='center'><b>" . getColumnHeader($varName) . "</b></td>";
+        }
         echo '</tr>';
 
         foreach ($queryResult as $n => $var) {
@@ -1140,11 +1156,18 @@ Class SparqlEngine extends Object{
 //                        $dtype = ' <b>(rdf:datatype="' . $value->getDatatype() . '") </b> ';
 //                    }
                     if (is_a($value, 'Literal')) {
+                        if($varName=='?website'){ // to make website hyperlinks
+                            if( strpos( $value->getLabel(), 'http' ) !== false) // to make websiotes without http hyperlinks
+                            echo  '<a href="'.$value->getLabel() .'" target="_blank">'.$value->getLabel().'</a></p>';
+                        else 
+                             echo  '<a href="http://'.$value->getLabel() .'" target="_blank">'.$value->getLabel().'</a></p>';
+                        }
+                        else
                             echo  $value->getLabel() .'</p>';
                     }
 //                    echo  RDFUtil::getNodeTypeName($value) .$value->getLabel() . $lang . $dtype .'</p>';
                     else {
-                        echo  '<a href="'.$value->getLabel() .'">'.$value->getLabel().'</a></p>';
+                        echo  '<a href="'.$value->getLabel() .'" target="_blank">'.$value->getLabel().'</a></p>';
                     }
 			   
                 }else{
@@ -1154,7 +1177,8 @@ Class SparqlEngine extends Object{
             echo '</tr>';
         }
         echo '</table>';
-    }
+  
+        }
 
 
 
@@ -1175,6 +1199,7 @@ Class SparqlEngine extends Object{
     {
         return $this->dataset;
     }//public function getDataset()
+    
 
 } // end: Class SparqlEngine
 
