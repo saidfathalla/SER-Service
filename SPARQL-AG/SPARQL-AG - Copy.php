@@ -9,7 +9,7 @@
 </style>
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>SPARQL-AG</title>
+        <title>SPRQL-AG </title>
         <style>
 		/* syle the page*/
 		* {
@@ -137,12 +137,11 @@ input[type=submit]:hover, button:hover {
   </div>
 
     <div class="topnav">
-  <a href="http://kddste.sda.tech/SER-Service/SPARQL-AG/SPARQL-AG.php">Home </a>
-  <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">EVENTSKG </a>
-  <a href="https://github.com/saidfathalla/SPARQL-AG/issues/new/choose">Issue Tracker</a>
-  <a href="http://kddste.sda.tech/sparql">SPARQL endpoint</a>
+  <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">EVENTSKG Homepage </a>
+  <a href="#">Issue Tracker</a>
+  <a href="#">SPARQL endpoint</a>
   <a href="#">Live Demo</a>
-  <a href="/SPARQL-AG/contact-form/contactUsForm.php">Contact Us</a> </div>
+  </div>
 <div class="row">
   <div class="column side">
     <h2>&nbsp;</h2>
@@ -182,7 +181,7 @@ input[type=submit]:hover, button:hover {
             } else 
             {
 //                $gq .="  ";
-               if (!empty($_POST["selURI"]))   $gq .=" ?event";
+               if (!empty($_POST["selURI"]))   $gq .=" ?e";
                 if (!empty($_POST["selType"]))   $gq .=" ?type";
               if (!empty($_POST["selSeries"]))   $gq .=" ?series";
              if (!empty($_POSTooo["selCountry"]))   $gq .=" ?country";
@@ -202,77 +201,77 @@ input[type=submit]:hover, button:hover {
             
           
                 
-          if ((!empty($_POST["selType"]) or !empty($_POST["selURI"])) and empty($_POST["filType"]))  $gq .="\n ?event rdf:type ?type. FILTER( ?type = conference-ontology:Conference || ?type = conference-ontology:Workshop || ?type = seo:Symposium) .";
-             elseif (!empty($_POST["typeVal"])and !empty($_POST["filType"])) $gq .="\n ?event rdf:type    <" . $_POST["typeVal"] . ">  .";
+          if ((!empty($_POST["selType"]) or !empty($_POST["selURI"])) and empty($_POST["filType"]))  $gq .="\n ?e rdf:type ?type. FILTER( ?type = conference-ontology:Conference || ?type = conference-ontology:Workshop || ?type = seo:Symposium) .";
+             elseif (!empty($_POST["typeVal"])and !empty($_POST["filType"])) $gq .="\n ?e rdf:type    <" . $_POST["typeVal"] . ">  .";
            
-          if (!empty($_POST["selSeries"])  and empty($_POST["filSeries"]))  $gq .="\n ?event seo:belongsToSeries ?series. ";
-             elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?event seo:belongsToSeries    ?series. FILTER( ?series= <http://purl.org/events_ds#" . $_POST["seriesVal"] . ">) .";
+          if (!empty($_POST["selSeries"])  and empty($_POST["filSeries"]))  $gq .="\n ?e seo:belongsToSeries ?series. ";
+             elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?e seo:belongsToSeries    ?series. FILTER( ?series= <http://purl.org/events_ds#" . $_POST["seriesVal"] . ">) .";
              
-           if ((!empty($_POST["selCountry"]) ) and empty($_POST["filCountry"]))   $gq .="\n ?event seo:heldInCountry   ?country .";
-             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?event seo:heldInCountry  ?country FILTER(?country= <" . ($_POST["countryVal"]) . ">) ."; //askDBpediaCountry($_POST["countryVal"])
+           if ((!empty($_POST["selCountry"]) ) and empty($_POST["filCountry"]))   $gq .="\n ?e seo:heldInCountry   ?country .";
+             else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?e seo:heldInCountry  ?country FILTER(?country= <" . ($_POST["countryVal"]) . ">) ."; //askDBpediaCountry($_POST["countryVal"])
              
-           if ((!empty($_POST["selField"]) ) and empty($_POST["filField"]))   $gq .="\n ?event seo:field   ?field .";
-             else if (!empty($_POST["fieldVal"]) and !empty($_POST["filField"])) $gq .="\n ?event seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";
+           if ((!empty($_POST["selField"]) ) and empty($_POST["filField"]))   $gq .="\n ?e seo:field   ?field .";
+             else if (!empty($_POST["fieldVal"]) and !empty($_POST["filField"])) $gq .="\n ?e seo:field  ?field FILTER (?field=" . $_POST["fieldVal"] . ") .";
                           
-                       if ((!empty($_POST["selCity"]) ) and empty($_POST["filCity"]))   $gq .="\n ?event seo:city    ?city .";
-             else if ( !empty($_POST["cityVal"]) and !empty($_POST["filCity"])) $gq .="\n ?event seo:city   ?city. FILTER(regex(str(?city), '". str_replace(' ', '_',$_POST["cityVal"]) . "', 'i' )) .";
+                       if ((!empty($_POST["selCity"]) ) and empty($_POST["filCity"]))   $gq .="\n ?e seo:city    ?city .";
+             else if ( !empty($_POST["cityVal"]) and !empty($_POST["filCity"])) $gq .="\n ?e seo:city   ?city. FILTER(regex(str(?city), '". str_replace(' ', '_',$_POST["cityVal"]) . "', 'i' )) .";
     
              // 1ST cond. -> to add col to where when * is selected
              // 2nd cond. -> when OPTIONAL not selected
              // 3rd cond. -> when OPTIONAL selected
            
-           if (!empty($_POST["selacc"]) and empty($_POST["filacc"]))   $gq .="\n ?event seo:acceptanceRate    ?acc .";
-             else if (!empty($_POST["accVal"]) and !empty($_POST["filacc"])and empty($_POST["OptionalAR"])) $gq .="\n ?event seo:acceptanceRate   ?acc. FILTER (?acc ".$_POST["op"] . $_POST["accVal"] . ") .";
-             else if ( !empty($_POST["accVal"]) and !empty($_POST["filacc"]) and !empty($_POST["OptionalAR"])) $gq .="\n OPTIONAL {?event seo:acceptanceRate  ?acc. FILTER (?acc ".$_POST["op"] . $_POST["accVal"] . ") } .";
+           if (!empty($_POST["selacc"]) and empty($_POST["filacc"]))   $gq .="\n ?e seo:acceptanceRate    ?acc .";
+             else if (!empty($_POST["accVal"]) and !empty($_POST["filacc"])and empty($_POST["OptionalAR"])) $gq .="\n ?e seo:acceptanceRate   ?acc. FILTER (?acc ".$_POST["op"] . $_POST["accVal"] . ") .";
+             else if ( !empty($_POST["accVal"]) and !empty($_POST["filacc"]) and !empty($_POST["OptionalAR"])) $gq .="\n OPTIONAL {?e seo:acceptanceRate  ?acc. FILTER (?acc ".$_POST["op"] . $_POST["accVal"] . ") } .";
 
-             if ((!empty($_POST["selAP"]) ) and empty($_POST["filAP"]))   $gq .="\n ?event seo:acceptedPapers  ?AP .";
-             else if ( !empty($_POST["APVal"]) and empty($_POST["OptionalAP"]) and !empty($_POST["filAP"])) $gq .="\n ?event seo:acceptedPapers  ?AP. FILTER (?AP ".$_POST["opAP"] . $_POST["APVal"] . ") .";
-             else if ( !empty($_POST["APVal"]) and !empty($_POST["filAP"]) and !empty($_POST["OptionalAP"])) $gq .="\n OPTIONAL {?event seo:acceptedPapers  ?AP. FILTER (?AP ".$_POST["opAP"] . $_POST["APVal"] . ") } .";
+             if ((!empty($_POST["selAP"]) ) and empty($_POST["filAP"]))   $gq .="\n ?e seo:acceptedPapers  ?AP .";
+             else if ( !empty($_POST["APVal"]) and empty($_POST["OptionalAP"]) and !empty($_POST["filAP"])) $gq .="\n ?e seo:acceptedPapers  ?AP. FILTER (?AP ".$_POST["opAP"] . $_POST["APVal"] . ") .";
+             else if ( !empty($_POST["APVal"]) and !empty($_POST["filAP"]) and !empty($_POST["OptionalAP"])) $gq .="\n OPTIONAL {?e seo:acceptedPapers  ?AP. FILTER (?AP ".$_POST["opAP"] . $_POST["APVal"] . ") } .";
          
-          if ((!empty($_POST["selSP"]) ) and empty($_POST["filSP"]))   $gq .="\n ?event seo:submittedPapers  ?SP .";
-             else if ( !empty($_POST["SPVal"]) and !empty($_POST["selSP"])and empty($_POST["OptionalSP"])) $gq .="\n ?event seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") .";
-             else if ( !empty($_POST["SPVal"]) and !empty($_POST["selSP"]) and !empty($_POST["OptionalSP"])) $gq .="\n OPTIONAL {?event seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") } .";
+          if ((!empty($_POST["selSP"]) ) and empty($_POST["filSP"]))   $gq .="\n ?e seo:submittedPapers  ?SP .";
+             else if ( !empty($_POST["SPVal"]) and !empty($_POST["selSP"])and empty($_POST["OptionalSP"])) $gq .="\n ?e seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") .";
+             else if ( !empty($_POST["SPVal"]) and !empty($_POST["selSP"]) and !empty($_POST["OptionalSP"])) $gq .="\n OPTIONAL {?e seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") } .";
 
-          if ((!empty($_POST["selSP"]) ) and empty($_POST["filSP"]))   $gq .="\n ?event seo:submittedPapers  ?SP .";
-             else if ( !empty($_POST["SPVal"]) and !empty($_POST["filSP"])and empty($_POST["OptionalSP"])) $gq .="\n ?event seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") .";
-             else if ( !empty($_POST["SPVal"]) and !empty($_POST["filSP"]) and !empty($_POST["OptionalSP"])) $gq .="\n OPTIONAL {?event seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") } .";
+          if ((!empty($_POST["selSP"]) ) and empty($_POST["filSP"]))   $gq .="\n ?e seo:submittedPapers  ?SP .";
+             else if ( !empty($_POST["SPVal"]) and !empty($_POST["filSP"])and empty($_POST["OptionalSP"])) $gq .="\n ?e seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") .";
+             else if ( !empty($_POST["SPVal"]) and !empty($_POST["filSP"]) and !empty($_POST["OptionalSP"])) $gq .="\n OPTIONAL {?e seo:submittedPapers  ?SP. FILTER (?SP ".$_POST["opSP"] . $_POST["SPVal"] . ") } .";
 
-          if ((!empty($_POST["selStartDate"]) ) and empty($_POST["filSD"]))   $gq .="\n ?event conference-ontology:startDate  ?SD .";
+          if ((!empty($_POST["selStartDate"]) ) and empty($_POST["filSD"]))   $gq .="\n ?e conference-ontology:startDate  ?SD .";
              else if ( !empty($_POST["SDVal"]) and !empty($_POST["filSD"])) { // check if operator id btn without OPTIONAL
                  $gq .="\n";
                  if(!empty($_POST["OptionalSD"]))
                      $gq .="OPTIONAL {";
               if($_POST["opSD"]=='btn')
-                  $gq .=" ?event conference-ontology:startDate  ?SD. FILTER (?SD> xsd:dateTime('".$_POST["SDVal"]."T00:00:00.0000000+00:00') &&  ?SD< xsd:dateTime('".$_POST["SDVal2"]."T00:00:00.0000000+00:00') ) .";
+                  $gq .=" ?e conference-ontology:startDate  ?SD. FILTER (?SD> xsd:dateTime('".$_POST["SDVal"]."T00:00:00.0000000+00:00') &&  ?SD< xsd:dateTime('".$_POST["SDVal2"]."T00:00:00.0000000+00:00') ) .";
                   else
-                 $gq .=" ?event conference-ontology:startDate  ?SD. FILTER (?SD".$_POST["opSD"] . "xsd:dateTime('".$_POST["SDVal"]."T00:00:00.0000000+00:00')) .";
+                 $gq .=" ?e conference-ontology:startDate  ?SD. FILTER (?SD".$_POST["opSD"] . "xsd:dateTime('".$_POST["SDVal"]."T00:00:00.0000000+00:00')) .";
              if(!empty($_POST["OptionalSD"])) $gq .="}"; // to add closing pracket of OPTIONAL
                   
              }
              
-           //  else if ( !empty($_POST["SDVal"]) and !empty($_POST["filSD"]) and !empty($_POST["OptionalSD"])) $gq .="\n OPTIONAL {?event conference-ontology:startDate   ?SD. FILTER (?SD".$_POST["opSD"] . "xsd:dateTime('".$_POST["SDVal"] . "T00:00:00.0000000+00:00')) } .";
+           //  else if ( !empty($_POST["SDVal"]) and !empty($_POST["filSD"]) and !empty($_POST["OptionalSD"])) $gq .="\n OPTIONAL {?e conference-ontology:startDate   ?SD. FILTER (?SD".$_POST["opSD"] . "xsd:dateTime('".$_POST["SDVal"] . "T00:00:00.0000000+00:00')) } .";
 
-                 if ((!empty($_POST["selEndDate"]) ) and empty($_POST["filED"]))   $gq .="\n ?event conference-ontology:endDate  ?ED .";
+                 if ((!empty($_POST["selEndDate"]) ) and empty($_POST["filED"]))   $gq .="\n ?e conference-ontology:endDate  ?ED .";
              else if ( !empty($_POST["EDVal"]) and !empty($_POST["filED"])) { // check if operator id btn without OPTIONAL
                  $gq .="\n";
                  if(!empty($_POST["OptionalED"]))
                      $gq .="OPTIONAL {";
               if($_POST["opED"]=='btn')
-                  $gq .=" ?event conference-ontology:endDate  ?ED. FILTER (?ED> xsd:dateTime('".$_POST["EDVal"]."T00:00:00.0000000+00:00') &&  ?ED< xsd:dateTime('".$_POST["EDVal2"]."T00:00:00.0000000+00:00') ) .";
+                  $gq .=" ?e conference-ontology:endDate  ?ED. FILTER (?ED> xsd:dateTime('".$_POST["EDVal"]."T00:00:00.0000000+00:00') &&  ?ED< xsd:dateTime('".$_POST["EDVal2"]."T00:00:00.0000000+00:00') ) .";
                   else
-                 $gq .=" ?event conference-ontology:endDate  ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"]."T00:00:00.0000000+00:00')) .";
+                 $gq .=" ?e conference-ontology:endDate  ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"]."T00:00:00.0000000+00:00')) .";
              if(!empty($_POST["OptionalED"])) $gq .="}"; // to add closing pracket of OPTIONAL
                   
              }
-//          if ((!empty($_POST["selEndDate"]) ) and empty($_POST["filED"]))   $gq .="\n ?event conference-ontology:endDate  ?ED .";
-//             else if ( !empty($_POST["EDVal"]) and !empty($_POST["filED"])and empty($_POST["OptionalED"])) $gq .="\n ?event conference-ontology:endDate  ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"] . "T00:00:00.0000000+00:00')) .";
-//             else if ( !empty($_POST["EDVal"]) and !empty($_POST["filED"]) and !empty($_POST["OptionalED"])) $gq .="\n OPTIONAL {?event conference-ontology:endDate ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"] . "T00:00:00.0000000+00:00')) } .";
+//          if ((!empty($_POST["selEndDate"]) ) and empty($_POST["filED"]))   $gq .="\n ?e conference-ontology:endDate  ?ED .";
+//             else if ( !empty($_POST["EDVal"]) and !empty($_POST["filED"])and empty($_POST["OptionalED"])) $gq .="\n ?e conference-ontology:endDate  ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"] . "T00:00:00.0000000+00:00')) .";
+//             else if ( !empty($_POST["EDVal"]) and !empty($_POST["filED"]) and !empty($_POST["OptionalED"])) $gq .="\n OPTIONAL {?e conference-ontology:endDate ?ED. FILTER (?ED".$_POST["opED"] . "xsd:dateTime('".$_POST["EDVal"] . "T00:00:00.0000000+00:00')) } .";
 
-        if ((!empty($_POST["selPublisher"])) and empty($_POST["filPublisher"]))   $gq .="\n ?event seo:hasPublisher  ?publisher .";
-             else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["filPublisher"])and empty($_POST["OptionalPublisher"])) $gq .="\n ?event seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) .";
-             else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["filPublisher"]) and !empty($_POST["OptionalPublisher"])) $gq .="\n OPTIONAL {?event seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) }.";
+        if ((!empty($_POST["selPublisher"])) and empty($_POST["filPublisher"]))   $gq .="\n ?e seo:hasPublisher  ?publisher .";
+             else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["filPublisher"])and empty($_POST["OptionalPublisher"])) $gq .="\n ?e seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) .";
+             else if ( !empty($_POST["PublisherVal"]) and !empty($_POST["filPublisher"]) and !empty($_POST["OptionalPublisher"])) $gq .="\n OPTIONAL {?e seo:hasPublisher  ?publisher. FILTER(regex(str(?publisher), '" .$_POST["PublisherVal"] . "', 'i' )) }.";
              
-      if (!empty($_POST["selWebsite"]))    $gq .="\n ?event seo:eventWebsite  ?website. ";
+      if (!empty($_POST["selWebsite"]))    $gq .="\n ?e seo:eventWebsite  ?website. ";
              
             $gq .="\n }";
               // query modifiers ORDER  BY and LIMIT
@@ -328,8 +327,8 @@ input[type=submit]:hover, button:hover {
        if (!empty($_POST["selAggCol"]))    $gq2 .=  " ".$_POST["aggColVal"];
        if (!empty($_POST["selFn"]))    $gq2 .=  " ".$_POST["selFn"]."( ". $_POST["selFnCol"].") AS ".$_POST["asVal"];
         
-       $gq2.="\n WHERE {\n  ?event ". getPropertyName($_POST["selFnCol"])." ".$_POST["selFnCol"]." .";    
-       if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n ?event ". getPropertyName($_POST["groupbyVal1"])." ".$_POST["groupbyVal1"];
+       $gq2.="\n WHERE {\n  ?e ". getPropertyName($_POST["selFnCol"])." ".$_POST["selFnCol"]." .";    
+       if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n ?e ". getPropertyName($_POST["groupbyVal1"])." ".$_POST["groupbyVal1"];
          $gq2.="\n }";    
        
         if (!empty($_POST["selGroupBy1"])) $gq2 .=  "\n GROUP BY ".$_POST["groupbyVal1"];
@@ -342,9 +341,9 @@ input[type=submit]:hover, button:hover {
               if (!empty($_POST["selOrderBy2_1"])) {
         if (empty($_POST["selOrderByDESC2_1"]))
             $gq2 .="\n ORDER BY " . $_POST["orderbyVal2_1"];
-        else 
+        else {
             $gq2 .="\n ORDER BY DESC(" . $_POST["orderbyVal2_1"] . ")";
-        
+        }
     }
     if (!empty($_POST["selOrderBy2_2"])) {
         if (!empty($_POST["selOrderBy2_1"])) {
@@ -401,7 +400,7 @@ input[type=submit]:hover, button:hover {
         <p>The advantages of SPARQL come from its expressivity and scalability, however, people spend a large part of their time to learn how to write a SPARQL query to fulfill their needs and, in many cases, they fail. 
           SPARQL-AG is a semantic web frontend which automatically generates SPARQL queries for querying the EVENTSKG knowledge graph about scientific events. 
           The paramount intention behind our decision to develop SPARQL-AG is to help potential semantic data consumers, i.e., SPARQL non-experts, by automatically generating SPARQL queries, ranging from simple to complex ones, using an interactive web interface.  
-          Furthermore, it helps SPARQL experts by reducing the time required to write queries by modifying the generated query (<em>modify-before-execution</em> option), i.e., eliminating the need to write the query from scratch. 
+          Furthermore, it helps SPARQL experts by reducing the time required to write queries by modifying the generated query (\textit{modify-before-execution} option), i.e., eliminating the need to write the query from scratch. 
           The generated query is displayed in a readable way to make it easier for end-users to understand whether a modification is needed before execution.  
           In addition, there is no need to know how externally-defined entities are defined, for instance, it is not required to know how, e.g., the country Germany is represented in DBpedia. 
         The ultimate goal behind this work is to widen the access to semantic data available on the Web by making it easier to generate and execute SPARQL queries with prior knowledge of neither the schema of the data being queried nor how to write SPARQL queries.</p>
@@ -802,7 +801,7 @@ OPTIONAL</td>
 OPTIONAL</td>
                                                                       </tr>
                                                                       <tr>
-                                                                        <td><input name="filSD" type="checkbox" id="filSD"  />
+                                                                        <td><input name="filSD" type="checkbox" id="filSD" checked="checked"  />
                                                                           start date </td>
                                                                         <td><select name="opSD" id="opSD" onchange="myFunction('myDIV','myDIV2','opSD')">
                                                                           <option value="&gt;">&gt;</option>
@@ -948,7 +947,7 @@ DESC</td>
         // $querystring = '
 //		PREFIX seo: <http://purl.org/seo/>
 // 		SELECT * 
-//		 WHERE { ?event seo:heldInCountry   ?country.  FILTER(regex(str(?country), "Germany", "i" )) .
+//		 WHERE { ?e seo:heldInCountry   ?country.  FILTER(regex(str(?country), "Germany", "i" )) .
 // 		}
 //
 //		';
@@ -1000,7 +999,7 @@ DESC</td>
                 <td width="9%" >function:&nbsp;&nbsp;&nbsp; </td>
                 <td width="18%" >
 				
-		<select name="selFn" class="form-control" id="selFn"  onchange="generateAliasAndToOrderBy()">
+		<select name="selFn" class="form-control" id="selFn"  onchange="generateAlias()">
                   <option value="COUNT">COUNT</option>
                   <option value="SUM">SUM</option>
                   <option value="AVG" selected="selected">AVG</option>
@@ -1011,7 +1010,7 @@ DESC</td>
                   <!--selected="selected"-->
                 </select>                </td>
 				<td width="18%">&nbsp; column:</td>
-                <td width="25%"><select name="selFnCol" class="form-control" id="selFnCol"  onchange="generateAliasAndToOrderBy()">
+                <td width="25%"><select name="selFnCol" class="form-control" id="selFnCol"  onchange="generateAlias()">
                   <option value="?type">type</option>
                   <option value="?series">series</option>
                   <option value="?country">country</option>
@@ -1036,7 +1035,7 @@ DESC</td>
                 </div></td>
                 <td >add column:</td>
                 <td><select name="aggColVal" class="form-control" id="aggColVal"  onchange="addAggregationColToGroupBy()">
-                  <option value="?event">event URI</option>
+                  <option value="?e">event URI</option>
                   <option value="?type">type</option>
                   <option value="?series" selected="selected">series</option>
                   <option value="?country">country</option>
@@ -1128,7 +1127,6 @@ DESC</td>
             <option value="?ED">end date</option>
             <option value="?website">website</option>
             <option value="?publisher">publisher</option>
-            <option value="agg">aggregation</option>
             <!--selected="selected"-->
         </select></td>
         <td width="12%" > &nbsp;
@@ -1175,7 +1173,7 @@ DESC</td>
 			
 		
 	</form>
-            <form method="post" action="/SPARQL-AG/querySPARQLClient.php">
+            <form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClient.php">
   <p><strong>2.5 query execution: </strong>you can edit the generated query before press the Execute button.</p>
   <p>
     	&nbsp;
@@ -1186,13 +1184,12 @@ DESC</td>
     </p>
 </form>
             <hr />
-            <h4>3. Parametarized predefined SPARQL queries</h4>
-            <p>We appreciate supporting us by suggesting interesting  parameterized queries, which we can add to our query list in this section. You  can send your suggestions <a href="/SPARQL-AG/contact-form/contactUsForm.php">here</a>.</p>
-            <form method="post" action="/SPARQL-AG/querySPARQLClientParameterized.php">
+            <h4>3. Parametarized predefined SPARQL query</h4>
+			            <form method="post" action="/SPARQL-AG/querySPARQLClientParameterized.php">
 
             <table width="80%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="44%"><strong>1.</strong> List all events (with their websites) in the field&nbsp;
+                <td width="44%">1. List all events (with their websites) in the field&nbsp;
 				
                   <select name="ParaField31" class="form-control" id="ParaField31">
                     <option value="&lt;http://purl.org/seo#ArtificialIntelligence&gt;">Artificial Intelligence</option>
@@ -1203,7 +1200,7 @@ DESC</td>
                     <option value="&lt;http://purl.org/seo#ComputerSystemsOrganization&gt;">Computer systems organization</option>
                     <option value="&lt;http://purl.org/seo#HumanCenteredComputing&gt;">Human Centered Computing</option>
                     <option value="&lt;http://purl.org/seo#TheoryOfComputations&gt;">Theory of Computation</option>
-                </select></td>
+                  </select></td>
                 <td width="56%">&nbsp;</td>
               </tr>
               <tr>
@@ -1458,7 +1455,7 @@ DESC</td>
 				  <input type="submit" name="submit31" value="Execute"  /></p>                 </td>
               </tr>
               <tr>
-                <td><strong>2. </strong>List the events related to 
+                <td>2.  List the events related to 
                   <select name="field32" class="form-control" id="field32">
                     <option value="&lt;http://purl.org/seo#ArtificialIntelligence&gt;">Artificial Intelligence</option>
                     <option value="&lt;http://purl.org/seo#SoftwareEngineering&gt;">Software Engineering </option>
@@ -1468,7 +1465,7 @@ DESC</td>
                     <option value="&lt;http://purl.org/seo#ComputerSystemsOrganization&gt;">Computer systems organization</option>
                     <option value="&lt;http://purl.org/seo#HumanCenteredComputing&gt;">Human Centered Computing</option>
                     <option value="&lt;http://purl.org/seo#TheoryOfComputations&gt;">Theory of Computation</option>
-                </select></td>
+                  </select></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
@@ -1486,364 +1483,7 @@ DESC</td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
-                <td colspan="2"><div align="center">
-                  <input type="submit" name="submit32" value="Execute" onclick="getVal('hiddenField2','generatedQuery2')" />
-                </div></td>
-              </tr>
-              <tr>
-                <td><strong>3. </strong>List the number of submitted and accepted papers, and acceptance rate of the series 
-                  <input name="seriesList33" class="form-control" id="seriesList33" list="series" value="ISWC">
-					  <datalist id="series">
-                                              <option value="AAAI"selected>
-                                              <option value="CVPR" >
-						<option value="NIPS">
-						<option value="ICCV">
-						<option value="IJCAI">
-						<option value="ECCV">
-						<option value="ACCV">
-						<option value="AAMAS">
-						<option value="UIST">
-						<option value="FOGA">
-						<option value="ECAI">
-						<option value="AISTATS">
-						<option value="UAI">
-						<option value="ICONIP">
-						<option value="EUROGP">
-						<option value="KR">
-						<option value="ISCA">
-						<option value="HPCA">
-						<option value="FOCS">
-						<option value="PERCOM">
-						<option value="DSN">
-						<option value="SBAC-PAD">
-						<option value="CSCW">
-						<option value="EuroSys">
-						<option value="PODC">
-						<option value="ISMAR">
-						<option value="VR">
-						<option value="CHI">
-						<option value="MOBICOM">
-						<option value="Infovis">
-						<option value="SIGGRAPH">
-						<option value="VLDB">
-						<option value="RecSys">
-						<option value="EDBT">
-						<option value="PKDD">
-						<option value="PODS">
-						<option value="SIGIR">
-						<option value="SIGMOD">
-						<option value="ICSE">
-						<option value="PLDI">
-						<option value="ASPLOS">
-						<option value="ICDE">
-						<option value="POPL">
-						<option value="OOPSLA">
-						<option value="OSDI">
-						<option value="FSE">
-						<option value="ASE">
-						<option value="ICFP">
-						<option value="ECOOP">
-						<option value="FASE">
-						<option value="CCS">
-						<option value="SP">
-						<option value="USENIX">
-						<option value="NDSS">
-						<option value="EuroCrypt">
-						<option value="Ubicomp">
-						<option value="ACSAC">
-						<option value="CSF">
-						<option value="ESORICS">
-						<option value="DCC">
-						<option value="IJCAR">
-						<option value="COLT">
-						<option value="STOC">
-						<option value="SPAA">
-						<option value="CCC">
-						<option value="ISSAC">
-						<option value="TheWeb">
-						<option value="ICWS">
-						<option value="WSDM">
-						<option value="ESWC">
-                        <option value="ISWC">
-						<option value="ICWE">
-			    <option value="ICSC">  </datalist></td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>since 
-                <input name="SDVal33" type="date" id="SDVal33" value="2013-01-08" class="form-control"/></td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="2"><div align="center">
-                  <input name="submit33" type="submit" id="submit33"  value="Execute" />
-                </div></td>
-              </tr>
-              <tr>
-                <td><strong>4. </strong>List the top-
-                  <input name="limit34" type="text" id="limit34" value="5" size="2"/> 
-                countries host most of the events in computer science research communities.</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="2"><div align="center">
-                  <input name="submit34" type="submit" id="submit34"  value="Execute" />
-                </div></td>
-              </tr>
-              <tr>
-                <td> <strong>5. </strong>List the subfields of CS where 
-                  <select name="country35" class="form-control" id="country35">
-                    <option value="http://dbpedia.org/resource/Afganistan">Afghanistan</option>
-                    <option value="http://dbpedia.org/resource/Albania">Albania</option>
-                    <option value="http://dbpedia.org/resource/Algeria">Algeria</option>
-                    <option value="http://dbpedia.org/resource/American_Samoa">American Samoa</option>
-                    <option value="http://dbpedia.org/resource/Andorra">Andorra</option>
-                    <option value="http://dbpedia.org/resource/Angola">Angola</option>
-                    <option value="http://dbpedia.org/resource/Anguilla">Anguilla</option>
-                    <option value="http://dbpedia.org/resource/Antigua_and_Barbuda">Antigua &amp; Barbuda</option>
-                    <option value="http://dbpedia.org/resource/Argentina">Argentina</option>
-                    <option value="http://dbpedia.org/resource/Armenia">Armenia</option>
-                    <option value="http://dbpedia.org/resource/Aruba">Aruba</option>
-                    <option value="http://dbpedia.org/resource/Australia">Australia</option>
-                    <option value="http://dbpedia.org/resource/Austria">Austria</option>
-                    <option value="http://dbpedia.org/resource/Azerbaijan">Azerbaijan</option>
-                    <option value="http://dbpedia.org/resource/Bahamas">Bahamas</option>
-                    <option value="http://dbpedia.org/resource/Bahrain">Bahrain</option>
-                    <option value="http://dbpedia.org/resource/Bangladesh">Bangladesh</option>
-                    <option value="http://dbpedia.org/resource/Barbados">Barbados</option>
-                    <option value="http://dbpedia.org/resource/Belarus">Belarus</option>
-                    <option value="http://dbpedia.org/resource/Belgium">Belgium</option>
-                    <option value="http://dbpedia.org/resource/Belize">Belize</option>
-                    <option value="http://dbpedia.org/resource/Benin">Benin</option>
-                    <option value="http://dbpedia.org/resource/Bermuda">Bermuda</option>
-                    <option value="http://dbpedia.org/resource/Bhutan">Bhutan</option>
-                    <option value="http://dbpedia.org/resource/Bolivia">Bolivia</option>
-                    <option value="http://dbpedia.org/resource/Bonaire">Bonaire</option>
-                    <option value="http://dbpedia.org/resource/Bosnia_and_Herzegovina">Bosnia &amp; Herzegovina</option>
-                    <option value="http://dbpedia.org/resource/Botswana">Botswana</option>
-                    <option value="http://dbpedia.org/resource/Brazil">Brazil</option>
-                    <option value="http://dbpedia.org/resource/Brunei">Brunei</option>
-                    <option value="http://dbpedia.org/resource/Bulgaria">Bulgaria</option>
-                    <option value="http://dbpedia.org/resource/Burkina_Faso">Burkina Faso</option>
-                    <option value="http://dbpedia.org/resource/Burundi">Burundi</option>
-                    <option value="http://dbpedia.org/resource/Cambodia">Cambodia</option>
-                    <option value="http://dbpedia.org/resource/Cameroon">Cameroon</option>
-                    <option value="http://dbpedia.org/resource/Canada">Canada</option>
-                    <option value="http://dbpedia.org/resource/Canary_Islands">Canary Islands</option>
-                    <option value="http://dbpedia.org/resource/Cape_Verde">Cape Verde</option>
-                    <option value="http://dbpedia.org/resource/Cayman_Islands">Cayman Islands</option>
-                    <option value="http://dbpedia.org/resource/Central_African_Republic">Central African Republic</option>
-                    <option value="http://dbpedia.org/resource/Chad">Chad</option>
-                    <option value="http://dbpedia.org/resource/Channel_Islands_Beach,_California">Channel Islands</option>
-                    <option value="http://dbpedia.org/resource/Chile">Chile</option>
-                    <option value="http://dbpedia.org/resource/China">China</option>
-                    <option value="http://dbpedia.org/resource/Christmas_Island">Christmas Island</option>
-                    <option value="http://dbpedia.org/resource/Colombia">Colombia</option>
-                    <option value="http://dbpedia.org/resource/Comoros">Comoros</option>
-                    <option value="http://dbpedia.org/resource/Congo">Congo</option>
-                    <option value="http://dbpedia.org/resource/Cook_Islands">Cook Islands</option>
-                    <option value="http://dbpedia.org/resource/Costa_Rica">Costa Rica</option>
-                    <option value="http://dbpedia.org/resource/Ivory_Coast">Cote D'Ivoire</option>
-                    <option value="http://dbpedia.org/resource/Croatia">Croatia</option>
-                    <option value="http://dbpedia.org/resource/Cuba">Cuba</option>
-                    <option value="http://dbpedia.org/resource/Curaco">Curacao</option>
-                    <option value="http://dbpedia.org/resource/Cyprus">Cyprus</option>
-                    <option value="http://dbpedia.org/resource/Czech_Republic">Czech Republic</option>
-                    <option value="http://dbpedia.org/resource/Denmark">Denmark</option>
-                    <option value="http://dbpedia.org/resource/Djibouti">Djibouti</option>
-                    <option value="http://dbpedia.org/resource/Dominica">Dominica</option>
-                    <option value="http://dbpedia.org/resource/Dominican_Republic">Dominican Republic</option>
-                    <option value="http://dbpedia.org/resource/East_Timor">East Timor</option>
-                    <option value="http://dbpedia.org/resource/Ecuador">Ecuador</option>
-                    <option value="http://dbpedia.org/resource/Egypt">Egypt</option>
-                    <option value="http://dbpedia.org/resource/El_Salvador">El_Salvador</option>
-                    <option value="http://dbpedia.org/resource/Equatorial_Guinea">Equatorial Guinea</option>
-                    <option value="http://dbpedia.org/resource/Eritrea">Eritrea</option>
-                    <option value="http://dbpedia.org/resource/Estonia">Estonia</option>
-                    <option value="http://dbpedia.org/resource/Ethiopia">Ethiopia</option>
-                    <option value="http://dbpedia.org/resource/Falkland_Islands">Falkland Islands</option>
-                    <option value="http://dbpedia.org/resource/Faroe_Islands">Faroe Islands</option>
-                    <option value="http://dbpedia.org/resource/Fiji">Fiji</option>
-                    <option value="http://dbpedia.org/resource/Finland">Finland</option>
-                    <option value="http://dbpedia.org/resource/France">France</option>
-                    <option value="http://dbpedia.org/resource/French_Guiana">French Guiana</option>
-                    <option value="http://dbpedia.org/resource/French_Polynesia">French Polynesia</option>
-                    <option value="http://dbpedia.org/resource/Gabon">Gabon</option>
-                    <option value="http://dbpedia.org/resource/Gambia">Gambia</option>
-                    <option value="http://dbpedia.org/resource/Georgia">Georgia</option>
-                    <option value="http://dbpedia.org/resource/Germany" selected="selected">Germany</option>
-                    <option value="http://dbpedia.org/resource/Ghana">Ghana</option>
-                    <option value="http://dbpedia.org/resource/Gibraltar">Gibraltar</option>
-                    <option value="http://dbpedia.org/resource/Great_Britain">United Kingdom</option>
-                    <option value="http://dbpedia.org/resource/Greece">Greece</option>
-                    <option value="http://dbpedia.org/resource/Greenland">Greenland</option>
-                    <option value="http://dbpedia.org/resource/Grenada">Grenada</option>
-                    <option value="http://dbpedia.org/resource/Guadeloupe">Guadeloupe</option>
-                    <option value="http://dbpedia.org/resource/Guam">Guam</option>
-                    <option value="http://dbpedia.org/resource/Guatemala">Guatemala</option>
-                    <option value="http://dbpedia.org/resource/Guinea">Guinea</option>
-                    <option value="http://dbpedia.org/resource/Guyana">Guyana</option>
-                    <option value="http://dbpedia.org/resource/Haiti">Haiti</option>
-                    <option value="http://dbpedia.org/resource/Hawaii">Hawaii</option>
-                    <option value="http://dbpedia.org/resource/Honduras">Honduras</option>
-                    <option value="http://dbpedia.org/resource/Hong_Kong">Hong Kong</option>
-                    <option value="http://dbpedia.org/resource/Hungary">Hungary</option>
-                    <option value="http://dbpedia.org/resource/Iceland">Iceland</option>
-                    <option value="http://dbpedia.org/resource/India">India</option>
-                    <option value="http://dbpedia.org/resource/Indonesia">Indonesia</option>
-                    <option value="http://dbpedia.org/resource/Iran">Iran</option>
-                    <option value="http://dbpedia.org/resource/Iraq">Iraq</option>
-                    <option value="http://dbpedia.org/resource/Ireland">Ireland</option>
-                    <option value="http://dbpedia.org/resource/Isle_of_Man">Isle of Man</option>
-                    <option value="http://dbpedia.org/resource/Israel">Israel</option>
-                    <option value="http://dbpedia.org/resource/Italy">Italy</option>
-                    <option value="http://dbpedia.org/resource/Jamaica">Jamaica</option>
-                    <option value="http://dbpedia.org/resource/Japan">Japan</option>
-                    <option value="http://dbpedia.org/resource/Jordan">Jordan</option>
-                    <option value="http://dbpedia.org/resource/Kazakhstan">Kazakhstan</option>
-                    <option value="http://dbpedia.org/resource/Kenya">Kenya</option>
-                    <option value="http://dbpedia.org/resource/Kiribati">Kiribati</option>
-                    <option value="Korea North">Korea North</option>
-                    <option value="Korea South">Korea South</option>
-                    <option value="http://dbpedia.org/resource/Kuwait">Kuwait</option>
-                    <option value="http://dbpedia.org/resource/Kyrgyzstan">Kyrgyzstan</option>
-                    <option value="http://dbpedia.org/resource/Laos">Laos</option>
-                    <option value="http://dbpedia.org/resource/Latvia">Latvia</option>
-                    <option value="http://dbpedia.org/resource/Lebanon">Lebanon</option>
-                    <option value="http://dbpedia.org/resource/Lesotho">Lesotho</option>
-                    <option value="http://dbpedia.org/resource/Liberia">Liberia</option>
-                    <option value="http://dbpedia.org/resource/Libya">Libya</option>
-                    <option value="http://dbpedia.org/resource/Liechtenstein">Liechtenstein</option>
-                    <option value="http://dbpedia.org/resource/Lithuania">Lithuania</option>
-                    <option value="http://dbpedia.org/resource/Luxembourg">Luxembourg</option>
-                    <option value="http://dbpedia.org/resource/Macau">Macau</option>
-                    <option value="http://dbpedia.org/resource/Macedonia">Macedonia</option>
-                    <option value="http://dbpedia.org/resource/Madagascar">Madagascar</option>
-                    <option value="http://dbpedia.org/resource/Malaysia">Malaysia</option>
-                    <option value="http://dbpedia.org/resource/Malawi">Malawi</option>
-                    <option value="http://dbpedia.org/resource/Maldives">Maldives</option>
-                    <option value="http://dbpedia.org/resource/Mali">Mali</option>
-                    <option value="http://dbpedia.org/resource/Malta">Malta</option>
-                    <option value="http://dbpedia.org/resource/Marshall Islands">Marshall Islands</option>
-                    <option value="http://dbpedia.org/resource/Martinique">Martinique</option>
-                    <option value="http://dbpedia.org/resource/Mauritania">Mauritania</option>
-                    <option value="http://dbpedia.org/resource/Mauritius">Mauritius</option>
-                    <option value="http://dbpedia.org/resource/Mayotte">Mayotte</option>
-                    <option value="http://dbpedia.org/resource/Mexico">Mexico</option>
-                    <option value="http://dbpedia.org/resource/Midway Islands">Midway Islands</option>
-                    <option value="http://dbpedia.org/resource/Moldova">Moldova</option>
-                    <option value="http://dbpedia.org/resource/Monaco">Monaco</option>
-                    <option value="http://dbpedia.org/resource/Mongolia">Mongolia</option>
-                    <option value="http://dbpedia.org/resource/Montserrat">Montserrat</option>
-                    <option value="http://dbpedia.org/resource/Morocco">Morocco</option>
-                    <option value="http://dbpedia.org/resource/Mozambique">Mozambique</option>
-                    <option value="http://dbpedia.org/resource/Myanmar">Myanmar</option>
-                    <option value="http://dbpedia.org/resource/Nambia">Nambia</option>
-                    <option value="http://dbpedia.org/resource/Nauru">Nauru</option>
-                    <option value="http://dbpedia.org/resource/Nepal">Nepal</option>
-                    <option value="http://dbpedia.org/resource/Netherland_Antilles">Netherland Antilles</option>
-                    <option value="http://dbpedia.org/resource/Netherlands">Netherlands (Holland, Europe)</option>
-                    <option value="http://dbpedia.org/resource/Nevis">Nevis</option>
-                    <option value="http://dbpedia.org/resource/New_Caledonia">New Caledonia</option>
-                    <option value="http://dbpedia.org/resource/New_Zealand">New Zealand</option>
-                    <option value="http://dbpedia.org/resource/Nicaragua">Nicaragua</option>
-                    <option value="http://dbpedia.org/resource/Niger">Niger</option>
-                    <option value="http://dbpedia.org/resource/Nigeria">Nigeria</option>
-                    <option value="http://dbpedia.org/resource/Niue">Niue</option>
-                    <option value="http://dbpedia.org/resource/Norway">Norway</option>
-                    <option value="http://dbpedia.org/resource/Oman">Oman</option>
-                    <option value="http://dbpedia.org/resource/Pakistan">Pakistan</option>
-                    <option value="http://dbpedia.org/resource/Palau_Island">Palau Island</option>
-                    <option value="http://dbpedia.org/resource/Palestine">Palestine</option>
-                    <option value="http://dbpedia.org/resource/Panama">Panama</option>
-                    <option value="Papua New Guinea">Papua New Guinea</option>
-                    <option value="http://dbpedia.org/resource/Paraguay">Paraguay</option>
-                    <option value="http://dbpedia.org/resource/Peru">Peru</option>
-                    <option value="http://dbpedia.org/resource/Phillipines">Philippines</option>
-                    <option value="http://dbpedia.org/resource/Pitcairn Island">Pitcairn Island</option>
-                    <option value="http://dbpedia.org/resource/Poland">Poland</option>
-                    <option value="http://dbpedia.org/resource/Portugal">Portugal</option>
-                    <option value="http://dbpedia.org/resource/Puerto_Rico">Puerto Rico</option>
-                    <option value="http://dbpedia.org/resource/Qatar">Qatar</option>
-                    <option value="Republic of Montenegro">Republic of Montenegro</option>
-                    <option value="Republic of Serbia">Republic of Serbia</option>
-                    <option value="http://dbpedia.org/resource/Reunion">Reunion</option>
-                    <option value="http://dbpedia.org/resource/Romania">Romania</option>
-                    <option value="http://dbpedia.org/resource/Russia">Russia</option>
-                    <option value="http://dbpedia.org/resource/Rwanda">Rwanda</option>
-                    <option value="http://dbpedia.org/resource/Saipan">Saipan</option>
-                    <option value="http://dbpedia.org/resource/Samoa">Samoa</option>
-                    <option value="Samoa American">Samoa American</option>
-                    <option value="San Marino">San Marino</option>
-                    <option value="Sao Tome &amp; Principe">Sao Tome &amp; Principe</option>
-                    <option value="http://dbpedia.org/resource/Saudi_Arabia">Saudi Arabia</option>
-                    <option value="http://dbpedia.org/resource/Senegal">Senegal</option>
-                    <option value="http://dbpedia.org/resource/Serbia">Serbia</option>
-                    <option value="http://dbpedia.org/resource/Seychelles">Seychelles</option>
-                    <option value="Sierra Leone">Sierra Leone</option>
-                    <option value="http://dbpedia.org/resource/Singapore">Singapore</option>
-                    <option value="http://dbpedia.org/resource/Slovakia">Slovakia</option>
-                    <option value="http://dbpedia.org/resource/Slovenia">Slovenia</option>
-                    <option value="Solomon Islands">Solomon Islands</option>
-                    <option value="http://dbpedia.org/resource/Somalia">Somalia</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="http://dbpedia.org/resource/Spain">Spain</option>
-                    <option value="http://dbpedia.org/resource/Sudan">Sudan</option>
-                    <option value="http://dbpedia.org/resource/Suriname">Suriname</option>
-                    <option value="http://dbpedia.org/resource/Swaziland">Swaziland</option>
-                    <option value="http://dbpedia.org/resource/Sweden">Sweden</option>
-                    <option value="http://dbpedia.org/resource/Switzerland">Switzerland</option>
-                    <option value="http://dbpedia.org/resource/Syria">Syria</option>
-                    <option value="http://dbpedia.org/resource/Tahiti">Tahiti</option>
-                    <option value="http://dbpedia.org/resource/Taiwan">Taiwan</option>
-                    <option value="http://dbpedia.org/resource/Tajikistan">Tajikistan</option>
-                    <option value="http://dbpedia.org/resource/Tanzania">Tanzania</option>
-                    <option value="http://dbpedia.org/resource/Thailand">Thailand</option>
-                    <option value="http://dbpedia.org/resource/Togo">Togo</option>
-                    <option value="http://dbpedia.org/resource/Tokelau">Tokelau</option>
-                    <option value="http://dbpedia.org/resource/Tonga">Tonga</option>
-                    <option value="http://dbpedia.org/resource/Tunisia">Tunisia</option>
-                    <option value="http://dbpedia.org/resource/Turkey">Turkey</option>
-                    <option value="http://dbpedia.org/resource/Turkmenistan">Turkmenistan</option>
-                    <option value="http://dbpedia.org/resource/Tuvalu">Tuvalu</option>
-                    <option value="http://dbpedia.org/resource/Uganda">Uganda</option>
-                    <option value="http://dbpedia.org/resource/Ukraine">Ukraine</option>
-                    <option value="United Arab Erimates">United Arab Emirates</option>
-                    <option value="http://dbpedia.org/resource/England">England</option>
-                    <option value="http://dbpedia.org/resource/United_States">United States</option>
-                    <option value="http://dbpedia.org/resource/Uraguay">Uruguay</option>
-                    <option value="http://dbpedia.org/resource/Uzbekistan">Uzbekistan</option>
-                    <option value="http://dbpedia.org/resource/Vanuatu">Vanuatu</option>
-                    <option value="http://dbpedia.org/resource/Vatican_City">Vatican City State</option>
-                    <option value="http://dbpedia.org/resource/Venezuela">Venezuela</option>
-                    <option value="http://dbpedia.org/resource/Vietnam">Vietnam</option>
-                    <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
-                    <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
-                    <option value="Wake Island">Wake Island</option>
-                    <option value="Wallis &amp; Futana Is">Wallis &amp; Futana Is</option>
-                    <option value="http://dbpedia.org/resource/Yemen">Yemen</option>
-                    <option value="http://dbpedia.org/resource/Zaire">Zaire</option>
-                    <option value="http://dbpedia.org/resource/Zambia">Zambia</option>
-                    <option value="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</option>
-                  </select>
-                  &nbsp; 
-                has hosted more events since 
-                <input name="SDVal35" type="date" id="SDVal35" value="2013-01-08" class="form-control"/></td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="2"><div align="center">
-                  <input name="submit35" type="submit" id="submit35"  value="Execute" />
-                </div></td>
-              </tr>
-              <tr>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td colspan="2">&nbsp;</td>
+                <td colspan="2"><input type="submit" name="submit32" value="Execute" onclick="getVal('hiddenField2','generatedQuery2')" /></td>
               </tr>
               <tr>
                 <td colspan="2">&nbsp;</td>
@@ -1869,25 +1509,8 @@ DESC</td>
 	</div>
         <script>
            
-
-    function generateAliasAndToOrderBy(){
+   function generateAlias(){
          document.getElementById('asVal').value = document.getElementById('selFnCol').value+  "_"+ document.getElementById('selFn').value  ;
-           var select = document.getElementById("orderbyVal2_1");
-var y = document.getElementById("orderbyVal2_1").options;
-
-//var val=document.getElementById("selFn").value+"("+document.getElementById("selFnCol").value+")";
-var val=document.getElementById("asVal").value;
-//alert("Index: " + y[select.options.length-1].text);
-if(y[select.options.length-1].text.indexOf("_")==-1)
-select.options[select.options.length] = new Option(val, val);
-else
-    select.options[select.options.length-1] = new Option(val, val);
-
-// Get the output text
-// If the checkbox is checked, display the output text
- 
-//text.value = document.getElementById("selFn").value+"("+document.getElementById("selFnCol").value+")";
- 
     }
     function getVal(hiddenId,textareaID)
     {
