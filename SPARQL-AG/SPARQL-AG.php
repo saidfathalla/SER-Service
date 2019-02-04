@@ -142,7 +142,7 @@ input[type=submit]:hover, button:hover {
   <a href="https://github.com/saidfathalla/SPARQL-AG/issues/new/choose">Issue Tracker</a>
   <a href="http://kddste.sda.tech/sparql">SPARQL endpoint</a>
   <a href="#">Live Demo</a>
-  <a href="/SPARQL-AG/contact-form/contactUsForm.php">Contact Us</a> </div>
+  <a href="http://kddste.sda.tech/SER-Service/SPARQL-AG/contact-form/contactUsForm.php">Contact Us</a> </div>
 <div class="row">
   <div class="column side">
     <h2>&nbsp;</h2>
