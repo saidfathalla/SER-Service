@@ -1188,7 +1188,7 @@ DESC</td>
             <hr />
             <h4>3. Parametarized predefined SPARQL queries</h4>
             <p>We appreciate supporting us by suggesting interesting  parameterized queries, which we can add to our query list in this section. You  can send your suggestions <a href="http://kddste.sda.tech/SER-Service/SPARQL-AG/contact-form/contactUsForm.php">here</a>.</p>
-            <form method="post" action="SER-Service/SPARQL-AG/querySPARQLClientParameterized.php">
+            <form method="post" action="/SER-Service/SPARQL-AG/querySPARQLClientParameterized.php">
 
             <table width="80%" border="0" cellspacing="0" cellpadding="0">
               <tr>
