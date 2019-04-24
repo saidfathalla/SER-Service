@@ -1,6 +1,12 @@
 $(document).ready(function () {
     populateOptions();
 });
+function showHideHomeSearch(page) {
+    $("#home_page,#search_page").hide();
+    $("#" + page + "_page").show();
+    $(".links").css('font-weight', 'normal');
+    $("#" + page + "_link").css('font-weight', 'bolder')
+}
 function populateOptions() {
     var fieldStr = getFieldStr();
     $("#a_fields,#b_fields").html(fieldStr);
@@ -8,18 +14,19 @@ function populateOptions() {
     $("#a_country,#e_country").html(countriesStr);
     var seriesStr = getSeriesStr();
     $("#c_series,#f_series,#h_series").html(seriesStr);
-    var month= ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    var monthStr="";
-    month.forEach((obj,i)=>{
-        monthStr+=`<option value=${i+1}>${obj}</option>`
+    var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var monthStr = "";
+    month.forEach((obj, i) => {
+        monthStr += `<option value=${i + 1}>${obj}</option>`
     });
     $("#g_month").html(monthStr);
 }
 function showHideOptionsDiv(opt) {
     $(`.options`).hide();
     $(`#${opt}_options`).show();
-    $("#query_div").hide();
-    $("#chart_area,#chart_area_1,#chart_area_2,#Legend_chart_area_1,#Legend_chart_area_1,#Legend_chart_area").html("");
+    $("#query_div,#query_button_div").hide();
+    $("#chart_area,#Legend_chart_area,#legends").html("");
+    $("#query").val("");
     //$(`#${opt}_chart_type`).html(chartTypesAvailable[opt]);
     $("#chart_type").html(chartTypesAvailable[opt]);
 }
@@ -40,17 +47,17 @@ var chartTypesAvailable = {
     a: `<option value="tree">Tree chart</option>`,
     b: `<option value="bubble">Bubble chart</option>`,
     c: `<option value="bar">Bar chart</option><option value="column">Column chart</option><option value="line">Line chart</option>`,
-    d: `<option value="bar">Bar chart</option>`,
+    d: `<option value="bar">Bar chart</option><option value="column">Column chart</option><option value="line">Line chart</option>`,
     e: `<option value="donut">Donut chart</option>`,
     f: `<option value="bar">Bar chart</option><option value="column">Column chart</option><option value="line">Line chart</option>`,
     g: `<option value="radial_bar">Radial bar chart</option>`,
     h: `<option value="geomap">Geomap</option>`,
-    i: `<option value="area">Platelets chart</option>`,
+    i: `<option value="platelets">Platelets chart</option><option value="area">Area chart</option>`,
     j: `<option value="rect_area">Rectangular chart</option>`
 }
 function sendRequest() {
     $("#loading_gif").show();
-    $("#chart_area,#chart_area_1,#chart_area_2,#Legend_chart_area_1,#Legend_chart_area").html("");
+    $("#chart_area,#Legend_chart_area,#legends").html("");
     //$("#query_show").val("Show Query");
     //$("#query_div").slideUp();
     var query = $("#query").val();
@@ -201,25 +208,38 @@ function constructEChart(results) {
 function generateCQuery(isFChart) {
     var series = isFChart ? $("#f_series").val() : $("#c_series").val();
     var sdate = isFChart ? $("#f_date").val() : $("#c_date").val();
-    var eQuery = `PREFIX conference-ontology:<https://w3id.org/scholarlydata/ontology/conference-ontology.owl#> 
+    var cQuery = `PREFIX conference-ontology:<https://w3id.org/scholarlydata/ontology/conference-ontology.owl#> 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
     PREFIX seo: <http://purl.org/seo/>
     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
     PREFIX eventskg: <http://purl.org/events_ds#> 
-    SELECT ?series ?eventtype ?submittedpaper ?acceptedpaper ?accrate ?sd
+    SELECT ?series ?eventtype ?submittedpaper ?acceptedpaper ?sd
     WHERE{
     ?events seo:belongsToSeries ?series.
     FILTER(?series = eventskg:${series})
-    ?events rdf:type ?eventtype.
-    FILTER(?eventtype = conference-ontology:Conference||conference-ontology:Symposium||conference-ontology:Workshop)
     ?events seo:submittedPapers ?submittedpaper.
     ?events seo:acceptedPapers ?acceptedpaper.
-    ?events seo:acceptanceRate ?accrate.
     ?events conference-ontology:startDate ?sd.
     FILTER(STR(?sd) > "${sdate}") 
     }          
     `
-    reInitControls(eQuery, isFChart ? "fChart" : "cChart");
+    if (isFChart) {
+        cQuery = `PREFIX conference-ontology:<https://w3id.org/scholarlydata/ontology/conference-ontology.owl#> 
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>  
+        PREFIX seo: <http://purl.org/seo/>
+        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+        PREFIX eventskg: <http://purl.org/events_ds#> 
+        SELECT ?accrate ?sd
+        WHERE{
+        ?events seo:belongsToSeries ?series.
+        FILTER(?series = eventskg:${series})
+        ?events seo:acceptanceRate ?accrate.
+        ?events conference-ontology:startDate ?sd.
+        FILTER(STR(?sd) > "${sdate}") 
+        }         
+    `
+    }
+    reInitControls(cQuery, isFChart ? "fChart" : "cChart");
 }
 function constructCLineChart(results) {
     var isFChart = chartType == "fChart";
@@ -237,19 +257,24 @@ function constructCLineChart(results) {
         {
             name: "Acceptance rate",
             values: []
-        }]
+        }
+    ];
     var dateArr = [];
     results.forEach((obj, index) => {
-        var submitted = Number(obj.binding[2].literal["#text"]);
-        var accepted = Number(obj.binding[3].literal["#text"]);
-        var accrate = Number(obj.binding[4].literal["#text"]);
-        var dateVal = obj.binding[5].literal["#text"];
+        var dateVal = obj.binding[isFChart ? 1 : 3].literal["#text"];
         dateVal = dateVal.split("T")[0];
         dateVal = dateVal.split("-");
-        dateArr.push(`${dateVal[0]}`);//-${dateVal[1]}-${dateVal[2]}
-        graphData[0].values.push({ date: index, price: submitted });
-        graphData[1].values.push({ date: index, price: accepted });
-        acceptanceData[0].values.push({ date: index, price: accrate });
+        dateArr.push(`${dateVal[0]}`);
+        if (isFChart) {
+            var accrate = Number(obj.binding[0].literal["#text"]);
+            acceptanceData[0].values.push({ date: index, price: accrate });
+        } else {
+            var submitted = Number(obj.binding[1].literal["#text"]);
+            var accepted = Number(obj.binding[2].literal["#text"]);
+            graphData[0].values.push({ date: index, price: submitted });
+            graphData[1].values.push({ date: index, price: accepted });
+        }
+
     });
     if (isFChart) {
         constructLineGraph(acceptanceData, "chart_area");
@@ -257,34 +282,35 @@ function constructCLineChart(results) {
         constructLineGraph(graphData, "chart_area");
     }
     var gElements = $("#chart_area").find("g").find("g[class='x axis']").find("g");
-    //var gElements2 = $("#chart_area_2").find("g").find("g[class='x axis']").find("g");
     var len = gElements.length - 1;
     for (var loop = dateArr.length - 1; loop >= 0; loop-- , len--) {
         $(gElements[len]).find("text").text(dateArr[loop]);
-        //$(gElements2[len]).find("text").text(dateArr[loop]);
     }
 }
-function constructCBarChart(results) {
+function constructCColumnChart(results) {
     var isFChart = chartType == "fChart";
     var barData = [];
     var acceptanceData = [];
     results.forEach((obj, index) => {
-        var submitted = Number(obj.binding[2].literal["#text"]);
-        var accepted = Number(obj.binding[3].literal["#text"]);
-        var accrate = Number(obj.binding[4].literal["#text"]);
-        var dateVal = obj.binding[5].literal["#text"];
+        var dateVal = obj.binding[isFChart ? 1 : 3].literal["#text"];
         dateVal = dateVal.split("T")[0];
         dateVal = dateVal.split("-");
-        barData.push({
-            "model_name": dateVal[0],
-            "field1": submitted,
-            "field2": accepted
-        });
-        acceptanceData.push({
-            "model_name": dateVal[0],
-            "field1": accrate,
-            "field2": 0
-        })
+        if (!isFChart) {
+            var submitted = Number(obj.binding[1].literal["#text"]);
+            var accepted = Number(obj.binding[2].literal["#text"]);
+            barData.push({
+                "model_name": dateVal[0],
+                "field1": submitted,
+                "field2": accepted
+            });
+        } else {
+            var accrate = Number(obj.binding[0].literal["#text"]);
+            acceptanceData.push({
+                "model_name": dateVal[0],
+                "field1": accrate,
+                "field2": 0
+            })
+        }
     });
     if (isFChart) {
         drawMultiBarChart(acceptanceData, "#chart_area", true)
@@ -292,29 +318,32 @@ function constructCBarChart(results) {
         drawMultiBarChart(barData, "#chart_area");
     }
 }
-function constructCColumnChart(results) {
+function constructCBarChart(results) {
     var isFChart = chartType == "fChart";
     var groupChartData = [], acceptanceData = [];
     results.forEach((obj, index) => {
-        var submitted = Number(obj.binding[2].literal["#text"]);
-        var accepted = Number(obj.binding[3].literal["#text"]);
-        var accrate = Number(obj.binding[4].literal["#text"]);
-        var dateVal = obj.binding[5].literal["#text"];
+        var dateVal = obj.binding[isFChart ? 1 : 3].literal["#text"];
         dateVal = dateVal.split("T")[0];
         dateVal = dateVal.split("-");
-        groupChartData.push({
-            "over": +dateVal[0],
-            "2614": submitted,
-            "4449": accepted
-        });
-        acceptanceData.push({
-            "over": +dateVal[0],
-            "2614": accrate,
-            "4449": 0
-        })
+        if (isFChart) {
+            var accrate = Number(obj.binding[0].literal["#text"]);
+            acceptanceData.push({
+                "over": +dateVal[0],
+                "2614": accrate,
+                "4449": 0
+            })
+        } else {
+            var submitted = Number(obj.binding[1].literal["#text"]);
+            var accepted = Number(obj.binding[2].literal["#text"]);
+            groupChartData.push({
+                "over": +dateVal[0],
+                "2614": submitted,
+                "4449": accepted
+            });
+        }
     });
     var columnsInfo = { "2614": "Submitted", "4449": "Accepted" };
-    $("#chart_area,#chart_area_1,#chart_area_2").empty();
+    $("#chart_area").empty();
 
     if (isFChart) {
         var columnsInfo_2 = { "2614": "Acceptance rate", "4449": "" };
@@ -349,7 +378,6 @@ function constructCColumnChart(results) {
     }
 }
 function constructCChart(results) {
-    //var chartSubType = $("#c_chart_type").val();
     var chartSubType = $("#chart_type").val();
     var chartTypeMapping = {
         line: constructCLineChart,
@@ -374,7 +402,7 @@ function generateDQuery() {
     `;
     reInitControls(dQuery, "dChart");
 }
-function constructDChart(results) {
+function constructDColumnChart(results) {
     var graphD = [];
     results.forEach(obj => {
         var country = obj.binding[0].uri.split("/");
@@ -383,6 +411,71 @@ function constructDChart(results) {
         graphD.push({ salesperson: country, sales: count })
     });
     drawBarChart(graphD);
+}
+function constructDLineChart(results) {
+    var acceptanceData = [
+        {
+            name: "Count",
+            values: []
+        }
+    ];
+    var dateArr = [];
+    results.forEach((obj, index) => {
+        var uri = obj.binding[0].uri;
+        uri = uri.split("/");
+        uri = uri[uri.length - 1];
+        uri = uri.replace("_", " ");
+        var accrate = Number(obj.binding[1].literal["#text"]);
+        dateArr.push(uri);
+        var accrate = Number(obj.binding[1].literal["#text"]);
+        acceptanceData[0].values.push({ date: index, price: accrate });
+    });
+    constructLineGraph(acceptanceData, "chart_area","Country");
+    var gElements = $("#chart_area").find("g").find("g[class='x axis']").find("g");
+    var len = gElements.length - 1;
+    for (var loop = dateArr.length - 1; loop >= 0; loop-- , len--) {
+        $(gElements[len]).find("text").text(dateArr[loop]);
+    }
+}
+function constructDBarChart(results) {
+    var acceptanceData = [];
+    results.forEach((obj, index) => {
+        var uri = obj.binding[0].uri;
+        uri = uri.split("/");
+        uri = uri[uri.length - 1];
+        uri = uri.replace("_", " ");
+        var accrate = Number(obj.binding[1].literal["#text"]);
+        acceptanceData.push({
+            "over": uri,
+            "2614": accrate,
+            "4449": 0
+        });
+    });
+    $("#chart_area").empty();
+    var columnsInfo = { "2614": "Count", "4449": "" };
+    var barChartConfig = {
+        mainDiv: "#chart_area",
+        colorRange: ["#008000", "#0000A0"],
+        data: acceptanceData,
+        columnsInfo: columnsInfo,
+        xAxis: "runs",
+        yAxis: "over",
+        label: {
+            xAxis: "Count",
+            yAxis: "Country"
+        }
+    };
+    new horizontalGroupBarChart(barChartConfig);
+}
+function constructDChart(results) {
+    var chartSubType = $("#chart_type").val();
+    if (chartSubType == "bar") {
+        constructDBarChart(results);
+    } else if (chartSubType == "column") {
+        constructDColumnChart(results);
+    } else {
+        constructDLineChart(results)
+    }
 }
 function generateGQuery() {
     var month = $("#g_month").val();
@@ -405,22 +498,22 @@ function generateGQuery() {
 }
 function constructGChart(results) {
     var flatArray = [];
-    var min=Infinity, max=-Infinity;
+    var min = Infinity, max = -Infinity;
     results.forEach(data => {
-        var series=data.binding[0].uri.split("#")[1];
-        var value=+data.binding[1].literal["#text"];
-        if(min>value){
-            min=value;
+        var series = data.binding[0].uri.split("#")[1];
+        var value = +data.binding[1].literal["#text"];
+        if (min > value) {
+            min = value;
         }
-        if(max<value){
-            max=value;
+        if (max < value) {
+            max = value;
         }
         flatArray.push({
             "Country": series,
             "Value": value
         })
     });
-    drawRadialBar(flatArray,min,max);
+    drawRadialBar(flatArray, min, max);
 }
 function generateHQuery() {
     var series = $("#h_series").val();
@@ -450,9 +543,7 @@ function constructHChart(results) {
         flatArray.push({ country: country, series: series, count: count });
     });
     flatArray = flatArray.map(data => {
-    	console.log(data);
         var countryObj = countryList.find(con => con.name.indexOf(data.country) != -1);
-        console.log(countryObj);
         data.id = countryObj && countryObj.id;
         data.population = data.count;
         data.name = data.country;
@@ -511,7 +602,7 @@ function constructJChart(results) {
     config.colorsScale = d4.scale.category20b();
     config.maxValue = max;
     config.minValue = min;
-    loadRectangularAreaChart("chart_area_3", areaData, config);
+    loadRectangularAreaChart(null, areaData, config);
 }
 function generateIQuery() {
     var year = $("#i_year").val();
@@ -544,32 +635,33 @@ function generateIQuery() {
 function constructIChart(results) {
     var areaData = [];
     results.forEach((obj, i) => {
-    	console.log(obj);
         var event = obj.binding[0].uri.split("#")[1];
-        console.log(event);
         var numberofevents = obj.binding[1].literal["#text"];
-        console.log(numberofevents);
         areaData.push({
-            //"date": i,
-            //"close": numberofevents,
-            //"actual": event,
+            "date": i,
+            "close": numberofevents,
+            "actual": event,
             "age": event,
             "population": numberofevents
         });
     });
-    /*drawAreaChart(areaData);
-    var gElements = $("#chart_area").find(".area_x").find("g");
-    var len = gElements.length - 1;
-    for (var loop = areaData.length - 1; loop >= 0; loop-- , len--) {
-        $(gElements[len]).find("text").text(areaData[loop].actual);
-    }*/
 
-    drawPlatelets(areaData);
+    var chartSubType = $("#chart_type").val();
+    if (chartSubType == "area") {
+        drawAreaChart(areaData);
+        var gElements = $("#chart_area").find(".area_x").find("g");
+        var len = gElements.length - 1;
+        for (var loop = areaData.length - 1; loop >= 0; loop-- , len--) {
+            $(gElements[len]).find("text").text(areaData[loop].actual);
+        }
+    } else {
+        drawPlatelets(areaData);
+    }
 }
 function reInitControls(queryVal, chartT) {
     $("#query").val(queryVal);
-    $("#query_div").show();
-    //$("#query_show").val("Hide Query");
-    $("#chart_area,#chart_area_1,#chart_area_2,#Legend_chart_area_1,#Legend_chart_area").html("");
+    $("#query_div,#query_button_div").show();
+    $("#query_show").val("Hide Query");
+    $("#chart_area,#Legend_chart_area,#legends").html("");
     chartType = chartT;
 }
