@@ -1,11 +1,12 @@
 <html>
 
 <head>
-	<!--link href="normalize.css" rel="stylesheet" /-->
+	<title>VizResu</title>
+	<link href="lib/bootstrap.css" rel="stylesheet" />
 	<link href="index.css" rel="stylesheet" />
 
 	<script src="lib/jQuery.min.js"></script>
-	
+
 	<script src="lib/d3.v3.min.js"></script>
 	<script src="lib/d3.v4.min.js"></script>
 
@@ -13,10 +14,8 @@
 
 	<script src="lib/d3-tip.js"></script>
 
-	<!--script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script-->
-	<script src="http://d3js.org/queue.v1.min.js"></script>
-	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<!--script src="lib/d3-tip.js"></script-->
+	<script src="lib/queue.v1.min.js"></script>
+	<script src="lib/topojson.v1.min.js"></script>
 	<script src="world_countries.js"></script>
 
 	<script src="lib/xml2json.js"></script>
@@ -33,141 +32,165 @@
 	<script src="lib/rectangular_area_chart.js"></script>
 	<script src="lib/d3-radial.js"></script>
 	<script src="lib/radial_bar_chart.js"></script>
-	
 
 	<script src="util.js"></script>
 	<script src="index.js"></script>
 </head>
 
-<body>
-	<h2 class="header">Parametarized predefined SPARQL queries</h2>
-	<center>
-		<div class="article" style="margin-top:-20px;">
-			<select id="chartType" onChange="showHideOptionsDiv(this.value);">
-				<option value="">Select a chart type</option>
-				<option value="a">Type 01 - List all events in the "field" that took place between "dates" in "country"</option>
-				<option value="b">Type 02 - List the events related to "field" with an "acceptance rate"</option>
-				<option value="c">Type 03 - List the number of submitted and accepted papers of the "series" since "date"</option>
-				<option value="d">Type 04 - List the top "n" countries host most of the events in computer science research communities.</option>
-				<option value="e">Type 05 - List the subfields of CS where "country" has hosted more events since "date"</option>
-				<option value="f">Type 06 - Acceptance rate of the "series" since "date"</option>
-				<option value="g">Type 07 - List the conference series that occur in the "month" of</option>
-				<option value="h">Type 08 - List the Geographical distribution of series in CS Community</option>
-				<option value="i">Type 09 - Field productivity for CS research communities in the "year"</option>
-				<option value="j">Type 10 - Top "n" series in terms of the number of events</option>
-			</select>
-		</div>
-		<div id="a_options" style="display: none; margin-top:20px;" class="options">
-			List all events (with their websites) in the field&nbsp;
-			<select id="a_fields"></select> &nbsp; that took place between&nbsp;&nbsp;
-			<input type="date" id="a_from_date" value="2014-01-01"> and
-			<input type="date" id="a_to_date" value="2019-03-24"> in
-			<select id="a_country"></select>&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="a_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateAQuery();">
-		</div>
-		<div id="b_options" style="display: none; margin-top:20px;" class="options">
-			List the events related to
-			<select id="b_fields"></select> &nbsp;with an acceptance rate&nbsp;
-			<select id="b_op">
-				<option value=">"> &gt;</option>
-				<option value=">="> ≥</option>
-				<option value="<"> &lt;</option>
-				<option value=">="> ≤</option>
-				<option value="="> =</option>
-				<option value="!="> ≠</option>
-			</select>
-			&nbsp;
-			<input type="text" id="b_acrate" value="0.50" style="width:30px;" />&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="b_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateBQuery();" />
-		</div>
-		<div id="c_options" style="display: none; margin-top:20px;" class="options">
-			List the number of submitted and accepted papers of the series
-			<select id="c_series"></select>
-			&nbsp;since&nbsp;
-			<input type="date" id="c_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateCQuery(false);" />
-		</div>
-		<div id="d_options" style="display: none; margin-top:20px;" class="options">
-			List the top-
-			<input type="text" id="d_count" value="10" style="width:30px;"> countries host most of the events in computer science research communities. &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="d_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateDQuery();" />
-		</div>
-		<div id="e_options" style="display: none; margin-top:20px;" class="options">
-			List the subfields of CS where
-			<select id="e_country"></select>&nbsp; has hosted more events since
-			<input type="date" id="e_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="e_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateEQuery();" />
-		</div>
-		<div id="f_options" style="display: none; margin-top:20px;" class="options">
-			Acceptance rate of the series
-			<select id="f_series"></select>
-			&nbsp;since&nbsp;
-			<input type="date" id="f_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateCQuery(true);" />
-		</div>
-		<div id="g_options" style="display: none; margin-top:20px;" class="options">
-				List the series that occur in the month of &nbsp;
-				<select id="g_month"></select>
-				&nbsp;
-				<!--
-				&nbsp;since&nbsp;
-				<input type="date" id="f_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-				<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-				<input type="button" value="Generate Query" onClick="generateGQuery();" />
-			</div>
-		<div id="h_options" style="display: none; margin-top:20px;" class="options">
-			Geographical distribution of series &nbsp;
-			<select id="h_series"></select>
-			in CS Community&nbsp;
-			<!--
-			&nbsp;since&nbsp;
-			<input type="date" id="f_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateHQuery();" />
-		</div>
-		<div id="i_options" style="display: none; margin-top:20px;" class="options">
-				Field productivity for CS research communities in the Year&nbsp;
-				<input type="text" id="i_year" value="2017" style="width:40px;" />&nbsp;&nbsp;
-				<!--
-				&nbsp;since&nbsp;
-				<input type="date" id="f_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-				<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-				<input type="button" value="Generate Query" onClick="generateIQuery();" />
-			</div>
-		<div id="j_options" style="display: none; margin-top:20px;" class="options">
-			Top&nbsp;
-			<input type="text" id="j_count" value="10" style="width:30px;" />&nbsp;&nbsp;
-			series in terms of the number of events
-			<!--
-			&nbsp;since&nbsp;
-			<input type="date" id="f_date" value="2013-01-01" /> &nbsp;&nbsp;&nbsp;
-			<!--Chart Type&nbsp;&nbsp;<select id="c_chart_type"></select-->
-			<input type="button" value="Generate Query" onClick="generateJQuery();" />
-		</div>
-		<div style="display: none; margin-top:20px;" id="query_button_div">
-			<input type="button" value="Hide Query" id="query_show" onClick="showHideQueryBox(this.value);"/>
-		</div>
-		<div style="display: none; margin-top:20px;" id="query_div">
-			<textarea id="query"></textarea>
-			<br>
-			<br>
-			Chart Type&nbsp;&nbsp;<select id="chart_type"></select>
-			<br>
-			<br>
-			<input type="button" value="Construct Chart" id="chart_button" onClick="sendRequest();">
-		</div>
-		
-		<div id="chart_area"></div>
-		<span id="chart_area_1"></span>
-		<span id="chart_area_2"></span>
+<body style="background-color: #66509f;">
+	<div class="header" style="background-color:white;">
+		<span style="margin-left:20px;font-size: 50px;font-weight: bolder;color:#66509f;">
+			<img src="./logo.png" title="Logo" style="height: 90px;" /> 
+		</span>
+		<!--span style="float:right;margin-right: 10px;">
+				<a href="https://github.com/s6SaranyaArumugam/SPARQL-Query-Results-Visualization-/issues" target="_blank">Issue Tracker</a>
+		</span-->
+		<!--span style="float:right;margin-right: 10px;margin-top: 25px;">
+			<a href="https://datahub.ckan.io/dataset/eventskg" target="_blank">RDF Dump</a>
+		</span-->
+		<span style="float:right;margin-right: 10px;margin-top: 25px;">
+			<a href="http://kddste.sda.tech/sparql" target="_blank">SPARQL Endpoint</a>
+		</span>
+		<span style="float:right;margin-right: 10px;margin-top: 25px;">
+			<a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html" target="_blank">EVENTSKG</a>
+		</span>
+		<span style="float:right;margin-right: 10px;margin-top: 25px;">
+			<a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">Ontology</a>
+		</span>
+		<span style="float:right;margin-right: 20px;font-weight: bolder;margin-top: 25px;" onclick="showHideHomeSearch('search')" class="links" id="search_link">
+			<a href="#">VisRezu</a>
+		</span>
+		<span style="float:right;margin-right: 20px; margin-top: 25px;" onclick="showHideHomeSearch('home')"
+		 class="links" id="home_link">
+			<a href="#">Home</a>
+		</span>
+	</div>
+	<div id="home_page" style="width:90%;margin-left:50px;margin-top:20px;background-color:white;height:110%;display: none;">
+		<h3 style="color:#66509f;padding:10px;">SPARQL Result Set Visualization</h3>
+		<hr>
+		<p style="text-indent:30px;padding:10px;">
+			VizResu, a Web-based service for the visualization of linked data retrieved from a public SPARQL endpoint. The focus is on
+			mapping query results returned by the SPARQL endpoint to a specific chart type. Eg., graph chart for qualitative data,
+			column/bar chart for quantitative ones. A semi-automatic approach that generates various charts from SPARQL queries over
+			data represented as RDF graphs is introduced in the system. EVENTSKG is used in the context of the metadata analysis of
+			renowned scientific events belonging to eight Computer Science communities.
+		</p>
+		<img src="./architecture.png" title="Flow diagram" style="margin-left:30%;margin-top:2%;" />
+		<h3 style="color:#66509f;padding:10px;">VizResu for Non-SPARQL users</h3>
+		<hr>
+		<p style="text-indent:30px;padding:10px;">
+			SPARQL non-specialists, can conveniently producing SPARQL queries, extending from easy to complex ones by utilizing the intuitive
+			web interface. Moreover, the query so formed is shown to make it simpler for end-users to comprehend whether an alteration
+			is required before execution. A definitive objective behind this work is to broaden the access to semantic data on the
+			Web by making it simpler to create and execute SPARQL queries and the executed SPARQL results are converted into the visualized
+			charts by using D3.
+		</p>
+	</div>
 
-		<img src="loading.gif" id="loading_gif" style="display:none;" />
+	<center style="background-color:white;width:90%;margin-left:50px;margin-top:20px;height:70%;" id="search_page">
+		<div style="background-color:white;">
+			<div class="article">
+				<select id="chartType" onchange="showHideOptionsDiv(this.value);" class="form-control" style="width:800px;">
+					<option value="">Select a User query</option>
+					<option value="a">Query 01 - List all events in the field F that took place between Y and Z in a country C.</option>
+					<option value="b">Query 02 - List the events related to field F with an acceptance rate less than A.</option>
+					<option value="c">Query 03 - List the number of submitted and accepted papers of the series S since a date D</option>
+					<option value="d">Query 04 - List the top-N countries host most of the events in computer science research communities..</option>
+					<option value="e">Query 05 - List the subfields of CS where a country C has hosted more events since  a date D</option>
+					<option value="f">Query 06 - List the acceptance rate of a series S since a date D</option>
+					<option value="g">Query 07 - List the top-N events occurred in a month M.</option>
+					<option value="h">Query 08 - List the geographical distribution of the top event in each CS community since a date.</option>
+					<option value="i">Query 09 - Find the field productivity for CS research communities in a year Y</option>
+					<option value="j">Query 10 - Find the top-N series in terms of the number of its editions</option>
+				</select>
+			</div>
+			<div id="a_options" style="display: none; margin-top:20px;" class="options">
+				List all events in the field&nbsp;
+				<select id="a_fields" class="form-control"></select> &nbsp; that took place between&nbsp;&nbsp;
+				<input type="date" id="a_from_date" value="2014-01-01" class="form-control"> and
+				<input type="date" id="a_to_date" value="2019-03-24" class="form-control"> in
+				<select id="a_country" class="form-control"></select>&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateAQuery();" class="btn btn-primary">
+			</div>
+			<div id="b_options" style="display: none; margin-top:20px;" class="options">
+				List the events related to
+				<select id="b_fields" class="form-control"></select> &nbsp;with an acceptance rate&nbsp;
+				<select id="b_op" class="form-control" style="width:60px;">
+					<option value=">"> &gt;</option>
+					<option value=">="> ≥</option>
+					<option value="<"> &lt;</option>
+					<option value=">="> ≤</option>
+					<option value="="> =</option>
+					<option value="!="> ≠</option>
+				</select>
+				&nbsp;
+				<input type="text" id="b_acrate" value="0.50" style="width:60px;" class="form-control" />&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateBQuery();" class="btn btn-primary" />
+			</div>
+			<div id="c_options" style="display: none; margin-top:20px;" class="options">
+				List the number of submitted and accepted papers of the series
+				<select id="c_series" class="form-control"></select>
+				&nbsp;since&nbsp;
+				<input type="date" id="c_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateCQuery(false);" class="btn btn-primary" />
+			</div>
+			<div id="d_options" style="display: none; margin-top:20px;" class="options">
+				List the top
+				<input type="text" id="d_count" value="10" style="width:60px;"> countries host most of the events in computer science research communities. &nbsp;&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateDQuery();" class="btn btn-primary" />
+			</div>
+			<div id="e_options" style="display: none; margin-top:20px;" class="options">
+				List the subfields of CS 
+				<select id="e_country" class="form-control"></select>&nbsp; has hosted more events since
+				<input type="date" id="e_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateEQuery();" class="btn btn-primary" />
+			</div>
+			<div id="f_options" style="display: none; margin-top:20px;" class="options">
+				List the acceptance rate of the series
+				<select id="f_series" class="form-control"></select>
+				&nbsp;since&nbsp;
+				<input type="date" id="f_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateCQuery(true);" class="btn btn-primary" />
+			</div>
+			<div id="g_options" style="display: none; margin-top:20px;" class="options">
+				List the top events that occur in the month of &nbsp;
+				<select id="g_month" class="form-control"></select>
+				by series&nbsp;
+				<input type="button" value="Visualize" onclick="generateGQuery();" class="btn btn-primary" />
+			</div>
+			<div id="h_options" style="display: none; margin-top:20px;" class="options">
+				List the geographical distribution of the &nbsp;
+				<select id="h_series" class="form-control"></select>
+				top event in each CS community&nbsp;
+				<input type="button" value="Visualize" onclick="generateHQuery();" class="btn btn-primary" />
+			</div>
+			<div id="i_options" style="display: none; margin-top:20px;" class="options">
+				Find the field productivity for CS research communities &nbsp;
+				<input type="text" id="i_year" value="2017" style="width:60px;" class="form-control" />&nbsp;&nbsp;
+				<input type="button" value="Visualize" onclick="generateIQuery();" class="btn btn-primary" />
+			</div>
+			<div id="j_options" style="display: none; margin-top:20px;" class="options">
+				Find top&nbsp;
+				<input type="text" id="j_count" value="10" style="width:60px;" class="form-control" />&nbsp;&nbsp; series in terms of the number of its editions
+				<input type="button" value="Visualize" onclick="generateJQuery();" class="btn btn-primary" />
+			</div>
+			<div style="margin-top:20px;">
+				<label>Corresponding SPARQL Query</label>
+				<br>
+				<textarea id="query" rows="10" cols="120"></textarea>
+			</div>
+			<div style="margin-top:20px;display: none;" id="query_div">
+				<br>Select Chart Type&nbsp;&nbsp;
+				<select id="chart_type" class="form-control"></select>
+				<input type="button" value="Construct Chart" id="chart_button" onclick="sendRequest();" class="btn btn-primary">
+			</div>
+		</div>
+		<div id="chart_area" style="background-color:white;"></div>
+		<div id="legends"></div>
+		<div style="background-color:white;">
+			<img src="loading.gif" id="loading_gif" style="display:none;" />
+		</div>
+		</div>
 	</center>
 </body>
 
