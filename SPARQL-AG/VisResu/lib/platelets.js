@@ -42,12 +42,15 @@ function drawPlatelets(data) {
                 .style("opacity", 1)
                 .style("display", "block");
         })
-        .on("mouseout", function () { div.html(" ").style("display", "none"); });
-
+        .on("mouseout", function () { div.html(" ").style("display", "none"); })
 
 
     g.append("path")
         .attr("d", arc)
         .style("fill", function (d) { return color(d.data.age); })
         .attr("d", arc);
+
+    data.forEach(element => {
+        $("#legends").append(`<span class="legend_rect" style="background-color:${color(element.age)}"></span><span style="float:left;">${element.actual}</span><br>`)
+    });
 }      	

@@ -50,7 +50,7 @@ function drawBubbleChart(dataset) {
         .attr("font-size", function (d) {
             return d.r / 5;
         })
-        .attr("fill", "Black");
+        .attr("fill", "black");
 
     node.append("text")
         .attr("dy", "1.3em")
@@ -62,7 +62,7 @@ function drawBubbleChart(dataset) {
         .attr("font-size", function (d) {
             return d.r / 5;
         })
-        .attr("fill", "Black");
+        .attr("fill", "black");
 
     d3.select(self.frameElement)
         .style("height", diameter + "px");

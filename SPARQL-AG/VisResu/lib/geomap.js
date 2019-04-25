@@ -12,9 +12,12 @@ function drawCountryGraph(flatArray) {
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
+    var domains=[0, 1, 5, 10, 20, 30, 40, 50];
+    var domainColors=["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)"];
+
     var color = d3.scaleThreshold()
-        .domain([0, 1, 5, 10, 20, 30, 40, 50, 100, 200])
-        .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)", "rgb(8,48,107)", "rgb(3,19,43)"]);
+        .domain(domains)
+        .range(domainColors);
 
     var path = d3.geoPath();
 
@@ -74,4 +77,22 @@ function drawCountryGraph(flatArray) {
         .attr("class", "names")
         .attr("d", path);
 
+        console.log("populationById.....",populationById);
+
+        valueObj={}
+
+        for(var key in populationById){
+            if(!valueObj[populationById[key]]){
+                valueObj[populationById[key]]=true;
+                var min,max
+                for(var len=1;len<domains.length;len++){
+                    if(populationById[key]<=domains[len] && populationById[key]>domains[len-1]){
+                        min= domains[len-1];
+                        max= domains[len];
+                    }
+                }
+
+                $("#legends").append(`<span class="legend_rect" style="background-color:${color(populationById[key])}"></span><span style="float:left;">${min}-${max}</span><br>`)
+            }
+        }
 }
