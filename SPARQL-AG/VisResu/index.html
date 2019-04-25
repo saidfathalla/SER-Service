@@ -37,17 +37,20 @@
 	<script src="index.js"></script>
 </head>
 
-<body style="background-color: #66509f;">
-	<div class="header" style="background-color:white;">
-		<span style="margin-left:20px;font-size: 50px;font-weight: bolder;color:#66509f;">
-			<img src="./logo.png" title="Logo" style="height: 90px;" /> 
+<body>
+	<!--style="background-color: #66509f;"-->
+	<div class="header">
+		<!--style="background-color:white;"-->
+		<span style="margin-left:20px;font-size: 50px;font-weight: bolder;">
+			<!--color:#66509f;-->
+			<img src="./logo.png" title="Logo" />
 		</span>
 		<!--span style="float:right;margin-right: 10px;">
 				<a href="https://github.com/s6SaranyaArumugam/SPARQL-Query-Results-Visualization-/issues" target="_blank">Issue Tracker</a>
-		</span-->
-		<!--span style="float:right;margin-right: 10px;margin-top: 25px;">
+		</span>
+		<span style="float:right;margin-right: 10px;margin-top: 25px;">
 			<a href="https://datahub.ckan.io/dataset/eventskg" target="_blank">RDF Dump</a>
-		</span-->
+		</span>
 		<span style="float:right;margin-right: 10px;margin-top: 25px;">
 			<a href="http://kddste.sda.tech/sparql" target="_blank">SPARQL Endpoint</a>
 		</span>
@@ -55,18 +58,43 @@
 			<a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html" target="_blank">EVENTSKG</a>
 		</span>
 		<span style="float:right;margin-right: 10px;margin-top: 25px;">
-			<a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">Ontology</a>
+			<a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">SEO Ontology</a>
 		</span>
-		<span style="float:right;margin-right: 20px;font-weight: bolder;margin-top: 25px;" onclick="showHideHomeSearch('search')" class="links" id="search_link">
-			<a href="#">VisRezu</a>
+		<span style="float:right;margin-right: 20px;margin-top: 25px;font-weight: bolder;" onclick="showHideHomeSearch('search')" class="links" id="search_link">
+			<a href="#">Search</a>
 		</span>
-		<span style="float:right;margin-right: 20px; margin-top: 25px;" onclick="showHideHomeSearch('home')"
+		<span style="float:right;margin-right: 20px;margin-top: 25px;" onclick="showHideHomeSearch('home')"
 		 class="links" id="home_link">
 			<a href="#">Home</a>
-		</span>
+		</span-->
+		<div class="topnav">
+			<a href="#" class="links" id="home_link" style="margin-left:40px;font-weight: bolder;" onclick="showHideHomeSearch('home')">Home </a>
+			<a href="#" style="" onclick="showHideHomeSearch('search')" class="links" id="search_link">VizResu</a>
+			<a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">SEO Ontology</a>
+			<a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html" target="_blank">EVENTSKG</a>
+			<a href="http://kddste.sda.tech/sparql" target="_blank">SPARQL Endpoint</a>
+		</div>
 	</div>
-	<div id="home_page" style="width:90%;margin-left:50px;margin-top:20px;background-color:white;height:110%;display: none;">
-		<h3 style="color:#66509f;padding:10px;">SPARQL Result Set Visualization</h3>
+	<div id="home_page" style="width:90%;margin-left:50px;margin-top:20px;height:85%;">
+		<!--background-color:white;-->
+		<h3 style="padding:10px;">Overview</h3>
+		<!--color:#66509f;-->
+		<hr>
+		<p style="text-indent:30px;padding:10px;">
+			The advantages of SPARQL come from its expressivity and scalability, however, people spend a large part of their time to
+			learn how to write a SPARQL query to fulfill their needs and, in many cases, they fail. The paramount intention behind
+			our decision to develop is to help potential semantic data consumers, i.e., SPARQL non-experts, by automatically generating
+			SPARQL queries, ranging from simple to complex ones, using an interactive web interface. Furthermore, it helps SPARQL
+			experts by reducing the time required to write queries by modifying the generated query (modify-before-execution option),
+			i.e., eliminating the need to write the query from scratch. The generated query is displayed in a readable way to make
+			it easier for end-users to understand whether a modification is needed before execution. In addition, there is no need
+			to know how externally-defined entities are defined, for instance, it is not required to know how, e.g., the country Germany
+			is represented in DBpedia. The ultimate goal behind this work is to widen the access to semantic data available on the
+			Web by making it easier to generate and execute SPARQL queries with prior knowledge of neither the schema of the data
+			being queried nor how to write SPARQL queries.
+		</p>
+		<h3 style="padding:10px;">SPARQL Result Set Visualization</h3>
+		<!--color:#66509f;-->
 		<hr>
 		<p style="text-indent:30px;padding:10px;">
 			VizResu, a Web-based service for the visualization of linked data retrieved from a public SPARQL endpoint. The focus is on
@@ -76,7 +104,8 @@
 			renowned scientific events belonging to eight Computer Science communities.
 		</p>
 		<img src="./architecture.png" title="Flow diagram" style="margin-left:30%;margin-top:2%;" />
-		<h3 style="color:#66509f;padding:10px;">VizResu for Non-SPARQL users</h3>
+		<h3 style="padding:10px;">Vizresu for Non-SPARQL users</h3>
+		<!--color:#66509f;-->
 		<hr>
 		<p style="text-indent:30px;padding:10px;">
 			SPARQL non-specialists, can conveniently producing SPARQL queries, extending from easy to complex ones by utilizing the intuitive
@@ -87,8 +116,10 @@
 		</p>
 	</div>
 
-	<center style="background-color:white;width:90%;margin-left:50px;margin-top:20px;height:70%;" id="search_page">
-		<div style="background-color:white;">
+	<center style="width:90%;margin-left:50px;margin-top:20px;height:70%;display: none;" id="search_page">
+		<!--background-color:white;-->
+		<div style="">
+			<!--background-color:white;-->
 			<div class="article">
 				<select id="chartType" onchange="showHideOptionsDiv(this.value);" class="form-control" style="width:800px;">
 					<option value="">Select a User query</option>
@@ -110,7 +141,7 @@
 				<input type="date" id="a_from_date" value="2014-01-01" class="form-control"> and
 				<input type="date" id="a_to_date" value="2019-03-24" class="form-control"> in
 				<select id="a_country" class="form-control"></select>&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateAQuery();" class="btn btn-primary">
+				<input type="button" value="Execute" onclick="generateAQuery();" class="form-control btn btn-primary">
 			</div>
 			<div id="b_options" style="display: none; margin-top:20px;" class="options">
 				List the events related to
@@ -125,71 +156,75 @@
 				</select>
 				&nbsp;
 				<input type="text" id="b_acrate" value="0.50" style="width:60px;" class="form-control" />&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateBQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateBQuery();" class="btn btn-primary" />
 			</div>
 			<div id="c_options" style="display: none; margin-top:20px;" class="options">
 				List the number of submitted and accepted papers of the series
 				<select id="c_series" class="form-control"></select>
 				&nbsp;since&nbsp;
 				<input type="date" id="c_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateCQuery(false);" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateCQuery(false);" class="btn btn-primary" />
 			</div>
 			<div id="d_options" style="display: none; margin-top:20px;" class="options">
 				List the top
 				<input type="text" id="d_count" value="10" style="width:60px;"> countries host most of the events in computer science research communities. &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateDQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateDQuery();" class="btn btn-primary" />
 			</div>
 			<div id="e_options" style="display: none; margin-top:20px;" class="options">
-				List the subfields of CS 
+				List the subfields of CS
 				<select id="e_country" class="form-control"></select>&nbsp; has hosted more events since
 				<input type="date" id="e_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateEQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateEQuery();" class="btn btn-primary" />
 			</div>
 			<div id="f_options" style="display: none; margin-top:20px;" class="options">
 				List the acceptance rate of the series
 				<select id="f_series" class="form-control"></select>
 				&nbsp;since&nbsp;
 				<input type="date" id="f_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateCQuery(true);" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateCQuery(true);" class="btn btn-primary" />
 			</div>
 			<div id="g_options" style="display: none; margin-top:20px;" class="options">
-				List the top events that occur in the month of &nbsp;
+				List the top events that occur in the month of  &nbsp;
 				<select id="g_month" class="form-control"></select>
 				by series&nbsp;
-				<input type="button" value="Visualize" onclick="generateGQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateGQuery();" class="btn btn-primary" />
 			</div>
 			<div id="h_options" style="display: none; margin-top:20px;" class="options">
-				List the geographical distribution of the &nbsp;
+				List the geographical distribution of the  &nbsp;
 				<select id="h_series" class="form-control"></select>
-				top event in each CS community&nbsp;
-				<input type="button" value="Visualize" onclick="generateHQuery();" class="btn btn-primary" />
+				based on number of events&nbsp;
+				<input type="button" value="Execute" onclick="generateHQuery();" class="btn btn-primary" />
 			</div>
 			<div id="i_options" style="display: none; margin-top:20px;" class="options">
 				Find the field productivity for CS research communities &nbsp;
 				<input type="text" id="i_year" value="2017" style="width:60px;" class="form-control" />&nbsp;&nbsp;
-				<input type="button" value="Visualize" onclick="generateIQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onclick="generateIQuery();" class="btn btn-primary" />
 			</div>
 			<div id="j_options" style="display: none; margin-top:20px;" class="options">
 				Find top&nbsp;
-				<input type="text" id="j_count" value="10" style="width:60px;" class="form-control" />&nbsp;&nbsp; series in terms of the number of its editions
-				<input type="button" value="Visualize" onclick="generateJQuery();" class="btn btn-primary" />
+				<input type="text" id="j_count" value="10" style="width:60px;" class="form-control" />&nbsp;&nbsp; series in terms of the number of events
+				<input type="button" value="Execute" onclick="generateJQuery();" class="btn btn-primary" />
 			</div>
-			<div style="margin-top:20px;">
-				<label>Corresponding SPARQL Query</label>
-				<br>
-				<textarea id="query" rows="10" cols="120"></textarea>
-			</div>
+			<!--div style="margin-top:20px;">
+					<label>Corresponding SPARQL query</label><br>
+					<textarea id="query" rows="10" cols="120"></textarea>
+			</div-->
 			<div style="margin-top:20px;display: none;" id="query_div">
-				<br>Select Chart Type&nbsp;&nbsp;
-				<select id="chart_type" class="form-control"></select>
-				<input type="button" value="Construct Chart" id="chart_button" onclick="sendRequest();" class="btn btn-primary">
+				<div>Corresponding SPARQL query</div>
+				<textarea id="query" rows="10" cols="120"></textarea>
+				<div>
+					Select Chart Type&nbsp;&nbsp;
+					<select id="chart_type" class="form-control"></select>
+					<input type="button" value="Visualize it" id="chart_button" onclick="sendRequest();" class="btn btn-primary">
+				</div>
 			</div>
 		</div>
-		<div id="chart_area" style="background-color:white;"></div>
+		<div id="chart_area" style=""></div>
+		<!--background-color:white;-->
 		<div id="legends"></div>
-		<div style="background-color:white;">
+		<div style="margin-top:300px;">
+			<!--background-color:white;-->
 			<img src="loading.gif" id="loading_gif" style="display:none;" />
-		</div>
 		</div>
 	</center>
 </body>
