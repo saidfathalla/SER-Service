@@ -1,6 +1,6 @@
-function constructLineGraph(data,divId) {  
-      var width = 500;
-      var height = 300;
+function constructLineGraph(data,divId,labelPassed) {  
+      var width = 800;
+      var height = 600;
       var margin = 50;
       var duration = 250;
       
@@ -137,9 +137,9 @@ function constructLineGraph(data,divId) {
         .attr("transform", `translate(0, ${height-margin})`)
         .call(xAxis)
         .append('text')
-        .attr("x", 450)
+        .attr("x", 750)
         .attr("fill", "#000")
-        .text("Year");
+        .text(labelPassed || "Year");
       
       svg.append("g")
         .attr("class", "y axis")

@@ -81,6 +81,7 @@ function drawCountryGraph(flatArray) {
 
         valueObj={}
 
+       var legendStr="";
         for(var key in populationById){
             if(!valueObj[populationById[key]]){
                 valueObj[populationById[key]]=true;
@@ -91,8 +92,9 @@ function drawCountryGraph(flatArray) {
                         max= domains[len];
                     }
                 }
-
-                $("#legends").append(`<span class="legend_rect" style="background-color:${color(populationById[key])}"></span><span style="float:left;">${min}-${max}</span><br>`)
+                legendStr+=`<span class="legend_rect" style="background-color:${color(populationById[key])}"></span><span style="float:left;">${min}-${max}</span><br>`;  
             }
         }
+        legendStr+=`<span class="legend_rect" style="background-color:black;"></span><span style="float:left;">0</span>`;
+        $("#legends").append(legendStr);
 }

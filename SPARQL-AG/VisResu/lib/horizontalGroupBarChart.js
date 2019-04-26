@@ -45,13 +45,13 @@ function horizontalGroupBarChart(config) {
         var mainDivName = mainDiv.substr(1, mainDiv.length);
         var label = config.label;
         var requireLegend = config.requireLegend;
-        d3.select(mainDiv).append("svg").attr("width", 600).attr("height", 600 * 0.80);
+        d3.select(mainDiv).append("svg").attr("width", 800).attr("height", 800 * 0.80);
         var svg = d3.select(mainDiv + " svg"),
             margin = { top: 20, right: 20, bottom: 40, left: 40 },
             width = +svg.attr("width") - margin.left - margin.right,
             height = +svg.attr("height") - margin.top - margin.bottom;
 
-
+            margin.left=100;
         var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         if (requireLegend != null && requireLegend != undefined && requireLegend != false) {
@@ -173,11 +173,11 @@ function horizontalGroupBarChart(config) {
             .attr("class", "axis")
             .call(d3.axisLeft(y0).ticks(null, "s"))
             .append("text")
-            .attr("x", height * 0.4 * -1)
-            .attr("y", margin.left * 0.8 * -1)//y(y.ticks().pop()) + 0.5)
+            .attr("x", 20 /*height * 0.4 * -1*/)
+            .attr("y", -15/*margin.left * 0.8 * -1)//y(y.ticks().pop()) + 0.5*/)
             .attr("dy", "0.71em")
             .attr("fill", "#000")
-            .attr("transform", "rotate(-90)")
+            .attr("transform", "rotate(0)")
             .attr("font-weight", "bold")
             // .attr("text-anchor", "start")
             .text(label.yAxis);

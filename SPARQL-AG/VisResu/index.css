@@ -140,6 +140,9 @@ body {
 .node text {
 	font: 8px sans-serif;
 }
+.node2 text {
+	font: 10px sans-serif;
+}
 
 .link {
 	fill: none;

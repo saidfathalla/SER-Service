@@ -22,7 +22,7 @@ function drawBubbleChart(dataset) {
             return !d.children
         })
         .append("g")
-        .attr("class", "node")
+        .attr("class", "node node2")
         .attr("transform", function (d) {
             return "translate(" + d.x + "," + d.y + ")";
         });
@@ -50,7 +50,7 @@ function drawBubbleChart(dataset) {
         .attr("font-size", function (d) {
             return d.r / 5;
         })
-        .attr("fill", "black");
+        .attr("fill", "Black");
 
     node.append("text")
         .attr("dy", "1.3em")
@@ -62,7 +62,7 @@ function drawBubbleChart(dataset) {
         .attr("font-size", function (d) {
             return d.r / 5;
         })
-        .attr("fill", "black");
+        .attr("fill", "Black");
 
     d3.select(self.frameElement)
         .style("height", diameter + "px");
