@@ -12,8 +12,8 @@ function drawCountryGraph(flatArray) {
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var domains=[0, 1, 5, 10, 20, 30, 40, 50];
-    var domainColors=["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)"];
+    var domains=[0, 5, 10, 20, 30, 40, 50];
+    var domainColors=["rgb(247,251,255)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)"];
 
     var color = d3.scaleThreshold()
         .domain(domains)
@@ -79,22 +79,38 @@ function drawCountryGraph(flatArray) {
 
         console.log("populationById.....",populationById);
 
-        valueObj={}
-
-       var legendStr="";
-        for(var key in populationById){
-            if(!valueObj[populationById[key]]){
-                valueObj[populationById[key]]=true;
-                var min,max
-                for(var len=1;len<domains.length;len++){
-                    if(populationById[key]<=domains[len] && populationById[key]>domains[len-1]){
-                        min= domains[len-1];
-                        max= domains[len];
-                    }
+       valueObj = {};
+    alreadyAdded = {};
+    var legendStr = ``;
+    var sortable = [];
+    for (var key in populationById) {
+        sortable.push([key, populationById[key]]);
+    }
+    sortable.sort(function (a, b) {
+        return b[1] - a[1];
+    });
+    for (var loop = 0; loop < sortable.length; loop++) {
+        var key = sortable[loop][0];
+        if (!valueObj[populationById[key]]) {
+            valueObj[populationById[key]] = true;
+            var min, max
+            for (var len = 1; len < domains.length; len++) {
+                if (populationById[key] <= domains[len] && populationById[key] > domains[len - 1]) {
+                    min = domains[len - 1];
+                    max = domains[len];
                 }
-                legendStr+=`<span class="legend_rect" style="background-color:${color(populationById[key])}"></span><span style="float:left;">${min}-${max}</span><br>`;  
             }
+            //if (populationById[key] == 1) {
+                //legendStr += `<span class="legend_rect" style="background-color:${color(1)}"></span> <span style="float:left;line-height:1">1</span><br>`;
+            //} else {
+                var range = `${min + 1}-${max}`;
+                if (!alreadyAdded[range]) {
+                    alreadyAdded[range] = true;
+                    legendStr += `<span class="legend_rect" style="background-color:${color(populationById[key])}"> </span><span style="float:left;line-height:1">${min + 1}-${max}</span><br>`;
+                }
+            //}
         }
-        legendStr+=`<span class="legend_rect" style="background-color:black;"></span><span style="float:left;">0</span>`;
-        $("#legends").append(legendStr);
+    }
+    legendStr += `<span class="legend_rect" style="background-color:black;"></span> <span style="float:left;line-height:1">0</span><br>`;
+    $("#legends").html(legendStr);
 }
