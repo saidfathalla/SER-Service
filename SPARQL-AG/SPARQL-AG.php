@@ -176,6 +176,7 @@ input[type=submit]:hover, button:hover {
         if (!empty($_POST['selDISTINCT']))
             $gq =  " ".$prefix . "\n SELECT DISTINCT ";
         if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submit'])) {
+			
             
 //            } else 
             if (!empty($_POST["selAll"]) and $_POST["selAll"] == TRUE) {
@@ -393,13 +394,13 @@ input[type=submit]:hover, button:hover {
             $data = htmlspecialchars($data);
             return $data;
         }
-         
+		
         ?> 
 		
 <div class="column middle">
         <h4>&nbsp;</h4>
         <h3>Overview </h3>
-        <p>The advantages of SPARQL come from its expressivity and scalability, however, people spend a large part of their time to learn how to write a SPARQL query to fulfill their needs and, in many cases, they fail. 
+        <p align="justify">The advantages of SPARQL come from its expressivity and scalability, however, people spend a large part of their time to learn how to write a SPARQL query to fulfill their needs and, in many cases, they fail. 
           SPARQL-AG is a semantic web frontend which automatically generates SPARQL queries for querying the EVENTSKG knowledge graph about scientific events. 
           The paramount intention behind our decision to develop SPARQL-AG is to help potential semantic data consumers, i.e., SPARQL non-experts, by automatically generating SPARQL queries, ranging from simple to complex ones, using an interactive web interface.  
           Furthermore, it helps SPARQL experts by reducing the time required to write queries by modifying the generated query (<em>modify-before-execution</em> option), i.e., eliminating the need to write the query from scratch. 
@@ -416,496 +417,479 @@ input[type=submit]:hover, button:hover {
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">  
             <strong>1.1 Prefix declaration:</strong> each Name space SHOULD be in a new line and SHOULD be like: <span class="style2">vcard: &lt;http://www.w3.org/2001/vcard-rdf/3.0#&gt;</span>  
 
-            <p> <textarea name="prefix" id="prefix" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
+            <p> 
+			<textarea name="prefix" id="prefix" rows="5" cols="120" onkeypress="KeyPress(event)"  > <?php echo $prefix; ?></textarea> 
             </p>
 
             <p  ><strong> 1.2 Result clause: </strong>
-            <p><span class="style3">
-            <input name="selDISTINCT" type="checkbox" id="selDISTINCT" checked="checked" />
-            </span><span class="style4">DISTINCT</span>
-            -
-            <input name="selURI" type="checkbox" checked="checked"> 
-          URI, <input type="checkbox" name="selType" > 
-          event type, 
-            <input type="checkbox" name="selSeries" > 
-          series,
-			<input type="checkbox" name="selCountry" > 
-			country,   
-			<input type="checkbox" name="selCity" >
-			city, 
-			<input type="checkbox" name="selField" > 
-			field, 
-			<input type="checkbox" name="selacc" >
-			acceptance rate,
-                <input type="checkbox" name="selAP">
-                accepted papers,
-                <input name="selSP" type="checkbox" >
-                submitted papers,               </p>
-          <p>
-              <input name="selStartDate" type="checkbox">
-              start date,
-              <input name="selEndDate" type="checkbox"">
-              end date,
-              <input type="checkbox" name="selWebsite" >
-              website,
-              <input name="selPublisher" type="checkbox" >
-          publisher.&nbsp;</p>
-            <p><strong>1.3 Query pattern: </strong></p>
-<table width="80%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td><input label="event type" type="checkbox" name="filType" /> 
-        <!--checked="checked"-->
-      event type </td>
-    <td>&nbsp;</td>
-    <td><select name="typeVal" class="form-control"  >
-            <!--selected="selected"-->
-        <option value="https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Conference" >Conference</option>
-        <option value="https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Workshop">Workshop</option>
-        <option value="http://purl.org/seo/Symposium">Symposium</option>
-    </select></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><input name="filSeries" type="checkbox" id="filSeries" />      
-      series</td>
-    <td>&nbsp;</td>
-    <td><input name="seriesVal" type="text" class="form-control" value="ISWC"    size="33"  placeholder= "ISWC"/></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr> 
-   
-   <tr>
-    <td width="18%"><input name="filCountry" type="checkbox"  />
-country </td>
-    <td width="10%">&nbsp;</td>
-    <td width="17%"><select name="countryVal" class="form-control">
-                                                                          <option value="http://dbpedia.org/resource/Afganistan">Afghanistan</option>
-                                                                          <option value="http://dbpedia.org/resource/Albania">Albania</option>
-                                                                          <option value="http://dbpedia.org/resource/Algeria">Algeria</option>
-                                                                          <option value="http://dbpedia.org/resource/American_Samoa">American Samoa</option>
-                                                                          <option value="http://dbpedia.org/resource/Andorra">Andorra</option>
-                                                                          <option value="http://dbpedia.org/resource/Angola">Angola</option>
-                                                                          <option value="http://dbpedia.org/resource/Anguilla">Anguilla</option>
-                                                                          <option value="http://dbpedia.org/resource/Antigua_and_Barbuda">Antigua &amp; Barbuda</option>
-                                                                          <option value="http://dbpedia.org/resource/Argentina">Argentina</option>
-                                                                          <option value="http://dbpedia.org/resource/Armenia">Armenia</option>
-                                                                          <option value="http://dbpedia.org/resource/Aruba">Aruba</option>
-                                                                          <option value="http://dbpedia.org/resource/Australia">Australia</option>
-                                                                          <option value="http://dbpedia.org/resource/Austria">Austria</option>
-                                                                          <option value="http://dbpedia.org/resource/Azerbaijan">Azerbaijan</option>
-                                                                          <option value="http://dbpedia.org/resource/Bahamas">Bahamas</option>
-                                                                          <option value="http://dbpedia.org/resource/Bahrain">Bahrain</option>
-                                                                          <option value="http://dbpedia.org/resource/Bangladesh">Bangladesh</option>
-                                                                          <option value="http://dbpedia.org/resource/Barbados">Barbados</option>
-                                                                          <option value="http://dbpedia.org/resource/Belarus">Belarus</option>
-                                                                          <option value="http://dbpedia.org/resource/Belgium">Belgium</option>
-                                                                          <option value="http://dbpedia.org/resource/Belize">Belize</option>
-                                                                          <option value="http://dbpedia.org/resource/Benin">Benin</option>
-                                                                          <option value="http://dbpedia.org/resource/Bermuda">Bermuda</option>
-                                                                          <option value="http://dbpedia.org/resource/Bhutan">Bhutan</option>
-                                                                          <option value="http://dbpedia.org/resource/Bolivia">Bolivia</option>
-                                                                          <option value="http://dbpedia.org/resource/Bonaire">Bonaire</option>
-                                                                          <option value="http://dbpedia.org/resource/Bosnia_and_Herzegovina">Bosnia &amp; Herzegovina</option>
-                                                                          <option value="http://dbpedia.org/resource/Botswana">Botswana</option>
-                                                                          <option value="http://dbpedia.org/resource/Brazil">Brazil</option>
-                                                                          <option value="http://dbpedia.org/resource/Brunei">Brunei</option>
-                                                                          <option value="http://dbpedia.org/resource/Bulgaria">Bulgaria</option>
-                                                                          <option value="http://dbpedia.org/resource/Burkina_Faso">Burkina Faso</option>
-                                                                          <option value="http://dbpedia.org/resource/Burundi">Burundi</option>
-                                                                          <option value="http://dbpedia.org/resource/Cambodia">Cambodia</option>
-                                                                          <option value="http://dbpedia.org/resource/Cameroon">Cameroon</option>
-                                                                          <option value="http://dbpedia.org/resource/Canada">Canada</option>
-                                                                          <option value="http://dbpedia.org/resource/Canary_Islands">Canary Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Cape_Verde">Cape Verde</option>
-                                                                          <option value="http://dbpedia.org/resource/Cayman_Islands">Cayman Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Central_African_Republic">Central African Republic</option>
-                                                                          <option value="http://dbpedia.org/resource/Chad">Chad</option>
-                                                                          <option value="http://dbpedia.org/resource/Channel_Islands_Beach,_California">Channel Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Chile">Chile</option>
-                                                                          <option value="http://dbpedia.org/resource/China">China</option>
-                                                                          <option value="http://dbpedia.org/resource/Christmas_Island">Christmas Island</option>
-                                                                          <option value="http://dbpedia.org/resource/Colombia">Colombia</option>
-                                                                          <option value="http://dbpedia.org/resource/Comoros">Comoros</option>
-                                                                          <option value="http://dbpedia.org/resource/Congo">Congo</option>
-                                                                          <option value="http://dbpedia.org/resource/Cook_Islands">Cook Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Costa_Rica">Costa Rica</option>
-                                                                          <option value="http://dbpedia.org/resource/Ivory_Coast">Cote D'Ivoire</option>
-                                                                          <option value="http://dbpedia.org/resource/Croatia">Croatia</option>
-                                                                          <option value="http://dbpedia.org/resource/Cuba">Cuba</option>
-                                                                          <option value="http://dbpedia.org/resource/Curaco">Curacao</option>
-                                                                          <option value="http://dbpedia.org/resource/Cyprus">Cyprus</option>
-                                                                          <option value="http://dbpedia.org/resource/Czech_Republic">Czech Republic</option>
-                                                                          <option value="http://dbpedia.org/resource/Denmark">Denmark</option>
-                                                                          <option value="http://dbpedia.org/resource/Djibouti">Djibouti</option>
-                                                                          <option value="http://dbpedia.org/resource/Dominica">Dominica</option>
-                                                                          <option value="http://dbpedia.org/resource/Dominican_Republic">Dominican Republic</option>
-                                                                          <option value="http://dbpedia.org/resource/East_Timor">East Timor</option>
-                                                                          <option value="http://dbpedia.org/resource/Ecuador">Ecuador</option>
-                                                                          <option value="http://dbpedia.org/resource/Egypt">Egypt</option>
-                                                                          <option value="http://dbpedia.org/resource/El_Salvador">El_Salvador</option>
-                                                                          <option value="http://dbpedia.org/resource/Equatorial_Guinea">Equatorial Guinea</option>
-                                                                          <option value="http://dbpedia.org/resource/Eritrea">Eritrea</option>
-                                                                          <option value="http://dbpedia.org/resource/Estonia">Estonia</option>
-                                                                          <option value="http://dbpedia.org/resource/Ethiopia">Ethiopia</option>
-                                                                          <option value="http://dbpedia.org/resource/Falkland_Islands">Falkland Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Faroe_Islands">Faroe Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Fiji">Fiji</option>
-                                                                          <option value="http://dbpedia.org/resource/Finland">Finland</option>
-                                                                          <option value="http://dbpedia.org/resource/France">France</option>
-                                                                          <option value="http://dbpedia.org/resource/French_Guiana">French Guiana</option>
-                                                                          <option value="http://dbpedia.org/resource/French_Polynesia">French Polynesia</option>
-                                                                          <option value="http://dbpedia.org/resource/Gabon">Gabon</option>
-                                                                          <option value="http://dbpedia.org/resource/Gambia">Gambia</option>
-                                                                          <option value="http://dbpedia.org/resource/Georgia">Georgia</option>
-                                                                          <option value="http://dbpedia.org/resource/Germany" selected="selected">Germany</option>
-                                                                          <option value="http://dbpedia.org/resource/Ghana">Ghana</option>
-                                                                          <option value="http://dbpedia.org/resource/Gibraltar">Gibraltar</option>
-                                                                          <option value="http://dbpedia.org/resource/Great_Britain">United Kingdom</option>
-                                                                          <option value="http://dbpedia.org/resource/Greece">Greece</option>
-                                                                          <option value="http://dbpedia.org/resource/Greenland">Greenland</option>
-                                                                          <option value="http://dbpedia.org/resource/Grenada">Grenada</option>
-                                                                          <option value="http://dbpedia.org/resource/Guadeloupe">Guadeloupe</option>
-                                                                          <option value="http://dbpedia.org/resource/Guam">Guam</option>
-                                                                          <option value="http://dbpedia.org/resource/Guatemala">Guatemala</option>
-                                                                          <option value="http://dbpedia.org/resource/Guinea">Guinea</option>
-                                                                          <option value="http://dbpedia.org/resource/Guyana">Guyana</option>
-                                                                          <option value="http://dbpedia.org/resource/Haiti">Haiti</option>
-                                                                          <option value="http://dbpedia.org/resource/Hawaii">Hawaii</option>
-                                                                          <option value="http://dbpedia.org/resource/Honduras">Honduras</option>
-                                                                          <option value="http://dbpedia.org/resource/Hong_Kong">Hong Kong</option>
-                                                                          <option value="http://dbpedia.org/resource/Hungary">Hungary</option>
-                                                                          <option value="http://dbpedia.org/resource/Iceland">Iceland</option>
-                                                                          <option value="http://dbpedia.org/resource/India">India</option>
-                                                                          <option value="http://dbpedia.org/resource/Indonesia">Indonesia</option>
-                                                                          <option value="http://dbpedia.org/resource/Iran">Iran</option>
-                                                                          <option value="http://dbpedia.org/resource/Iraq">Iraq</option>
-                                                                          <option value="http://dbpedia.org/resource/Ireland">Ireland</option>
-                                                                          <option value="http://dbpedia.org/resource/Isle_of_Man">Isle of Man</option>
-                                                                          <option value="http://dbpedia.org/resource/Israel">Israel</option>
-                                                                          <option value="http://dbpedia.org/resource/Italy">Italy</option>
-                                                                          <option value="http://dbpedia.org/resource/Jamaica">Jamaica</option>
-                                                                          <option value="http://dbpedia.org/resource/Japan">Japan</option>
-                                                                          <option value="http://dbpedia.org/resource/Jordan">Jordan</option>
-                                                                          <option value="http://dbpedia.org/resource/Kazakhstan">Kazakhstan</option>
-                                                                          <option value="http://dbpedia.org/resource/Kenya">Kenya</option>
-                                                                          <option value="http://dbpedia.org/resource/Kiribati">Kiribati</option>
-                                                                          <option value="Korea North">Korea North</option>
-                                                                          <option value="Korea South">Korea South</option>
-                                                                          <option value="http://dbpedia.org/resource/Kuwait">Kuwait</option>
-                                                                          <option value="http://dbpedia.org/resource/Kyrgyzstan">Kyrgyzstan</option>
-                                                                          <option value="http://dbpedia.org/resource/Laos">Laos</option>
-                                                                          <option value="http://dbpedia.org/resource/Latvia">Latvia</option>
-                                                                          <option value="http://dbpedia.org/resource/Lebanon">Lebanon</option>
-                                                                          <option value="http://dbpedia.org/resource/Lesotho">Lesotho</option>
-                                                                          <option value="http://dbpedia.org/resource/Liberia">Liberia</option>
-                                                                          <option value="http://dbpedia.org/resource/Libya">Libya</option>
-                                                                          <option value="http://dbpedia.org/resource/Liechtenstein">Liechtenstein</option>
-                                                                          <option value="http://dbpedia.org/resource/Lithuania">Lithuania</option>
-                                                                          <option value="http://dbpedia.org/resource/Luxembourg">Luxembourg</option>
-                                                                          <option value="http://dbpedia.org/resource/Macau">Macau</option>
-                                                                          <option value="http://dbpedia.org/resource/Macedonia">Macedonia</option>
-                                                                          <option value="http://dbpedia.org/resource/Madagascar">Madagascar</option>
-                                                                          <option value="http://dbpedia.org/resource/Malaysia">Malaysia</option>
-                                                                          <option value="http://dbpedia.org/resource/Malawi">Malawi</option>
-                                                                          <option value="http://dbpedia.org/resource/Maldives">Maldives</option>
-                                                                          <option value="http://dbpedia.org/resource/Mali">Mali</option>
-                                                                          <option value="http://dbpedia.org/resource/Malta">Malta</option>
-                                                                          <option value="http://dbpedia.org/resource/Marshall Islands">Marshall Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Martinique">Martinique</option>
-                                                                          <option value="http://dbpedia.org/resource/Mauritania">Mauritania</option>
-                                                                          <option value="http://dbpedia.org/resource/Mauritius">Mauritius</option>
-                                                                          <option value="http://dbpedia.org/resource/Mayotte">Mayotte</option>
-                                                                          <option value="http://dbpedia.org/resource/Mexico">Mexico</option>
-                                                                          <option value="http://dbpedia.org/resource/Midway Islands">Midway Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Moldova">Moldova</option>
-                                                                          <option value="http://dbpedia.org/resource/Monaco">Monaco</option>
-                                                                          <option value="http://dbpedia.org/resource/Mongolia">Mongolia</option>
-                                                                          <option value="http://dbpedia.org/resource/Montserrat">Montserrat</option>
-                                                                          <option value="http://dbpedia.org/resource/Morocco">Morocco</option>
-                                                                          <option value="http://dbpedia.org/resource/Mozambique">Mozambique</option>
-                                                                          <option value="http://dbpedia.org/resource/Myanmar">Myanmar</option>
-                                                                          <option value="http://dbpedia.org/resource/Nambia">Nambia</option>
-                                                                          <option value="http://dbpedia.org/resource/Nauru">Nauru</option>
-                                                                          <option value="http://dbpedia.org/resource/Nepal">Nepal</option>
-                                                                          <option value="http://dbpedia.org/resource/Netherland_Antilles">Netherland Antilles</option>
-                                                                          <option value="http://dbpedia.org/resource/Netherlands">Netherlands (Holland, Europe)</option>
-                                                                          <option value="http://dbpedia.org/resource/Nevis">Nevis</option>
-                                                                          <option value="http://dbpedia.org/resource/New_Caledonia">New Caledonia</option>
-                                                                          <option value="http://dbpedia.org/resource/New_Zealand">New Zealand</option>
-                                                                          <option value="http://dbpedia.org/resource/Nicaragua">Nicaragua</option>
-                                                                          <option value="http://dbpedia.org/resource/Niger">Niger</option>
-                                                                          <option value="http://dbpedia.org/resource/Nigeria">Nigeria</option>
-                                                                          <option value="http://dbpedia.org/resource/Niue">Niue</option>
-                                                                          <option value="http://dbpedia.org/resource/Norway">Norway</option>
-                                                                          <option value="http://dbpedia.org/resource/Oman">Oman</option>
-                                                                          <option value="http://dbpedia.org/resource/Pakistan">Pakistan</option>
-                                                                          <option value="http://dbpedia.org/resource/Palau_Island">Palau Island</option>
-                                                                          <option value="http://dbpedia.org/resource/Palestine">Palestine</option>
-                                                                          <option value="http://dbpedia.org/resource/Panama">Panama</option>
-                                                                          <option value="Papua New Guinea">Papua New Guinea</option>
-                                                                          <option value="http://dbpedia.org/resource/Paraguay">Paraguay</option>
-                                                                          <option value="http://dbpedia.org/resource/Peru">Peru</option>
-                                                                          <option value="http://dbpedia.org/resource/Phillipines">Philippines</option>
-                                                                          <option value="http://dbpedia.org/resource/Pitcairn Island">Pitcairn Island</option>
-                                                                          <option value="http://dbpedia.org/resource/Poland">Poland</option>
-                                                                          <option value="http://dbpedia.org/resource/Portugal">Portugal</option>
-                                                                          <option value="http://dbpedia.org/resource/Puerto_Rico">Puerto Rico</option>
-                                                                          <option value="http://dbpedia.org/resource/Qatar">Qatar</option>
-                                                                          <option value="Republic of Montenegro">Republic of Montenegro</option>
-                                                                          <option value="Republic of Serbia">Republic of Serbia</option>
-                                                                          <option value="http://dbpedia.org/resource/Reunion">Reunion</option>
-                                                                          <option value="http://dbpedia.org/resource/Romania">Romania</option>
-                                                                          <option value="http://dbpedia.org/resource/Russia">Russia</option>
-                                                                          <option value="http://dbpedia.org/resource/Rwanda">Rwanda</option>
-                                                                          <option value="http://dbpedia.org/resource/Saipan">Saipan</option>
-                                                                          <option value="http://dbpedia.org/resource/Samoa">Samoa</option>
-                                                                          <option value="Samoa American">Samoa American</option>
-                                                                          <option value="San Marino">San Marino</option>
-                                                                          <option value="Sao Tome &amp; Principe">Sao Tome &amp; Principe</option>
-                                                                          <option value="http://dbpedia.org/resource/Saudi_Arabia">Saudi Arabia</option>
-                                                                          <option value="http://dbpedia.org/resource/Senegal">Senegal</option>
-                                                                          <option value="http://dbpedia.org/resource/Serbia">Serbia</option>
-                                                                          <option value="http://dbpedia.org/resource/Seychelles">Seychelles</option>
-                                                                          <option value="Sierra Leone">Sierra Leone</option>
-                                                                          <option value="http://dbpedia.org/resource/Singapore">Singapore</option>
-                                                                          <option value="http://dbpedia.org/resource/Slovakia">Slovakia</option>
-                                                                          <option value="http://dbpedia.org/resource/Slovenia">Slovenia</option>
-                                                                          <option value="Solomon Islands">Solomon Islands</option>
-                                                                          <option value="http://dbpedia.org/resource/Somalia">Somalia</option>
-                                                                          <option value="South Africa">South Africa</option>
-                                                                          <option value="http://dbpedia.org/resource/Spain">Spain</option>
-                                                                          <option value="http://dbpedia.org/resource/Sudan">Sudan</option>
-                                                                          <option value="http://dbpedia.org/resource/Suriname">Suriname</option>
-                                                                          <option value="http://dbpedia.org/resource/Swaziland">Swaziland</option>
-                                                                          <option value="http://dbpedia.org/resource/Sweden">Sweden</option>
-                                                                          <option value="http://dbpedia.org/resource/Switzerland">Switzerland</option>
-                                                                          <option value="http://dbpedia.org/resource/Syria">Syria</option>
-                                                                          <option value="http://dbpedia.org/resource/Tahiti">Tahiti</option>
-                                                                          <option value="http://dbpedia.org/resource/Taiwan">Taiwan</option>
-                                                                          <option value="http://dbpedia.org/resource/Tajikistan">Tajikistan</option>
-                                                                          <option value="http://dbpedia.org/resource/Tanzania">Tanzania</option>
-                                                                          <option value="http://dbpedia.org/resource/Thailand">Thailand</option>
-                                                                          <option value="http://dbpedia.org/resource/Togo">Togo</option>
-                                                                          <option value="http://dbpedia.org/resource/Tokelau">Tokelau</option>
-                                                                          <option value="http://dbpedia.org/resource/Tonga">Tonga</option>
-                                                                          <option value="http://dbpedia.org/resource/Tunisia">Tunisia</option>
-                                                                          <option value="http://dbpedia.org/resource/Turkey">Turkey</option>
-                                                                          <option value="http://dbpedia.org/resource/Turkmenistan">Turkmenistan</option>
-                                                                          <option value="http://dbpedia.org/resource/Tuvalu">Tuvalu</option>
-                                                                          <option value="http://dbpedia.org/resource/Uganda">Uganda</option>
-                                                                          <option value="http://dbpedia.org/resource/Ukraine">Ukraine</option>
-                                                                          <option value="United Arab Erimates">United Arab Emirates</option>
-                                                                          <option value="http://dbpedia.org/resource/England">England</option>
-                                                                          <option value="http://dbpedia.org/resource/United_States">United States</option>
-                                                                          <option value="http://dbpedia.org/resource/Uraguay">Uruguay</option>
-                                                                          <option value="http://dbpedia.org/resource/Uzbekistan">Uzbekistan</option>
-                                                                          <option value="http://dbpedia.org/resource/Vanuatu">Vanuatu</option>
-                                                                          <option value="http://dbpedia.org/resource/Vatican_City">Vatican City State</option>
-                                                                          <option value="http://dbpedia.org/resource/Venezuela">Venezuela</option>
-                                                                          <option value="http://dbpedia.org/resource/Vietnam">Vietnam</option>
-                                                                          <option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
-                                                                          <option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
-                                                                          <option value="Wake Island">Wake Island</option>
-                                                                          <option value="Wallis &amp; Futana Is">Wallis &amp; Futana Is</option>
-                                                                          <option value="http://dbpedia.org/resource/Yemen">Yemen</option>
-                                                                          <option value="http://dbpedia.org/resource/Zaire">Zaire</option>
-                                                                          <option value="http://dbpedia.org/resource/Zambia">Zambia</option>
-                                                                          <option value="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</option>
-      </select></td>
-    <td width="6%">&nbsp;</td>
-    <td width="12%">&nbsp;</td>
-    <td width="37%">&nbsp;</td>
-   </tr>
-   <tr>
-     <td><input name="filCity" type="checkbox"  >
-       city </td>
-     <td>&nbsp;</td>
-     <td><input name="cityVal" type="text" value="Berlin" size="36" class="form-control" /></td>
-     <td>&nbsp;</td>
-     <td>&nbsp;</td>
-     <td>&nbsp;</td>
-   </tr>
-    
-    <tr>
-        <td><input name="filField" type="checkbox"  > 
-        field</td>
-        <td>&nbsp;</td>
-        <!--checked="checked"-->
-                                                                        <td><select name="fieldVal" class="form-control">
-                                                                          <option value="<http://purl.org/seo#ArtificialIntelligence>">Artificial Intelligence</option>
-                                                                          <option value="<http://purl.org/seo#SoftwareEngineering>">Software Engineering </option>
-                                                                          <option value="<http://purl.org/seo#WorldWideWeb>">Web Technologies</option>
-                                                                          <option value="<http://purl.org/seo#SecurityAndPrivacy>">Computer Security</option>
-                                                                          <option value="<http://purl.org/seo#InformationSystems>">Information systems</option>
-                                                                          <option value="<http://purl.org/seo#ComputerSystemsOrganization>">Computer systems organization</option>
-                                                                          <option value="<http://purl.org/seo#HumanCenteredComputing>">Human Centered Computing</option>
-                                                                          <option value="<http://purl.org/seo#TheoryOfComputations>">Theory of Computation</option>
-                                                                        </select></td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-    </tr>
-                                                                      <tr>
-                                                                          <td><input name="filacc" type="checkbox"  />  
-                                                                          acceptance rate </td>
-                                                                          <td><select name="op">
-                                                                            <option value=">"> &gt;</option>
-                                                                            <option value=">="> &ge;</option>
-                                                                            <option value="<"> &lt;</option>
-                                                                            <option value=">="> &le;</option>
-                                                                            <option value="="> =</option>
-                                                                            <option value="!="> &ne;</option>
-                                                                          </select></td>
-                                                                          <td><input name="accVal" type="text" value="0.20" size="27"class="form-control"/></td>
-                                                                          <td>&nbsp;</td>
-                                                                          <td>&nbsp;</td>
-                                                                          <td> &nbsp;
-                                                                            <input name="OptionalAR" type="checkbox" id="OptionalAR"/>
-OPTIONAL</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td><input name="filAP" type="checkbox" />
-                                                                          accepted papers </td>
-                                                                        <td><select name="opAP">
-                                                                          <option value="&gt;"> &gt;</option>
-                                                                          <option value="&gt;="> &ge;</option>
-                                                                          <option value="&lt;"> &lt;</option>
-                                                                          <option value="&gt;="> &le;</option>
-                                                                          <option value="="> =</option>
-                                                                          <option value="!="> &ne;</option>
-                                                                        </select></td>
-                                                                        <td><input name="APVal" type="text" value="50" size="27"class="form-control"/></td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>   &nbsp;
-                                                                          <input name="OptionalAP" type="checkbox" id="OptionalAP"/>
-OPTIONAL</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td><input name="filSP" type="checkbox" />
-                                                                        submitted papers </td>
-                                                                        <td><select name="opSP">
-                                                                          <option value="&gt;"> &gt;</option>
-                                                                          <option value="&gt;="> &ge;</option>
-                                                                          <option value="&lt;"> &lt;</option>
-                                                                          <option value="&gt;="> &le;</option>
-                                                                          <option value="="> =</option>
-                                                                          <option value="!="> &ne;</option>
-                                                                        </select></td>
-                                                                        <td><input name="SPVal" type="text" value="100" size="27"class="form-control"/></td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td> &nbsp;
-                                                                          <input name="OptionalSP" type="checkbox" id="OptionalSP"/>
-OPTIONAL</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td><input name="filSD" type="checkbox" id="filSD"  />
-                                                                          start date </td>
-                                                                        <td><select name="opSD" id="opSD" onchange="myFunction('myDIV','myDIV2','opSD')">
-                                                                          <option value="&gt;">&gt;</option>
-                                                                          <option value="&gt;=">&ge;</option>
-                                                                          <option value="&lt;">&lt;</option>
-                                                                          <option value="&gt;=">&le;</option>
-                                                                          <option value="="> =</option>
-                                                                          <option value="!=">&ne;</option>
-                                                                          <option value="btn" selected="selected">between</option>
-                                                                        </select></td>
-                                                                        <td><input name="SDVal" type="date" id="SDVal" value="2013-01-08" class="form-control"/>																		</td>
-                                                                        <td><div id="myDIV">
-																		&nbsp;&nbsp; and</div></td>
-                                                                        <td><div id="myDIV2"><input name="SDVal2" type="date" id="SDVal2" value="2014-01-08" class="form-control"/>
-                                                                        </div></td>
-                                                                        <td>  &nbsp;
-                                                                          <input name="OptionalSD" type="checkbox" id="OptionalSD"/>
-OPTIONAL&nbsp;</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td><input name="filED" type="checkbox" id="filED"  />
-                                                                          end date </td>
-                                                                        <td><select name="opED" id="opED">
-                                                                          <option value="&gt;">&gt;</option>
-                                                                          <option value="&gt;=">&ge;</option>
-                                                                          <option value="&lt;">&lt;</option>
-                                                                          <option value="&gt;=">&le;</option>
-                                                                          <option value="="> =</option>
-                                                                          <option value="!=">&ne;</option>
-                                                                          <option value="btn" selected="selected">between</option>
-                                                                        </select></td>
-                                                                        <td><input name="EDVal" type="date" id="EDVal" value="2013-01-08"class="form-control"/></td>
-                                                                        <td><div id="myDIV"> &nbsp;&nbsp; and</div></td>
-                                                                        <td><div id="myDIV2">
-                                                                          <input name="EDVal2" type="date" id="EDVal2" value="2013-01-08" class="form-control"/>
-                                                                        </div></td>
-                                                                        <td>  &nbsp;
-                                                                           <input name="OptionalED" type="checkbox" id="OptionalED"/>
-OPTIONAL</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                        <td><input name="filPublisher" type="checkbox" id="filPublisher" />
-                                                                          publisher</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td><input name="PublisherVal" type="text" id="PublisherVal" value="Springer" size="36" class="form-control"/></td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td>&nbsp;</td>
-                                                                        <td> &nbsp;
-                                                                           <input name="OptionalPublisher" type="checkbox" id="OptionalPublisher"/>
-OPTIONAL</td>
-                                                                      </tr>
-          </table>
+            <p>
+			<input name="selDISTINCT" type="checkbox" id="selDISTINCT" <?php if(isset($_POST['selSeries'])) echo 'checked="checked"'; ?> > DISTINCT  </input>
+            <input name="selURI" type="checkbox" checked="checked"> URI</input>, 
+			<input type="checkbox" name="selType" <?php if(isset($_POST['selType'])) echo 'checked="checked"'; ?>>     event type</input>, 
+            <input type="checkbox" name="selSeries" <?php if(isset($_POST['selSeries'])) echo 'checked="checked"'; ?>>  series</input>,
+			<input type="checkbox" name="selCountry" <?php if(isset($_POST['selCountry'])) echo 'checked="checked"'; ?>> country</input>,   
+			<input type="checkbox" name="selCity" <?php if(isset($_POST['selField'])) echo 'checked="checked"'; ?>>	city</input>, 
+			<input type="checkbox" name="selField" <?php if(isset($_POST['selField'])) echo 'checked="checked"'; ?>> field</input>, 
+			<input type="checkbox" name="selacc" <?php if(isset($_POST['selacc'])) echo 'checked="checked"'; ?>>	acceptance rate</input>,
+            <input type="checkbox" name="selAP"<?php if(isset($_POST['selAP'])) echo 'checked="checked"'; ?>> accepted papers</input>,
+            <input name="selSP" type="checkbox" <?php if(isset($_POST['selSP'])) echo 'checked="checked"'; ?>> submitted papers</input>, 
+			</p>
+			<p>
+              <input name="selStartDate" type="checkbox"<?php if(isset($_POST['selStartDate'])) echo 'checked="checked"'; ?>> start date</input>,
+              <input name="selEndDate" type="checkbox"<?php if(isset($_POST['selEndDate'])) echo 'checked="checked"'; ?>>   end date</input>,
+              <input type="checkbox" name="selWebsite" <?php if(isset($_POST['selWebsite'])) echo 'checked="checked"'; ?>>  website</input>,
+              <input name="selPublisher" type="checkbox" <?php if(isset($_POST['selPublisher'])) echo 'checked="checked"'; ?>>    publisher</input>.
+			</p>
+   <p><strong>1.3 Query pattern: </strong></p>
+			<table width="80%" border="0" cellspacing="0" cellpadding="0">
+			  <tr>
+				<td><input label="event type" type="checkbox" name="filType" <?php if(isset($_POST['filType'])) echo 'checked="checked"'; ?>> event type </input></td>
+				<td>&nbsp;</td>
+				<td>
+				<select name="typeVal" class="form-control"  >
+						<!--selected="selected"-->
+					<option value="https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Conference" <?php if(isset($_POST["typeVal"])) {if  (!(strcmp("https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Conference", $_POST["typeVal"]))) {echo "selected";}} ?>>Conference</option>
+					<option value="https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Workshop" <?php if(isset($_POST["typeVal"])) if (!(strcmp("https://w3id.org/scholarlydata/ontology/conference-ontology.owl#Workshop", $_POST["typeVal"]))) {echo "selected";} ?>>Workshop</option>
+					<option value="http://purl.org/seo/Symposium" <?php if(isset($_POST["typeVal"])) if (!(strcmp("http://purl.org/seo/Symposium", ($_POST["typeVal"])))) {echo "selected=\"selected\"";} ?>>Symposium</option>
+					 
+				</select></td>
+				
+			  </tr>
+			  <tr>
+				<td><input name="filSeries" type="checkbox" id="filSeries" <?php if(isset($_POST['filSeries'])) echo 'checked="checked"'; ?>> series</input></td>
+				<td>&nbsp;</td>
+				<td><input name="seriesVal" type="text"  list="series" class="form-control" <?php if(isset($_POST['seriesVal'])) echo 'value="'.$_POST['seriesVal'].'"'; ?>    size="33"  /></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+			  </tr> 
+			   
+			   <tr>
+				<td width="18%"><input name="filCountry" type="checkbox" <?php if(isset($_POST['filCountry'])) echo 'checked="checked"'; ?>> country </input> </td>
+				<td width="10%">&nbsp;</td>
+			<td width="17%">
+			<select name="countryVal" class="form-control"  >
+							  <option value="http://dbpedia.org/resource/Afganistan">Afghanistan</option>
+							  <option value="http://dbpedia.org/resource/Albania" <?php if(isset($_POST["countryVal"])) if ($_POST['countryVal'] == 'http://dbpedia.org/resource/Albania') echo ' selected="selected"'; ?>>Albania</option>
+							  <option value="http://dbpedia.org/resource/Algeria">Algeria</option>
+							  <option value="http://dbpedia.org/resource/American_Samoa">American Samoa</option>
+							  <option value="http://dbpedia.org/resource/Andorra">Andorra</option>
+							  <option value="http://dbpedia.org/resource/Angola">Angola</option>
+							  <option value="http://dbpedia.org/resource/Anguilla">Anguilla</option>
+							  <option value="http://dbpedia.org/resource/Antigua_and_Barbuda">Antigua &amp; Barbuda</option>
+							  <option value="http://dbpedia.org/resource/Argentina">Argentina</option>
+							  <option value="http://dbpedia.org/resource/Armenia">Armenia</option>
+							  <option value="http://dbpedia.org/resource/Aruba">Aruba</option>
+							  <option value="http://dbpedia.org/resource/Australia">Australia</option>
+							  <option value="http://dbpedia.org/resource/Austria">Austria</option>
+							  <option value="http://dbpedia.org/resource/Azerbaijan">Azerbaijan</option>
+							  <option value="http://dbpedia.org/resource/Bahamas">Bahamas</option>
+							  <option value="http://dbpedia.org/resource/Bahrain">Bahrain</option>
+							  <option value="http://dbpedia.org/resource/Bangladesh">Bangladesh</option>
+							  <option value="http://dbpedia.org/resource/Barbados">Barbados</option>
+							  <option value="http://dbpedia.org/resource/Belarus">Belarus</option>
+							  <option value="http://dbpedia.org/resource/Belgium">Belgium</option>
+							  <option value="http://dbpedia.org/resource/Belize">Belize</option>
+							  <option value="http://dbpedia.org/resource/Benin">Benin</option>
+							  <option value="http://dbpedia.org/resource/Bermuda">Bermuda</option>
+							  <option value="http://dbpedia.org/resource/Bhutan">Bhutan</option>
+							  <option value="http://dbpedia.org/resource/Bolivia">Bolivia</option>
+							  <option value="http://dbpedia.org/resource/Bonaire">Bonaire</option>
+							  <option value="http://dbpedia.org/resource/Bosnia_and_Herzegovina">Bosnia &amp; Herzegovina</option>
+							  <option value="http://dbpedia.org/resource/Botswana">Botswana</option>
+							  <option value="http://dbpedia.org/resource/Brazil">Brazil</option>
+							  <option value="http://dbpedia.org/resource/Brunei">Brunei</option>
+							  <option value="http://dbpedia.org/resource/Bulgaria">Bulgaria</option>
+							  <option value="http://dbpedia.org/resource/Burkina_Faso">Burkina Faso</option>
+							  <option value="http://dbpedia.org/resource/Burundi">Burundi</option>
+							  <option value="http://dbpedia.org/resource/Cambodia">Cambodia</option>
+							  <option value="http://dbpedia.org/resource/Cameroon">Cameroon</option>
+							  <option value="http://dbpedia.org/resource/Canada">Canada</option>
+							  <option value="http://dbpedia.org/resource/Canary_Islands">Canary Islands</option>
+							  <option value="http://dbpedia.org/resource/Cape_Verde">Cape Verde</option>
+							  <option value="http://dbpedia.org/resource/Cayman_Islands">Cayman Islands</option>
+							  <option value="http://dbpedia.org/resource/Central_African_Republic">Central African Republic</option>
+							  <option value="http://dbpedia.org/resource/Chad">Chad</option>
+							  <option value="http://dbpedia.org/resource/Channel_Islands_Beach,_California">Channel Islands</option>
+							  <option value="http://dbpedia.org/resource/Chile">Chile</option>
+							  <option value="http://dbpedia.org/resource/China">China</option>
+							  <option value="http://dbpedia.org/resource/Christmas_Island">Christmas Island</option>
+							  <option value="http://dbpedia.org/resource/Colombia">Colombia</option>
+							  <option value="http://dbpedia.org/resource/Comoros">Comoros</option>
+							  <option value="http://dbpedia.org/resource/Congo">Congo</option>
+							  <option value="http://dbpedia.org/resource/Cook_Islands">Cook Islands</option>
+							  <option value="http://dbpedia.org/resource/Costa_Rica">Costa Rica</option>
+							  <option value="http://dbpedia.org/resource/Ivory_Coast">Cote D'Ivoire</option>
+							  <option value="http://dbpedia.org/resource/Croatia">Croatia</option>
+							  <option value="http://dbpedia.org/resource/Cuba">Cuba</option>
+							  <option value="http://dbpedia.org/resource/Curaco">Curacao</option>
+							  <option value="http://dbpedia.org/resource/Cyprus">Cyprus</option>
+							  <option value="http://dbpedia.org/resource/Czech_Republic">Czech Republic</option>
+							  <option value="http://dbpedia.org/resource/Denmark">Denmark</option>
+							  <option value="http://dbpedia.org/resource/Djibouti">Djibouti</option>
+							  <option value="http://dbpedia.org/resource/Dominica">Dominica</option>
+							  <option value="http://dbpedia.org/resource/Dominican_Republic">Dominican Republic</option>
+							  <option value="http://dbpedia.org/resource/East_Timor">East Timor</option>
+							  <option value="http://dbpedia.org/resource/Ecuador">Ecuador</option>
+							  <option value="http://dbpedia.org/resource/Egypt">Egypt</option>
+							  <option value="http://dbpedia.org/resource/El_Salvador">El_Salvador</option>
+							  <option value="http://dbpedia.org/resource/Equatorial_Guinea">Equatorial Guinea</option>
+							  <option value="http://dbpedia.org/resource/Eritrea">Eritrea</option>
+							  <option value="http://dbpedia.org/resource/Estonia">Estonia</option>
+							  <option value="http://dbpedia.org/resource/Ethiopia">Ethiopia</option>
+							  <option value="http://dbpedia.org/resource/Falkland_Islands">Falkland Islands</option>
+							  <option value="http://dbpedia.org/resource/Faroe_Islands">Faroe Islands</option>
+							  <option value="http://dbpedia.org/resource/Fiji">Fiji</option>
+							  <option value="http://dbpedia.org/resource/Finland">Finland</option>
+							  <option value="http://dbpedia.org/resource/France">France</option>
+							  <option value="http://dbpedia.org/resource/French_Guiana">French Guiana</option>
+							  <option value="http://dbpedia.org/resource/French_Polynesia">French Polynesia</option>
+							  <option value="http://dbpedia.org/resource/Gabon">Gabon</option>
+							  <option value="http://dbpedia.org/resource/Gambia">Gambia</option>
+							  <option value="http://dbpedia.org/resource/Georgia">Georgia</option>
+							  <option value="http://dbpedia.org/resource/Germany" >Germany</option>
+							  <option value="http://dbpedia.org/resource/Ghana">Ghana</option>
+							  <option value="http://dbpedia.org/resource/Gibraltar">Gibraltar</option>
+							  <option value="http://dbpedia.org/resource/Great_Britain">United Kingdom</option>
+							  <option value="http://dbpedia.org/resource/Greece">Greece</option>
+							  <option value="http://dbpedia.org/resource/Greenland">Greenland</option>
+							  <option value="http://dbpedia.org/resource/Grenada">Grenada</option>
+							  <option value="http://dbpedia.org/resource/Guadeloupe">Guadeloupe</option>
+							  <option value="http://dbpedia.org/resource/Guam">Guam</option>
+							  <option value="http://dbpedia.org/resource/Guatemala">Guatemala</option>
+							  <option value="http://dbpedia.org/resource/Guinea">Guinea</option>
+							  <option value="http://dbpedia.org/resource/Guyana">Guyana</option>
+							  <option value="http://dbpedia.org/resource/Haiti">Haiti</option>
+							  <option value="http://dbpedia.org/resource/Hawaii">Hawaii</option>
+							  <option value="http://dbpedia.org/resource/Honduras">Honduras</option>
+							  <option value="http://dbpedia.org/resource/Hong_Kong">Hong Kong</option>
+							  <option value="http://dbpedia.org/resource/Hungary">Hungary</option>
+							  <option value="http://dbpedia.org/resource/Iceland">Iceland</option>
+							  <option value="http://dbpedia.org/resource/India">India</option>
+							  <option value="http://dbpedia.org/resource/Indonesia">Indonesia</option>
+							  <option value="http://dbpedia.org/resource/Iran">Iran</option>
+							  <option value="http://dbpedia.org/resource/Iraq">Iraq</option>
+							  <option value="http://dbpedia.org/resource/Ireland">Ireland</option>
+							  <option value="http://dbpedia.org/resource/Isle_of_Man">Isle of Man</option>
+							  <option value="http://dbpedia.org/resource/Israel">Israel</option>
+							  <option value="http://dbpedia.org/resource/Italy">Italy</option>
+							  <option value="http://dbpedia.org/resource/Jamaica">Jamaica</option>
+							  <option value="http://dbpedia.org/resource/Japan">Japan</option>
+							  <option value="http://dbpedia.org/resource/Jordan">Jordan</option>
+							  <option value="http://dbpedia.org/resource/Kazakhstan">Kazakhstan</option>
+							  <option value="http://dbpedia.org/resource/Kenya">Kenya</option>
+							  <option value="http://dbpedia.org/resource/Kiribati">Kiribati</option>
+							  <option value="Korea North">Korea North</option>
+							  <option value="Korea South">Korea South</option>
+							  <option value="http://dbpedia.org/resource/Kuwait">Kuwait</option>
+							  <option value="http://dbpedia.org/resource/Kyrgyzstan">Kyrgyzstan</option>
+							  <option value="http://dbpedia.org/resource/Laos">Laos</option>
+							  <option value="http://dbpedia.org/resource/Latvia">Latvia</option>
+							  <option value="http://dbpedia.org/resource/Lebanon">Lebanon</option>
+							  <option value="http://dbpedia.org/resource/Lesotho">Lesotho</option>
+							  <option value="http://dbpedia.org/resource/Liberia">Liberia</option>
+							  <option value="http://dbpedia.org/resource/Libya">Libya</option>
+							  <option value="http://dbpedia.org/resource/Liechtenstein">Liechtenstein</option>
+							  <option value="http://dbpedia.org/resource/Lithuania">Lithuania</option>
+							  <option value="http://dbpedia.org/resource/Luxembourg">Luxembourg</option>
+							  <option value="http://dbpedia.org/resource/Macau">Macau</option>
+							  <option value="http://dbpedia.org/resource/Macedonia">Macedonia</option>
+							  <option value="http://dbpedia.org/resource/Madagascar">Madagascar</option>
+							  <option value="http://dbpedia.org/resource/Malaysia">Malaysia</option>
+							  <option value="http://dbpedia.org/resource/Malawi">Malawi</option>
+							  <option value="http://dbpedia.org/resource/Maldives">Maldives</option>
+							  <option value="http://dbpedia.org/resource/Mali">Mali</option>
+							  <option value="http://dbpedia.org/resource/Malta">Malta</option>
+							  <option value="http://dbpedia.org/resource/Marshall Islands">Marshall Islands</option>
+							  <option value="http://dbpedia.org/resource/Martinique">Martinique</option>
+							  <option value="http://dbpedia.org/resource/Mauritania">Mauritania</option>
+							  <option value="http://dbpedia.org/resource/Mauritius">Mauritius</option>
+							  <option value="http://dbpedia.org/resource/Mayotte">Mayotte</option>
+							  <option value="http://dbpedia.org/resource/Mexico">Mexico</option>
+							  <option value="http://dbpedia.org/resource/Midway Islands">Midway Islands</option>
+							  <option value="http://dbpedia.org/resource/Moldova">Moldova</option>
+							  <option value="http://dbpedia.org/resource/Monaco">Monaco</option>
+							  <option value="http://dbpedia.org/resource/Mongolia">Mongolia</option>
+							  <option value="http://dbpedia.org/resource/Montserrat">Montserrat</option>
+							  <option value="http://dbpedia.org/resource/Morocco">Morocco</option>
+							  <option value="http://dbpedia.org/resource/Mozambique">Mozambique</option>
+							  <option value="http://dbpedia.org/resource/Myanmar">Myanmar</option>
+							  <option value="http://dbpedia.org/resource/Nambia">Nambia</option>
+							  <option value="http://dbpedia.org/resource/Nauru">Nauru</option>
+							  <option value="http://dbpedia.org/resource/Nepal">Nepal</option>
+							  <option value="http://dbpedia.org/resource/Netherland_Antilles">Netherland Antilles</option>
+							  <option value="http://dbpedia.org/resource/Netherlands">Netherlands (Holland, Europe)</option>
+							  <option value="http://dbpedia.org/resource/Nevis">Nevis</option>
+							  <option value="http://dbpedia.org/resource/New_Caledonia">New Caledonia</option>
+							  <option value="http://dbpedia.org/resource/New_Zealand">New Zealand</option>
+							  <option value="http://dbpedia.org/resource/Nicaragua">Nicaragua</option>
+							  <option value="http://dbpedia.org/resource/Niger">Niger</option>
+							  <option value="http://dbpedia.org/resource/Nigeria">Nigeria</option>
+							  <option value="http://dbpedia.org/resource/Niue">Niue</option>
+							  <option value="http://dbpedia.org/resource/Norway">Norway</option>
+							  <option value="http://dbpedia.org/resource/Oman">Oman</option>
+							  <option value="http://dbpedia.org/resource/Pakistan">Pakistan</option>
+							  <option value="http://dbpedia.org/resource/Palau_Island">Palau Island</option>
+							  <option value="http://dbpedia.org/resource/Palestine">Palestine</option>
+							  <option value="http://dbpedia.org/resource/Panama">Panama</option>
+							  <option value="http://dbpedia.org/resource/Paraguay">Paraguay</option>
+							  <option value="http://dbpedia.org/resource/Peru">Peru</option>
+							  <option value="http://dbpedia.org/resource/Phillipines">Philippines</option>
+							  <option value="http://dbpedia.org/resource/Pitcairn Island">Pitcairn Island</option>
+							  <option value="http://dbpedia.org/resource/Poland">Poland</option>
+							  <option value="http://dbpedia.org/resource/Portugal">Portugal</option>
+							  <option value="http://dbpedia.org/resource/Puerto_Rico">Puerto Rico</option>
+							  <option value="http://dbpedia.org/resource/Qatar">Qatar</option>
+							  <option value="Republic of Serbia">Republic of Serbia</option>
+							  <option value="http://dbpedia.org/resource/Reunion">Reunion</option>
+							  <option value="http://dbpedia.org/resource/Romania">Romania</option>
+							  <option value="http://dbpedia.org/resource/Russia">Russia</option>
+							  <option value="http://dbpedia.org/resource/Rwanda">Rwanda</option>
+							  <option value="http://dbpedia.org/resource/Saipan">Saipan</option>
+							  <option value="http://dbpedia.org/resource/Samoa">Samoa</option>
+							  <option value="http://dbpedia.org/resource/Saudi_Arabia">Saudi Arabia</option>
+							  <option value="http://dbpedia.org/resource/Senegal">Senegal</option>
+							  <option value="http://dbpedia.org/resource/Serbia">Serbia</option>
+							  <option value="http://dbpedia.org/resource/Seychelles">Seychelles</option>
+							  <option value="http://dbpedia.org/resource/Singapore">Singapore</option>
+							  <option value="http://dbpedia.org/resource/Slovakia">Slovakia</option>
+							  <option value="http://dbpedia.org/resource/Slovenia">Slovenia</option>
+							  <option value="http://dbpedia.org/resource/Somalia">Somalia</option>
+							  <option value="South Africa">South Africa</option>
+							  <option value="http://dbpedia.org/resource/Spain">Spain</option>
+							  <option value="http://dbpedia.org/resource/Sudan">Sudan</option>
+							  <option value="http://dbpedia.org/resource/Suriname">Suriname</option>
+							  <option value="http://dbpedia.org/resource/Swaziland">Swaziland</option>
+							  <option value="http://dbpedia.org/resource/Sweden">Sweden</option>
+							  <option value="http://dbpedia.org/resource/Switzerland">Switzerland</option>
+							  <option value="http://dbpedia.org/resource/Syria">Syria</option>
+							  <option value="http://dbpedia.org/resource/Tahiti">Tahiti</option>
+							  <option value="http://dbpedia.org/resource/Taiwan">Taiwan</option>
+							  <option value="http://dbpedia.org/resource/Tajikistan">Tajikistan</option>
+							  <option value="http://dbpedia.org/resource/Tanzania">Tanzania</option>
+							  <option value="http://dbpedia.org/resource/Thailand">Thailand</option>
+							  <option value="http://dbpedia.org/resource/Togo">Togo</option>
+							  <option value="http://dbpedia.org/resource/Tokelau">Tokelau</option>
+							  <option value="http://dbpedia.org/resource/Tonga">Tonga</option>
+							  <option value="http://dbpedia.org/resource/Tunisia">Tunisia</option>
+							  <option value="http://dbpedia.org/resource/Turkey">Turkey</option>
+							  <option value="http://dbpedia.org/resource/Turkmenistan">Turkmenistan</option>
+							  <option value="http://dbpedia.org/resource/Tuvalu">Tuvalu</option>
+							  <option value="http://dbpedia.org/resource/Uganda">Uganda</option>
+							  <option value="http://dbpedia.org/resource/Ukraine">Ukraine</option>
+							  <option value="United Arab Erimates">United Arab Emirates</option>
+							  <option value="http://dbpedia.org/resource/England">England</option>
+							  <option value="http://dbpedia.org/resource/United_States">United States</option>
+							  <option value="http://dbpedia.org/resource/Uraguay">Uruguay</option>
+							  <option value="http://dbpedia.org/resource/Uzbekistan">Uzbekistan</option>
+							  <option value="http://dbpedia.org/resource/Vanuatu">Vanuatu</option>
+							  <option value="http://dbpedia.org/resource/Vatican_City">Vatican City State</option>
+							  <option value="http://dbpedia.org/resource/Venezuela">Venezuela</option>
+							  <option value="http://dbpedia.org/resource/Vietnam">Vietnam</option>
+							  <option value="http://dbpedia.org/resource/Yemen">Yemen</option>
+							  <option value="http://dbpedia.org/resource/Zaire">Zaire</option>
+							  <option value="http://dbpedia.org/resource/Zambia">Zambia</option>
+							  <option value="http://dbpedia.org/resource/Zimbabwe">Zimbabwe</option>
+				  </select></td>
+				<td width="6%">&nbsp;</td>
+				<td width="12%">&nbsp;</td>
+				<td width="37%">&nbsp;</td>
+			   </tr>
+			   <tr>
+				 <td>
+				 <input name="filCity" type="checkbox"  <?php if(isset($_POST['filCity'])) echo 'checked="checked"'; ?>>city </input></td>
+				 <td>&nbsp;</td>
+				 <td><input name="cityVal" type="text" placeholder="Berlin" size="36" class="form-control" <?php if(isset($_POST['cityVal'])) echo 'value="'.$_POST['cityVal'].'"'; ?>/></td>
+				 <td>&nbsp;</td>
+				 <td>&nbsp;</td>
+				 <td>&nbsp;</td>
+			   </tr>
+				
+				<tr>
+					<td>
+					<input name="filField" type="checkbox"  <?php if(isset($_POST['filField'])) echo 'checked="checked"'; ?>> field </input> </td>
+					<td>&nbsp;</td>
+					<!--checked="checked"-->
+					<td>
+					<select name="fieldVal" class="form-control">
+						  <option value="<http://purl.org/seo#ArtificialIntelligence>" <?php if(isset($_POST['fieldVal'])) if ($_POST['fieldVal'] == '<http://purl.org/seo#ArtificialIntelligence>') echo ' selected="selected"'; ?>>Artificial Intelligence</option>
+						  <option value="<http://purl.org/seo#SoftwareEngineering>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#SoftwareEngineering>') echo ' selected="selected"'; ?>>Software Engineering </option>
+						  <option value="<http://purl.org/seo#WorldWideWeb>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#WorldWideWeb>') echo ' selected="selected"'; ?>>Web Technologies</option>
+						  <option value="<http://purl.org/seo#SecurityAndPrivacy>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#SecurityAndPrivacy>') echo ' selected="selected"'; ?>>Computer Security</option>
+						  <option value="<http://purl.org/seo#InformationSystems>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#InformationSystems>') echo ' selected="selected"'; ?>>Information systems</option>
+						  <option value="<http://purl.org/seo#ComputerSystemsOrganization>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#ComputerSystemsOrganization>') echo ' selected="selected"'; ?>>Computer systems organization</option>
+						  <option value="<http://purl.org/seo#HumanCenteredComputing>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#HumanCenteredComputing>') echo ' selected="selected"'; ?>>Human Centered Computing</option>
+						  <option value="<http://purl.org/seo#TheoryOfComputations>"<?php if(isset($_POST['fieldVal']))if ($_POST['fieldVal'] == '<http://purl.org/seo#TheoryOfComputations>') echo ' selected="selected"'; ?>>Theory of Computation</option>
+						</select></td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+</tr>
+				 <tr>
+					  <td>
+					  <input name="filacc" type="checkbox" <?php if(isset($_POST['filacc'])) echo 'checked="checked"'; ?> >  acceptance rate </input> </td>
+					  <td>
+					  <select name="op" >
+						<option value=">"<?php if(isset($_POST['op']))if ($_POST['op'] == '>') echo ' selected'; ?>> &gt;</option>
+						<option value=">="<?php if(isset($_POST['op']))if ($_POST['op'] == '>=') echo ' selected'; ?>> &ge;</option>
+						<option value="<"<?php if(isset($_POST['op']))if ($_POST['op'] == '<') echo ' selected'; ?>> &lt;</option>
+						<option value="<="<?php if(isset($_POST['op']))if ($_POST['op'] == '<=') echo ' selected'; ?>> &le;</option>
+						<option value="="<?php if(isset($_POST['op']))if ($_POST['op'] == '=') echo ' selected'; ?>> =</option>
+						<option value="!="<?php if(isset($_POST['op']))if ($_POST['op'] == '!=') echo ' selected'; ?>> &ne;</option>
+					  </select></td>
+					  <td>
+					  <input name="accVal" type="text"  size="27"class="form-control" <?php if(isset($_POST['accVal'])) echo 'value="'.$_POST['accVal'].'"'; ?>/></td>
+					  <td>&nbsp;</td>
+					  <td>&nbsp;</td>
+					  <td> &nbsp;
+						<input name="OptionalAR" type="checkbox" id="OptionalAR" <?php if(isset($_POST['OptionalAR'])) echo 'checked="checked"'; ?>> 	OPTIONAL</input></td>
+							  </tr>
+							  <tr>
+								<td><input name="filAP" type="checkbox" <?php if(isset($_POST['filAP'])) echo 'checked="checked"'; ?>> accepted papers </input></td>
+								<td><select name="opAP">
+									<option value=">"<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '>') echo ' selected'; ?>> &gt;</option>
+									<option value=">="<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '>=') echo ' selected'; ?>> &ge;</option>
+									<option value="<"<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '<') echo ' selected'; ?>> &lt;</option>
+									<option value="<="<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '<=') echo ' selected'; ?>> &le;</option>
+									<option value="="<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '=') echo ' selected'; ?>> =</option>
+									<option value="!="<?php if(isset($_POST['opAP']))if ($_POST['opAP'] == '!=') echo ' selected'; ?>> &ne;</option>
+								</select></td>
+								<td><input name="APVal" type="text"  size="27"class="form-control"<?php if(isset($_POST['APVal'])) echo 'value="'.$_POST['APVal'].'"'; ?>/></td>
+								<td>&nbsp;</td>
+								<td>&nbsp;</td>
+								<td>   &nbsp;
+					
+					<input name="OptionalAP" type="checkbox" id="OptionalAP" <?php if(isset($_POST['OptionalAP'])) echo 'checked="checked"'; ?>> OPTIONAL</input></td>
+					  </tr>
+					  <tr>
+						<td><input name="filSP" type="checkbox"  <?php if(isset($_POST['filSP'])) echo 'checked="checked"'; ?>> 	submitted papers </input></td>
+						<td>
+						<select name="opSP">
+									<option value=">"<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '>') echo ' selected'; ?>> &gt;</option>
+									<option value=">="<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '>=') echo ' selected'; ?>> &ge;</option>
+									<option value="<"<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '<') echo ' selected'; ?>> &lt;</option>
+									<option value="<="<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '<=') echo ' selected'; ?>> &le;</option>
+									<option value="="<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '=') echo ' selected'; ?>> =</option>
+									<option value="!="<?php if(isset($_POST['opSP']))if ($_POST['opSP'] == '!=') echo ' selected'; ?>> &ne;</option>
+						</select></td>
+						<td><input name="SPVal" type="text"   size="27"class="form-control"<?php if(isset($_POST['SPVal'])) echo 'value="'.$_POST['SPVal'].'"'; ?>/></td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td> &nbsp;
+						  <input name="OptionalSP" type="checkbox" id="OptionalSP" <?php if(isset($_POST['OptionalSP'])) echo 'checked="checked"'; ?>> OPTIONAL</input></td>
+							  </tr>
+							  <tr>
+								<td>
+								<input name="filSD" type="checkbox" id="filSD"  <?php if(isset($_POST['filSD'])) echo 'checked="checked"'; ?>>   start date </input></td>
+								<td>
+								<select name="opSD" id="opSD" onchange="myFunction('myDIV','myDIV2','opSD')">
+									<option value=">"<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '>') echo ' selected'; ?>> &gt;</option>
+									<option value=">="<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '>=') echo ' selected'; ?>> &ge;</option>
+									<option value="<"<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '<') echo ' selected'; ?>> &lt;</option>
+									<option value="<="<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '<=') echo ' selected'; ?>> &le;</option>
+									<option value="="<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '=') echo ' selected'; ?>> =</option>
+									<option value="!="<?php if(isset($_POST['opSD']))if ($_POST['opSD'] == '!=') echo ' selected'; ?>> &ne;</option>
+								  <option value="btn" <?php if(isset($_POST['opSD']))if ($_POST['opSD'] == 'btn') echo ' selected'; ?>>between</option>
+								</select></td>
+								<td><input name="SDVal" type="date" id="SDVal"   class="form-control"<?php if(isset($_POST['SDVal'])) echo 'value="'.$_POST['SDVal'].'"'; ?>/>																		</td>
+								<td><div id="myDIV">
+								&nbsp;&nbsp; and</div></td>
+								<td><div id="myDIV2"><input name="SDVal2" type="date" id="SDVal2"   class="form-control" <?php if(isset($_POST['SDVal2'])) echo 'value="'.$_POST['SDVal2'].'"'; ?>/>
+								</div></td>
+								<td>  &nbsp;
+						  <input name="OptionalSD" type="checkbox" id="OptionalSD" <?php if(isset($_POST['OptionalSD'])) echo 'checked="checked"'; ?>>  OPTIONAL </input></td>
+							  </tr>
+						  <tr>
+							<td>
+							<input name="filED" type="checkbox" id="filED" <?php if(isset($_POST['filED'])) echo 'checked="checked"'; ?> >   end date </input></td>
+							<td>
+							<select name="opED" id="opED">
+									<option value=">"<?php if(isset($_POST['opED']))if ($_POST['opED'] == '>') echo ' selected'; ?>> &gt;</option>
+									<option value=">="<?php if(isset($_POST['opED']))if ($_POST['opED'] == '>=') echo ' selected'; ?>> &ge;</option>
+									<option value="<"<?php if(isset($_POST['opED']))if ($_POST['opED'] == '<') echo ' selected'; ?>> &lt;</option>
+									<option value="<="<?php if(isset($_POST['opED']))if ($_POST['opED'] == '<=') echo ' selected'; ?>> &le;</option>
+									<option value="="<?php if(isset($_POST['opED']))if ($_POST['opED'] == '=') echo ' selected'; ?>> =</option>
+									<option value="!="<?php if(isset($_POST['opED']))if ($_POST['opED'] == '!=') echo ' selected'; ?>> &ne;</option>
+								  <option value="btn" <?php if(isset($_POST['opED']))if ($_POST['opED'] == 'btn') echo ' selected'; ?>>between</option>
+							</select></td>
+							<td><input name="EDVal" type="date" id="EDVal"  class="form-control" <?php if(isset($_POST['EDVal'])) echo 'value="'.$_POST['EDVal'].'"'; ?>/></td>
+							<td><div id="myDIV"> &nbsp;&nbsp; and</div></td>
+							<td><div id="myDIV2">
+							  <input name="EDVal2" type="date" id="EDVal2"  class="form-control" <?php if(isset($_POST['EDVal2'])) echo 'value="'.$_POST['EDVal2'].'"'; ?>/>
+							</div></td>
+							<td>  &nbsp;
+							  <input name="OptionalED" type="checkbox" id="OptionalED" <?php if(isset($_POST['OptionalED'])) echo 'checked="checked"'; ?>> OPTIONAL </input></td>
+																				  </tr>
+						  <tr>
+							<td><input name="filPublisher" type="checkbox" id="filPublisher" <?php if(isset($_POST['filPublisher'])) echo 'checked="checked"'; ?>> publisher</input></td>
+							<td>&nbsp;</td>
+							<td><input name="PublisherVal" type="text" List="publishersList" id="PublisherVal"  size="36" class="form-control" <?php if(isset($_POST['PublisherVal'])) echo 'value="'.$_POST['PublisherVal'].'"'; ?>/></td>
+							 <datalist id="publishersList">
+						<option value="Springer">
+						<option value="IEEE" >
+						<option value="ACM">
+						<option value="Elsevier">
+						<option value="AAAI">
+						<option value="NIPS">
+				</datalist>
+							<td>&nbsp;</td>
+							<td>&nbsp;</td>
+							<td> &nbsp;
+							   <input name="OptionalPublisher" type="checkbox" id="OptionalPublisher"<?php if(isset($_POST['OptionalPublisher'])) echo 'checked="checked"'; ?>>OPTIONAL</input></td>
+						  </tr>
+					  </table>
  
    <p><strong>1.4 Query modifiers</strong></p>
    <table width="80%" border="0" cellspacing="0" cellpadding="0">
      <tr>
        <td width="10%" >Order by:&nbsp;</td>
-       <td width="5%" ><input name="selOrderBy1" type="checkbox" id="selOrderBy1" /></td>
-       <td width="18%" ><select name="orderbyVal1" class="form-control" id="orderbyVal1"  >
-           <option value="?type" selected="selected">type</option>
-           <option value="?series">series</option>
-           <option value="?country">country</option>
-           <option value="?city">city</option>
-           <option value="?field">field</option>
-           <option value="?acc">acceptance rate</option>
-           <option value="?AP">accepted papers</option>
-           <option value="?SP">submitted papers</option>
-           <option value="?SD">start date</option>
-           <option value="?ED">end date</option>
-           <option value="?website">website</option>
-           <option value="?publisher">publisher</option>
+       <td width="5%" ><input name="selOrderBy1" type="checkbox" id="selOrderBy1" <?php if(isset($_POST['selOrderBy1'])) echo 'checked="checked"'; ?>/></td>
+       <td width="18%" >
+	   <select name="orderbyVal1" class="form-control" id="orderbyVal1"  >
+           <option value="?type" <?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?type') echo ' selected'; ?>>type</option>
+           <option value="?series" <?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?series') echo ' selected'; ?>>series</option>
+           <option value="?country" <?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?country') echo ' selected'; ?>>country</option>
+           <option value="?city"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?city') echo ' selected'; ?>>city</option>
+           <option value="?field"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?field') echo ' selected'; ?>>field</option>
+           <option value="?acc"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?acc') echo ' selected'; ?>>acceptance rate</option>
+           <option value="?AP"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?AP') echo ' selected'; ?>>accepted papers</option>
+           <option value="?SP"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?SP') echo ' selected'; ?>>submitted papers</option>
+           <option value="?SD"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?SD') echo ' selected'; ?>>start date</option>
+           <option value="?ED"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?ED') echo ' selected'; ?>>end date</option>
+           <option value="?website"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?website') echo ' selected'; ?>>website</option>
+           <option value="?publisher"<?php if(isset($_POST['orderbyVal1']))if ($_POST['orderbyVal1'] == '?publisher') echo ' selected'; ?>>publisher</option>
            <!--selected="selected"-->
          </select></td>
        <td width="12%" > &nbsp;
-         <input name="selOrderByDESC1_1" type="checkbox" id="selOrderByDESC1_1" />
+         <input name="selOrderByDESC1_1" type="checkbox" id="selOrderByDESC1_1" <?php if(isset($_POST['selOrderByDESC1_1'])) echo 'checked="checked"'; ?>/>
 DESC</td>
        <td width="6%" >,
          &nbsp;
-         <input name="selOrderBy2" type="checkbox" id="selOrderBy2" /></td>
-       <td width="22%" ><select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
-           <option value="?type">type</option>
-           <option value="?series"selected="selected">series</option>
-           <option value="?country">country</option>
-           <option value="?city">city</option>
-           <option value="?field">field</option>
-           <option value="?acc">acceptance rate</option>
-           <option value="?AP">accepted papers</option>
-           <option value="?SP">submitted papers</option>
-           <option value="?SD">start date</option>
-           <option value="?ED">end date</option>
-           <option value="?website">website</option>
-           <option value="?publisher">publisher</option>
+         <input name="selOrderBy2" type="checkbox" id="selOrderBy2" <?php if(isset($_POST['selOrderBy2'])) echo 'checked="checked"'; ?>/></td>
+       <td width="22%" >
+	   <select name="orderbyVal2" class="form-control" id="orderbyVal2"  >
+          <option value="?type" <?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?type') echo ' selected'; ?>>type</option>
+           <option value="?series" <?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?series') echo ' selected'; ?>>series</option>
+           <option value="?country" <?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?country') echo ' selected'; ?>>country</option>
+           <option value="?city"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?city') echo ' selected'; ?>>city</option>
+           <option value="?field"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?field') echo ' selected'; ?>>field</option>
+           <option value="?acc"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?acc') echo ' selected'; ?>>acceptance rate</option>
+           <option value="?AP"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?AP') echo ' selected'; ?>>accepted papers</option>
+           <option value="?SP"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?SP') echo ' selected'; ?>>submitted papers</option>
+           <option value="?SD"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?SD') echo ' selected'; ?>>start date</option>
+           <option value="?ED"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?ED') echo ' selected'; ?>>end date</option>
+           <option value="?website"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?website') echo ' selected'; ?>>website</option>
+           <option value="?publisher"<?php if(isset($_POST['orderbyVal2']))if ($_POST['orderbyVal2'] == '?publisher') echo ' selected'; ?>>publisher</option>
            <!--selected="selected"-->
          </select></td>
        <td width="5%" > &nbsp;
-          <input name="selOrderByDEC1_2" type="checkbox" id="selOrderByDEC1_2" /></td>
+          <input name="selOrderByDEC1_2" type="checkbox" id="selOrderByDEC1_2" <?php if(isset($_POST['selOrderByDEC1_2'])) echo 'checked="checked"'; ?>/></td>
        <td width="22%" > DESC</td>
      </tr>
      <tr>
        <td>Limit:</td>
-       <td><input name="selLimit" type="checkbox" id="selLimit" checked="checked" /></td>
-       <td><input name="LimitVal" type="text" id="LimitVal" value="10" size="20" class="form-control"/></td>
+       <td><input name="selLimit" type="checkbox" id="selLimit"  <?php if(isset($_POST['selLimit'])) echo 'checked="checked"'; ?> /></td>
+       <td><input name="LimitVal" type="text" id="LimitVal"  size="20" class="form-control"<?php if(isset($_POST['LimitVal'])) echo 'value="'.$_POST['LimitVal'].'"'; ?>/></td>
        <td>&nbsp;</td>
        <td>&nbsp;</td>
        <td>&nbsp;</td>
@@ -1032,7 +1016,7 @@ DESC</td>
               </tr>
               <tr>
                 <td ><div align="right">
-                  <input name="selAggCol" type="checkbox" id="selAggCol"  onclick="addAggregationColToGroupBy()"/>
+                  <input name="selAggCol" type="checkbox" id="selAggCol"  onclick="addAggregationColToGroupBy()" <?php if(isset($_POST['selAggCol'])) echo 'checked="checked"'; ?>/>
                   &nbsp;&nbsp; 
                 </div></td>
                 <td >add column:</td>
@@ -1060,7 +1044,7 @@ DESC</td>
             <table width="50%" border="0" cellspacing="0" cellpadding="0">
              <tr>
                <td width="16%" >Group by:&nbsp;</td>
-               <td width="5%" ><input name="selGroupBy1" type="checkbox" id="selGroupBy1" /></td>
+               <td width="5%" ><input name="selGroupBy1" type="checkbox" id="selGroupBy1" <?php if(isset($_POST['selGroupBy1'])) echo 'checked="checked"'; ?>/></td>
                <td width="27%" ><select name="groupbyVal1" class="form-control" id="groupbyVal1"  >
                    <option value="?type">type</option>
                    <option value="?series" selected="selected">series</option>
@@ -1078,7 +1062,7 @@ DESC</td>
                </select></td>
                <td width="11%" >&nbsp;
                  &nbsp;
-             <input name="selGroupBy2" type="checkbox" id="selGroupBy2" /></td>
+             <input name="selGroupBy2" type="checkbox" id="selGroupBy2" <?php if(isset($_POST['selGroupBy2'])) echo 'checked="checked"'; ?>/></td>
                <td width="41%" ><select name="groupbyVal2" class="form-control" id="groupbyVal2"  >
                    <option value="?type">type</option>
                    <option value="?series"selected="selected">series</option>
@@ -1097,7 +1081,7 @@ DESC</td>
              </tr>
              <tr>
                <td>Having:</td>
-               <td><input name="selHaving" type="checkbox" id="selHaving" onclick="addAggregationFnToHaving()"/></td>
+               <td><input name="selHaving" type="checkbox" id="selHaving" onclick="addAggregationFnToHaving()"<?php if(isset($_POST['selHaving'])) echo 'checked="checked"'; ?>/></td>
                <td><input name="HavingColVal" type="text" id="HavingColVal" size="20" class="form-control"/></td>
                <td> &nbsp;
                  <select name="havingOP" id="havingOP">
@@ -1115,7 +1099,7 @@ DESC</td>
     <table width="70%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td width="13%" >Order by:&nbsp;</td>
-        <td width="4%" ><input name="selOrderBy2_1" type="checkbox" id="selOrderBy2_1" /></td>
+        <td width="4%" ><input name="selOrderBy2_1" type="checkbox" id="selOrderBy2_1" <?php if(isset($_POST['selOrderBy2_1'])) echo 'checked="checked"'; ?>/></td>
         <td width="29%" ><select name="orderbyVal2_1" class="form-control" id="orderbyVal2_1"  >
             <option value="?type" selected="selected">type</option>
             <option value="?series">series</option>
@@ -1133,10 +1117,10 @@ DESC</td>
             <!--selected="selected"-->
         </select></td>
         <td width="12%" > &nbsp;
-          <input name="selOrderByDESC2_1" type="checkbox" id="selOrderByDESC2_1" />
+          <input name="selOrderByDESC2_1" type="checkbox" id="selOrderByDESC2_1" <?php if(isset($_POST['selOrderByDESC2_1'])) echo 'checked="checked"'; ?>/>
 DESC</td>
         <td width="5%" >, 
-          <input name="selOrderBy2_2" type="checkbox" id="selOrderBy2_2" /></td>
+          <input name="selOrderBy2_2" type="checkbox" id="selOrderBy2_2" <?php if(isset($_POST['selOrderBy2_2'])) echo 'checked="checked"'; ?>/></td>
         <td width="19%" ><select name="orderbyVal2_2" class="form-control" id="select2"  >
           <option value="?type">type</option>
           <option value="?series"selected="selected">series</option>
@@ -1153,12 +1137,12 @@ DESC</td>
           <!--selected="selected"-->
         </select></td>
         <td width="18%" > &nbsp;
-          <input name="selOrderByDESC2_2" type="checkbox" id="selOrderByDESC2_2" />
+          <input name="selOrderByDESC2_2" type="checkbox" id="selOrderByDESC2_2" <?php if(isset($_POST['selOrderByDESC2_2'])) echo 'checked="checked"'; ?>/>
 DESC</td>
       </tr>
       <tr>
         <td>Limit:</td>
-        <td><input name="selLimit_2" type="checkbox" id="selLimit_2" /></td>
+        <td><input name="selLimit_2" type="checkbox" id="selLimit_2" <?php if(isset($_POST['selLimit_2'])) echo 'checked="checked"'; ?>/></td>
         <td><input name="LimitVal_2" type="text" id="LimitVal_2" value="10" size="20" class="form-control"/></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -1495,8 +1479,8 @@ DESC</td>
                 <td><strong>3. </strong>List the number of submitted and accepted papers, and acceptance rate of the series 
                   <input name="seriesList33" class="form-control" id="seriesList33" list="series" value="ISWC">
 					  <datalist id="series">
-                                              <option value="AAAI"selected>
-                                              <option value="CVPR" >
+						<option value="AAAI">
+						<option value="CVPR" >
 						<option value="NIPS">
 						<option value="ICCV">
 						<option value="IJCAI">
@@ -1567,7 +1551,9 @@ DESC</td>
 						<option value="ESWC">
                         <option value="ISWC">
 						<option value="ICWE">
-			    <option value="ICSC">  </datalist></td>
+						<option value="ICSC">  
+				</datalist>
+				</td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
