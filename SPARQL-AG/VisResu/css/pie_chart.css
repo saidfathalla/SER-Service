@@ -1,0 +1,13 @@
+.pie_chart .arc text {
+    font: 10px sans-serif;
+    text-anchor: middle;
+}
+
+.pie_chart .arc path {
+    stroke: #fff;
+}
+
+.pie_chart .title {
+    fill: teal;
+    font-weight: bold;
+}

@@ -1,0 +1,18 @@
+.multi_bar_chart body { font: 12px Arial;}
+.multi_bar_chart path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+.multi_bar_chart .axis path,
+.multi_bar_chart .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+.multi_bar_chart .legend {
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+}

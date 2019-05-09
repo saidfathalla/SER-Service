@@ -1,0 +1,36 @@
+.donut_chart body {
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+}
+
+/* Add shadow effect to chart. If you don't like it, get rid of it. */
+.donut_chart svg {
+    -webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.3) );
+    filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.25) );
+}
+
+/*Styling for the lines connecting the labels to the slices*/
+.donut_chart polyline{
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+}
+
+/* Make the percentage on the text labels bold*/
+.donut_chart .labelName tspan {
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* In biology we generally italicise species names. */
+.donut_chart .labelName {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.donut_chart text {
+      font-size: 15px;
+      font-family: sans-serif;
+    }
+

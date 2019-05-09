@@ -22,22 +22,39 @@ function drawAreaChart(data) {
         .x(function (d) { return x(d.date); })
         .y(function (d) { return y(d.close); });
 
-    // append the svg obgect to the body of the page
-    // appends a 'group' element to 'svg'
-    // moves the 'group' element to the top left margin
-    var svg = d3.select("#chart_area").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
-
     // format the data
     data.forEach(function (d) {
         //d.date = parseTime(d.date);
         d.close = +d.close;
     });
+
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#chart_area").append("svg")
+        .attr("class", "area_chart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")")
+    /*.data(data)
+    .on("mouseover", function(d, i) {
+        console.log(d, i)
+        svg.append("text")
+          .attr("class", "title-text")
+          .style("fill", "black")        
+          .text(d.close)
+          .attr("text-anchor", "middle")
+          .attr("x", (width-margin.left)/2)
+          .attr("y", 5);
+      })
+    .on("mouseout", function(d) {
+        svg.select(".title-text").remove();
+      })*/
+
+
+
 
     // scale the range of the data
     x.domain(d3.extent(data, function (d) { return d.date; }));
@@ -47,7 +64,7 @@ function drawAreaChart(data) {
     svg.append("path")
         .data([data])
         .attr("class", "area")
-        .attr("d", area);
+        .attr("d", area)
 
     // add the valueline path.
     svg.append("path")

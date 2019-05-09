@@ -1,0 +1,15 @@
+.tree_chart .node circle {
+	fill: #fff;
+	stroke: steelblue;
+	stroke-width: 3px;
+}
+
+.tree_chart .node text {
+	font: 12px sans-serif;
+}
+
+.tree_chart .link {
+	fill: none;
+	stroke: #ccc;
+	stroke-width: 2px;
+}  

@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>VizResu</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/google-fonts.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/page.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="header">
+        <span style="margin-left:20px;font-size: 50px;font-weight: bolder;">
+            <img src="images/logo.png" title="Logo" />
+        </span>
+        <div class="topnav">
+            <a href="#" class="links" style="margin-left:40px;font-weight: bolder;" onclick="">Home </a>
+            <a href="index.html" class="links">VizResu</a>
+            <a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">SEO Ontology</a>
+            <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html" target="_blank">EVENTSKG</a>
+            <a href="http://kddste.sda.tech/sparql" target="_blank">SPARQL endpoint</a>
+        </div>
+    </div>
+    <div style="width:90%;margin-left:50px;margin-top:20px;height:85%;">
+        <h3 style="padding:10px;">Overview</h3>
+        <hr>
+        <p align="justify" class="style1"> Data visualization supports professional knowledge understanding and furthermore improves the analysis of semantic
+            data. Currently, there are lots of visualization tools available for visualizing RDF data to facilitate deduction
+            of insights for human. In this paper, we present a web-based service, VizResu, for the visualization of linked
+            data retrieved by a public SPARQL endpoint. A specific scholarly knowledge graph, EVENTSKG, is considered as
+            a use case for analyzing metadata of renowned scientific events in eight computer science communities.
+            <a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html">EVENTSKG</a> is a 5-star dataset (licensed under the terms of
+            <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 Unported </a>(CC-BY-4.0)) which contains 73 computer science event series belongs
+            to eight CS communities; Artificial Intelligence (AI), Software and its engineering (SE), worldwide Web (WEB),
+            Security and privacy (SEC), Information systems (IS), Computer systems organization (CSO), Human-Centered Computing
+            (HCC) and Theory of Computation (TOC). Event's metadata are interlinked in RDF graph, in which each event is
+            described appropriately by means of the data and object properties using the
+            <a href="http://kddste.sda.tech/SEOontology/Documentation/SEO.html">Scientific Events Ontology</a> (SEO). Finally, VizResu is intended to support semantic data analysis by visualizing
+            the results of predefined query templates using an asynchronous web application.</p>
+        <p style="text-indent:30px;padding:10px;">&nbsp;</p>
+        <h3 style="padding:10px;">SPARQL Result Set Visualization</h3>
+        <hr>
+        <p style="text-indent:30px;padding:10px;">
+            VizResu, a Web-based service for the visualization of linked data retrieved from a public SPARQL endpoint. The focus is on
+            mapping query results returned by the SPARQL endpoint to a specific chart type. Eg., graph chart for qualitative
+            data, column/bar chart for quantitative ones. A semi-automatic approach that generates various charts from SPARQL
+            queries over data represented as RDF graphs is introduced in the system. EVENTSKG is used in the context of the
+            metadata analysis of renowned scientific events belonging to eight Computer Science communities.
+        </p>
+        <img src="images/architecture.png" title="Flow diagram" style="margin-left:30%;margin-top:2%;" />
+        <h3 style="padding:10px;">VizResu for Non-SPARQL users</h3>
+        <hr>
+        <p style="text-indent:30px;padding:10px;">
+            SPARQL non-specialists, can conveniently producing SPARQL queries, extending from easy to complex ones by utilizing the intuitive
+            web interface. Moreover, the query so formed is shown to make it simpler for end-users to comprehend whether
+            an alteration is required before execution. A definitive objective behind this work is to broaden the access
+            to semantic data on the Web by making it simpler to create and execute SPARQL queries and the executed SPARQL
+            results are converted into the visualized charts by using D3.
+        </p>
+    </div>
+</body>
+
+</html>

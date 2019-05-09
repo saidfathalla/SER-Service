@@ -15,6 +15,7 @@ function drawMultiBarChart(models, id, single) {
         .append("svg")
         .attr("width", width)
         .attr("height", height)
+        .attr("class", "multi_bar_chart")
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 

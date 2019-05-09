@@ -1,0 +1,67 @@
+ .lollichart body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: auto;
+    position: relative;
+    width: 960px;
+    padding: 20px;
+  }
+  
+  .lollichart text {
+    font: 10px sans-serif;
+  }
+  
+  .lollichart .legendLabel {
+      font-size: 13px;
+  }
+  
+  .lollichart text.y.label {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .lollichart circle.center {
+    fill: black
+  }
+  
+  .lollichart form {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  
+  .lollichart .points {
+    fill: black
+  }
+  
+  .lollichart .x.axis path, 
+  .lollichart .x.axis line {
+    stroke: #000;
+    fill: none;
+  }
+  
+  .lollichart .y.axis {
+    stroke: #000;
+    fill: none;
+  }
+  
+  .lollichart line.indicator {
+    stroke: black;
+    stroke-width: 2;
+    stroke-dasharray: 3, 3;
+  }
+  
+  div#tooltip {
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px 5px 10px;
+  }
+  
+  .lollichart{
+    margin-left:25%;
+  }
+  .lollichart .y.label{
+    fill: #212529;
+  }

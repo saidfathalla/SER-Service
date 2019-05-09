@@ -1,0 +1,9 @@
+.area_chart .line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 2px;
+  }
+  
+.area_chart .area {
+	fill: steelblue;
+  }

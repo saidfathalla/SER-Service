@@ -9,6 +9,7 @@ function drawRadialBar(data,min,max) {
     var svg = d3.select("#chart_area")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
+        .attr("class", "radial_chart")
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 100) + ")"); // Add 100 on Y translation, cause upper bars are longer
@@ -30,7 +31,7 @@ function drawRadialBar(data,min,max) {
         .data(data)
         .enter()
         .append("path")
-        .attr("fill", "#1010A0")
+        .attr("fill", "#0099FF")
         .attr("d", d3.arc()     // imagine your doing a part of a donut plot
             .innerRadius(innerRadius)
             .outerRadius(function (d) { return y(d['Value']); })

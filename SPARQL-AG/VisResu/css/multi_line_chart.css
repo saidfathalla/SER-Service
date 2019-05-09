@@ -1,0 +1,19 @@
+.multi_line svg {
+    font-family: Sans-Serif, Arial;
+}
+.multi_line .line {
+  stroke-width: 2;
+  fill: none;
+}
+
+.multi_line .axis path {
+  stroke: black;
+}
+
+.multi_line .text {
+  font-size: 12px;
+}
+
+.multi_line .title-text {
+  font-size: 12px;
+}

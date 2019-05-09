@@ -2,7 +2,7 @@ function drawTreeChart(treeData) {
     // Set the dimensions and margins of the diagram
     var margin = { top: 20, right: 90, bottom: 30, left: 90 },
         width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 1000 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     // appends a 'group' element to 'svg'
@@ -10,6 +10,7 @@ function drawTreeChart(treeData) {
     var svg = d3.select("#chart_area").append("svg")
         .attr("width", width + margin.right + margin.left)
         .attr("height", height + margin.top + margin.bottom)
+        .attr("class", "tree_chart")
         .append("g")
         .attr("transform", "translate("
             + margin.left + "," + margin.top + ")");

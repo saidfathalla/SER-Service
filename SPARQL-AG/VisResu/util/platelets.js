@@ -53,4 +53,4 @@ function drawPlatelets(data) {
     data.forEach(element => {
         $("#legends").append(`<span class="legend_rect" style="background-color:${color(element.age)}"></span><span style="float:left;">${element.actual}</span><br>`)
     });
-}      	
+}       

@@ -42,8 +42,9 @@ function loadRectangularAreaChart(elementId, data, settings){
 
     var svg = d4.select("#chart_area")
     .append("svg")
-    .attr("width", 400)
-    .attr("height", 240)
+    .attr("width", 700)
+    .attr("height", 500)
+    .attr("class", "rectangular_area")
 
     // Some dummy text is needed so that we can get the text height before attaching text to any paths.
     var dummyText = svg.append("text")

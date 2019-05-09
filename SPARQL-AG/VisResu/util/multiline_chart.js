@@ -30,6 +30,7 @@ function constructLineGraph(data,divId,labelPassed) {
       var svg = d3.select("#"+divId).append("svg")
         .attr("width", (width+margin)+"px")
         .attr("height", (height+margin)+"px")
+        .attr("class","multi_line")
         .append('g')
         .attr("transform", `translate(${margin}, ${margin})`);
       

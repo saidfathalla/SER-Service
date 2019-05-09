@@ -12,8 +12,8 @@ function drawCountryGraph(flatArray) {
         width = 960 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var domains=[0, 5, 10, 20, 30, 40, 50];
-    var domainColors=["rgb(247,251,255)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)"];
+    var domains = [0, 5, 10, 20, 30, 40, 50];//1 - "rgb(222,235,247)"
+    var domainColors = ["rgb(247,251,255)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)", "rgb(33,113,181)", "rgb(8,81,156)"];
 
     var color = d3.scaleThreshold()
         .domain(domains)
@@ -25,6 +25,7 @@ function drawCountryGraph(flatArray) {
         .append("svg")
         .attr("width", width)
         .attr("height", height)
+        .attr("class", "geomap")
         .append('g')
         .attr('class', 'map');
 
@@ -77,9 +78,7 @@ function drawCountryGraph(flatArray) {
         .attr("class", "names")
         .attr("d", path);
 
-        console.log("populationById.....",populationById);
-
-       valueObj = {};
+    valueObj = {};
     alreadyAdded = {};
     var legendStr = ``;
     var sortable = [];

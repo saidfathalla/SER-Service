@@ -1,0 +1,15 @@
+ 
+.bar_chart .bar {
+	fill:steelblue;
+}
+
+.bar_chart .bar:hover {
+	fill: #F56C4E;
+}
+
+.bar_chart text.label {
+	fill: white;
+	font-size: 18px;
+	font-weight: 400;
+	text-anchor: middle;
+}
