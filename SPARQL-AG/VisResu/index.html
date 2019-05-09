@@ -76,7 +76,7 @@
 			<img src="images/logo.png" title="Logo" />
 		</span>
 		<div class="topnav">
-			<a href="home.html" class="links" style="margin-left:40px;">Home </a>
+			<a href="home.html" class="links" style="margin-left:40px;">Overview </a>
 			<a href="#" style="font-weight: bolder;" class="links">VizResu</a>
 			<a href="http://sda.tech/SEOontology/Documentation/SEO.html" target="_blank">SEO Ontology</a>
 			<a href="http://kddste.sda.tech/EVENTSKG-Dataset/EVENTSKG_R2.html" target="_blank">EVENTSKG</a>
@@ -86,7 +86,7 @@
 	<center style="width:90%;margin-left:50px;margin-top:20px;height:70%;">
 		<div>
 			<div class="article">
-				<select id="chartType" onchange="showHideOptionsDiv(this.value);" class="form-control" style="width:800px;">
+				<select id="chartType" onChange="showHideOptionsDiv(this.value);" class="form-control" style="width:800px;">
 					<option value="">Select a User query</option>
 					<option value="a">Query 01 - List all events in the field F that took place between Y and Z in a country C.</option>
 					<option value="b">Query 02 - List the events related to field F with an acceptance rate less than A.</option>
@@ -107,7 +107,7 @@
 				<input type="date" id="a_from_date" value="2014-01-01" class="form-control"> and
 				<input type="date" id="a_to_date" value="2019-03-24" class="form-control"> in
 				<select id="a_country" class="form-control"></select>&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateAQuery();" class="btn btn-primary">
+				<input type="button" value="Execute" onClick="generateAQuery();" class="btn btn-primary">
 			</div>
 			<div id="b_options" style="display: none; margin-top:20px;" class="options">
 				List the events related to
@@ -122,54 +122,54 @@
 				</select>
 				&nbsp;
 				<input type="text" id="b_acrate" value="0.50" style="width:60px;" class="form-control" />&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateBQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateBQuery();" class="btn btn-primary" />
 			</div>
 			<div id="c_options" style="display: none; margin-top:20px;" class="options">
 				List the number of submitted and accepted papers of the series
 				<select id="c_series" class="form-control"></select>
 				&nbsp;since&nbsp;
 				<input type="date" id="c_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateCQuery(false);" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateCQuery(false);" class="btn btn-primary" />
 			</div>
 			<div id="d_options" style="display: none; margin-top:20px;" class="options">
 				List the top
 				<input type="text" id="d_count" value="10" style="width:60px;"> countries host (along with events) in computer science research communities. &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateDQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateDQuery();" class="btn btn-primary" />
 			</div>
 			<div id="e_options" style="display: none; margin-top:20px;" class="options">
 				List the subfields of CS
 				<select id="e_country" class="form-control"></select>&nbsp; has hosted more events since
 				<input type="date" id="e_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateEQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateEQuery();" class="btn btn-primary" />
 			</div>
 			<div id="f_options" style="display: none; margin-top:20px;" class="options">
 				List the acceptance rate of the series
 				<select id="f_series" class="form-control"></select>
 				&nbsp;since&nbsp;
 				<input type="date" id="f_date" value="2013-01-01" class="form-control" /> &nbsp;&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateCQuery(true);" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateCQuery(true);" class="btn btn-primary" />
 			</div>
 			<div id="g_options" style="display: none; margin-top:20px;" class="options">
 				List the top events that occur in the month of &nbsp;
 				<select id="g_month" class="form-control"></select>
 				by series&nbsp;
-				<input type="button" value="Execute" onclick="generateGQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateGQuery();" class="btn btn-primary" />
 			</div>
 			<div id="h_options" style="display: none; margin-top:20px;" class="options">
 				List the geographical distribution of the &nbsp;
 				<select id="h_series" class="form-control"></select>
 				based on number of events&nbsp;
-				<input type="button" value="Execute" onclick="generateHQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateHQuery();" class="btn btn-primary" />
 			</div>
 			<div id="i_options" style="display: none; margin-top:20px;" class="options">
 				Find the field productivity for CS research communities &nbsp;
 				<input type="text" id="i_year" value="2017" style="width:60px;" class="form-control" />&nbsp;&nbsp;
-				<input type="button" value="Execute" onclick="generateIQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateIQuery();" class="btn btn-primary" />
 			</div>
 			<div id="j_options" style="display: none; margin-top:20px;" class="options">
 				Find top&nbsp;
 				<input type="text" id="j_count" value="10" style="width:60px;" class="form-control" />&nbsp;&nbsp; series in terms of the number of events
-				<input type="button" value="Execute" onclick="generateJQuery();" class="btn btn-primary" />
+				<input type="button" value="Execute" onClick="generateJQuery();" class="btn btn-primary" />
 			</div>
 			<div style="margin-top:20px;display: none;" id="query_div">
 				<div>Corresponding SPARQL query</div>
@@ -178,7 +178,7 @@
 				<div style="margin-top:10px;">
 					<span>Select Chart Type</span>
 					<select id="chart_type" class="form-control"></select>
-					<input type="button" value="Visualize" id="chart_button" onclick="sendRequest();" class="btn btn-primary">
+					<input type="button" value="Visualize" id="chart_button" onClick="sendRequest();" class="btn btn-primary">
 				</div>
 			</div>
 		</div>
