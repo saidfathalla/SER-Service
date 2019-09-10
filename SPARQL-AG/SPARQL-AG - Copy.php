@@ -208,7 +208,7 @@ input[type=submit]:hover, button:hover {
              elseif (!empty($_POST["typeVal"])and !empty($_POST["filType"])) $gq .="\n ?event rdf:type    <" . $_POST["typeVal"] . ">  .";
            
           if (!empty($_POST["selSeries"])  and empty($_POST["filSeries"]))  $gq .="\n ?event seo:belongsToSeries ?series. ";
-             elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?event seo:belongsToSeries    ?series. FILTER( ?series= <http://w3id.org/EVENTSKG-Dataset/ekg#" . $_POST["seriesVal"] . ">) .";
+             elseif (!empty($_POST["seriesVal"])and !empty($_POST["filSeries"])) $gq .="\n ?event seo:belongsToSeries    ?series. FILTER( ?series= <http://purl.org/events_ds#" . $_POST["seriesVal"] . ">) .";
              
            if ((!empty($_POST["selCountry"]) ) and empty($_POST["filCountry"]))   $gq .="\n ?event seo:heldInCountry   ?country .";
              else if (!empty($_POST["countryVal"]) and !empty($_POST["filCountry"])) $gq .="\n ?event seo:heldInCountry  ?country FILTER(?country= <" . ($_POST["countryVal"]) . ">) ."; //askDBpediaCountry($_POST["countryVal"])
